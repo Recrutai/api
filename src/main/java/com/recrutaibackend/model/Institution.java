@@ -15,37 +15,36 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_users")
-public class User {
+@Table(name = "tbl_institutions")
+public class Institution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String hashPassword;
-    @CreationTimestamp
-    private LocalDateTime createAt;
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+    private String name;
+    private String type;
+    private String industry;
+    @OneToOne(
+            mappedBy = "institution",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
     )
-    private Set<Vacancy> vacancies = new HashSet<>();
+    private Address address;
+    private int employees;
+    private String description;
+    private String webSite;
     @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private Set<Institution> institutions = new HashSet<>();
-    @OneToMany(
-            mappedBy = "user",
+            mappedBy = "institution",
             cascade = CascadeType.ALL
     )
     private Set<Member> members = new HashSet<>();
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "institution",
             cascade = CascadeType.ALL
     )
     private Set<Employment> employments = new HashSet<>();
-
+    @CreationTimestamp
+    private LocalDateTime createAt;
 }

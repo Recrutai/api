@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Timestamp;
 
 @Entity
 @Data
@@ -15,19 +14,25 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(name = "tbl_vacations")
-public class Vacation {
+public class Vacancy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String title;
-    //Provalmente mudar para uma ENUM
-    private String role;
-    @OneToMany(
-            mappedBy = "users",
-            cascade = CascadeType.ALL
-    )
-    private List<User> candidates = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
-    private Recruiter recruiter;
+    private Member member;
+    private String title;
+    private String description;
+    private String workModel;
+    private Double avgSalary;
+    private int positions;
+    private int applications;
+    private int publishedBy;
+    private Timestamp publishedAt;
+    private Timestamp closedAt;
+    private Timestamp closedBy;
+
+
+
+
 }

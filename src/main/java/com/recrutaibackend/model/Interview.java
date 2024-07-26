@@ -1,13 +1,13 @@
 package com.recrutaibackend.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import org.hibernate.annotations.CreationTimestamp;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,9 +20,14 @@ public class Interview {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date date;
-    private String message;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private Timestamp scheduledTo;
+    private String model;
+    private String reunionURL;
+    @OneToOne(
+            mappedBy = "interview",
+            cascade = CascadeType.ALL
+    )
+    private Address address;
+    @CreationTimestamp
+    private LocalDateTime createAt;
 }
