@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: recrutai-backend
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:recrutai_db
+    username: recrutai-user
+    password: pass123
+
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true

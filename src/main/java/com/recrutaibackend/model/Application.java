@@ -1,36 +1,49 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.security.Timestamp;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Table(name = "tb_application")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_applications")
+@Getter
+@Setter
 public class Application {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "candidate_id")
+    private User candidate;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vacancy_id")
     private Vacancy vacancy;
-    private Double expectedSalary;
+
+    @Column(name = "expected_salary")
+    private Integer expectedSalary;
+
+    @Column(name = "status")
     private String status;
-    @OneToMany(
-            mappedBy = "application",
-            cascade = CascadeType.ALL
-    )
-    private Set<Interview> interviews = new HashSet<>();
-    private Timestamp appliedAt;
+
+    @CreationTimestamp
+    @Column(name = "applied_at")
+    private Instant appliedAt;
+
+    public Application(User candidate, Vacancy vacancy, Integer expectedSalary, String status) {
+        this.candidate = candidate;
+        this.vacancy = vacancy;
+        this.expectedSalary = expectedSalary;
+        this.status = status;
+    }
 }

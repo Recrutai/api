@@ -1,50 +1,110 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.time.Instant;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Table(name = "tb_institution")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_institutions")
+@Getter
+@Setter
 public class Institution {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @Column(name = "name")
     private String name;
-    private String type;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private InstitutionType type;
+
+    @Column(name = "industry")
     private String industry;
-    @OneToOne(
-            mappedBy = "institution",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "address_id")
     private Address address;
-    private int employees;
+
+    @Column(name = "employees")
+    private Integer employees;
+
+    @Column(name = "alumni")
+    private Integer alumni;
+
+    @Column(name = "description")
     private String description;
-    private String webSite;
-    @OneToMany(
-            mappedBy = "institution",
-            cascade = CascadeType.ALL
-    )
-    private Set<Member> members = new HashSet<>();
-    @OneToMany(
-            mappedBy = "institution",
-            cascade = CascadeType.ALL
-    )
-    private Set<Employment> employments = new HashSet<>();
+
+    @Column(name = "website")
+    private String website;
+
     @CreationTimestamp
-    private LocalDateTime createAt;
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    private Institution(
+            User owner,
+            String name,
+            InstitutionType type,
+            String industry,
+            Address address,
+            String description,
+            String website
+    ) {
+        this.owner = owner;
+        this.name = name;
+        this.type = type;
+        this.industry = industry;
+        this.address = address;
+        this.description = description;
+        this.website = website;
+    }
+
+    public static Institution createCompany(
+            User owner,
+            String name,
+            String industry,
+            Address address,
+            String description,
+            String website
+    ) {
+        return new Institution(
+                owner,
+                name,
+                InstitutionType.COMPANY,
+                industry,
+                address,
+                description,
+                website
+        );
+    }
+
+    public static Institution createEducationalInstitution(
+            User owner,
+            String name,
+            Address address,
+            String description,
+            String website
+    ) {
+        return new Institution(
+                owner,
+                name,
+                InstitutionType.EDUCATIONAL_INSTITUTION,
+                null,
+                address,
+                description,
+                website
+        );
+    }
 }

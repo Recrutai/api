@@ -1,38 +1,59 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.math.BigDecimal;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Table(name = "tb_address")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_address")
+@Getter
+@Setter
 public class Address {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    private String publicPlace;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    private Integer id;
+
+    @Column(name = "street_address")
+    private String streetAddress;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "state")
     private String state;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "postal_code")
     private String postalCode;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
-    @OneToOne(
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
-    @OneToOne(
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(name = "interview_id")
-    private Interview interview;
+
+    @Column(name = "latitude", columnDefinition = "decimal(8, 6)")
+    private Double latitude;
+
+    @Column(name = "longitude", columnDefinition = "decimal(9, 6)")
+    private Double longitude;
+
+    public Address(
+            String streetAddress,
+            String city,
+            String state,
+            String country,
+            String postalCode,
+            Double latitude,
+            Double longitude
+    ) {
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }
