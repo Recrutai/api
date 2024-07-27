@@ -1,39 +1,57 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Table(name = "tb_member")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_members")
+@Getter
+@Setter
 public class Member {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Institution institution;
-    @OneToMany(
-            mappedBy = "member",
-            cascade = CascadeType.ALL
-    )
-    private Set<Vacancy> vacancies = new HashSet<>();
-    private String role;
-    private Timestamp addedAt;
-    private int addedBy;
-    private Timestamp removedAt;
-    private int removedBy;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
+
+    @Column(name = "role")
+    private String role;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "added_by")
+    private Member addedBy;
+
+    @CreationTimestamp
+    @Column(name = "added_at")
+    private Instant addedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "removed_by")
+    private Member removedBy;
+
+    @Column(name = "removed_at")
+    private Instant removedAt;
+
+    public Member(User user, Institution institution, String role, Member addedBy) {
+        this.user = user;
+        this.institution = institution;
+        this.role = role;
+        this.addedBy = addedBy;
+    }
 }

@@ -1,51 +1,47 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@AllArgsConstructor
+@Table(name = "tb_user")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Table(name = "tbl_users")
+@Getter
+@Setter
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String hashPassword;
-    @CreationTimestamp
-    private LocalDateTime createAt;
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private Set<Vacancy> vacancies = new HashSet<>();
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private Set<Institution> institutions = new HashSet<>();
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private Set<Member> members = new HashSet<>();
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private Set<Employment> employments = new HashSet<>();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Setter(AccessLevel.NONE)
+    private Integer id;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "hashed_password")
+    private String hashedPassword;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Instant createdAt;
+
+    public User(String firstName, String lastName, String email, String hashedPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
 }
