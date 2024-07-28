@@ -1,8 +1,14 @@
 package com.recrutaibackend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 
@@ -38,9 +44,11 @@ public class Institution {
     private Address address;
 
     @Column(name = "employees")
+    @Generated(event = EventType.INSERT)
     private Integer employees;
 
     @Column(name = "alumni")
+    @Generated(event = EventType.INSERT)
     private Integer alumni;
 
     @Column(name = "description")
