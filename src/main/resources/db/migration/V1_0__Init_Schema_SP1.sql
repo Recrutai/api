@@ -41,7 +41,7 @@ CREATE TABLE tb_member
     user_id        integer                              NOT NULL,
     institution_id integer                              NOT NULL,
     role           varchar(50)                          NOT NULL,
-    added_by       integer                              NOT NULL,
+    added_by       integer,
     added_at       timestamp with time zone             NOT NULL,
     removed_by     integer,
     removed_at     timestamp with time zone
