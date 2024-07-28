@@ -3,8 +3,9 @@ package com.recrutaibackend.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
-import java.security.Timestamp;
 import java.time.Instant;
 
 @Entity
@@ -19,10 +20,6 @@ public class Vacancy {
     @Column(name = "id")
     @Setter(AccessLevel.NONE)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "recruiter_id")
-    private Member recruiter;
 
     @Column(name = "title")
     private String title;
@@ -40,7 +37,12 @@ public class Vacancy {
     private Short positions;
 
     @Column(name = "applications")
+    @Generated(event = EventType.INSERT)
     private Integer applications;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "recruiter_id")
+    private Member recruiter;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "published_by")
@@ -50,7 +52,7 @@ public class Vacancy {
     @Column(name = "published_at")
     private Instant publishedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "closed_by")
     private Member closedBy;
 
@@ -58,20 +60,20 @@ public class Vacancy {
     private Instant closedAt;
 
     public Vacancy(
-            Member recruiter,
             String title,
             String description,
             String workModel,
             Integer avgSalary,
             Short positions,
+            Member recruiter,
             Member publishedBy
     ) {
-        this.recruiter = recruiter;
         this.title = title;
         this.description = description;
         this.workModel = workModel;
         this.avgSalary = avgSalary;
         this.positions = positions;
+        this.recruiter = recruiter;
         this.publishedBy = publishedBy;
     }
 }

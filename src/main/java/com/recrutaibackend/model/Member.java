@@ -33,7 +33,7 @@ public class Member {
     @Column(name = "role")
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "added_by")
     private Member addedBy;
 
@@ -41,7 +41,7 @@ public class Member {
     @Column(name = "added_at")
     private Instant addedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "removed_by")
     private Member removedBy;
 
