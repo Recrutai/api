@@ -1,5 +1,6 @@
 package com.recrutaibackend.controller;
 
+import com.recrutaibackend.dto.LoginRequest;
 import com.recrutaibackend.dto.UserRequest;
 import com.recrutaibackend.dto.UserResponse;
 import com.recrutaibackend.service.AuthService;
@@ -24,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserResponse> logUserIn(@RequestParam String email, @RequestParam String password) {
-        var user = authService.login(email, password);
+    ResponseEntity<UserResponse> logUserIn(@RequestBody LoginRequest loginRequest) {
+        var user = authService.login(loginRequest);
         return ResponseEntity.ok(user);
     }
 

@@ -1,5 +1,6 @@
 package com.recrutaibackend.service;
 
+import com.recrutaibackend.dto.LoginRequest;
 import com.recrutaibackend.dto.UserRequest;
 import com.recrutaibackend.dto.UserResponse;
 import com.recrutaibackend.repository.UserRepository;
@@ -30,10 +31,10 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public UserResponse login(String email, String password) {
-        var user = userRepository.findByEmail(email)
+    public UserResponse login(LoginRequest request) {
+        var user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials"));
-        if (!passwordEncoder.matches(password, user.getHashedPassword())) {
+        if (!passwordEncoder.matches(request.password(), user.getHashedPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
         return userMapper.mapToResponse(user);
