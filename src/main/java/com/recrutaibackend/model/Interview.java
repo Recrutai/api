@@ -44,7 +44,7 @@ public class Interview {
     @Column(name = "reunion_url")
     private String reunionURL;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
