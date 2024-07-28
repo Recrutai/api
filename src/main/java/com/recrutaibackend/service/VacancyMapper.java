@@ -6,6 +6,9 @@ import com.recrutaibackend.model.Member;
 import com.recrutaibackend.model.Vacancy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class VacancyMapper {
 
@@ -33,6 +36,10 @@ public class VacancyMapper {
                 entity.getRecruiter().getId(),
                 entity.getPublishedBy().getId()
         );
+    }
+
+    public List<VacancyResponse> streamList(List<Vacancy> vacancyList) {
+        return vacancyList.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     private int convertAvgSalaryToCents(double avgSalary) {
