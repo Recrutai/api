@@ -2,8 +2,11 @@ package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.ApplicationRequest;
 import com.recrutaibackend.dto.ApplicationResponse;
+import com.recrutaibackend.model.Application;
 import com.recrutaibackend.repository.ApplicationRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ApplicationService {
@@ -34,5 +37,10 @@ public class ApplicationService {
         var applicationSaved = applicationRepository.save(application);
 
         return applicationMapper.mapToResponse(applicationSaved);
+    }
+
+    public Application findById(int id) {
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
     }
 }
