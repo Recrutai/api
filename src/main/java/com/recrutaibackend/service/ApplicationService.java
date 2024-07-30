@@ -28,10 +28,9 @@ public class ApplicationService {
         this.applicationMapper = applicationMapper;
     }
 
-    public ApplicationResponse Application(ApplicationRequest request) {
-
-        var user = userService.findUserById(request.candidate().getId());
-        var vacancy = vacancyService.findVacancy(request.vacancy().getId());
+    public ApplicationResponse create(ApplicationRequest request) {
+        var user = userService.findUserById(request.candidateId());
+        var vacancy = vacancyService.findVacancy(request.vacancyId());
 
         var application = applicationMapper.mapToEntity(request, user, vacancy);
         var applicationSaved = applicationRepository.save(application);

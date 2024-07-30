@@ -34,16 +34,16 @@ public class Application {
     private Integer expectedSalary;
 
     @Column(name = "status")
-    private String status;
+    private ApplicationStatus status;
 
     @CreationTimestamp
     @Column(name = "applied_at")
     private Instant appliedAt;
 
-    public Application(User candidate, Vacancy vacancy, Integer expectedSalary, String status) {
+    public Application(User candidate, Vacancy vacancy, Integer expectedSalary) {
         this.candidate = candidate;
         this.vacancy = vacancy;
         this.expectedSalary = expectedSalary;
-        this.status = status;
+        this.status = ApplicationStatus.RECEIVED;
     }
 }
