@@ -14,19 +14,25 @@ public class ApplicationMapper {
         return new Application(
                 candidate,
                 vacancy,
-                request.expectedSalary(),
-                request.status()
+                convertExpectedSalaryToCents(request.expectedSalary())
         );
     }
 
     public ApplicationResponse mapToResponse(Application application) {
         return new ApplicationResponse(
                 application.getId(),
-                application.getCandidate(),
-                application.getVacancy(),
-                application.getExpectedSalary(),
-                application.getStatus(),
-                application.getAppliedAt()
+                application.getCandidate().getId(),
+                application.getVacancy().getId(),
+                convertExpectedSalaryFromCents(application.getExpectedSalary())
         );
     }
+
+    private int convertExpectedSalaryToCents(double expectedSalary) {
+        return (int) (expectedSalary * 100);
+    }
+
+    private double convertExpectedSalaryFromCents(int expectedSalary) {
+        return expectedSalary / 100.0;
+    }
+
 }

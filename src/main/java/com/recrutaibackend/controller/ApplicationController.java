@@ -21,7 +21,7 @@ public class ApplicationController {
 
     @PostMapping
     ResponseEntity<ApplicationResponse> create(@RequestBody ApplicationRequest applicationRequest) {
-        var response = applicationService.Application(applicationRequest);
+        var response = applicationService.create(applicationRequest);
         return ResponseEntity.ok(response);
     }
 
