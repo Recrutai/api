@@ -3,6 +3,7 @@ package com.recrutaibackend.controller;
 import com.recrutaibackend.dto.InterviewRequest;
 import com.recrutaibackend.dto.InterviewResponse;
 import com.recrutaibackend.service.InterviewService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class InterviewController {
     }
 
     @PostMapping
-    ResponseEntity<InterviewResponse> createInterview(@RequestBody InterviewRequest request) {
+    ResponseEntity<InterviewResponse> createInterview(@RequestBody @Valid InterviewRequest request) {
         var interview = interviewService.createInterview(request);
         return ResponseEntity.ok(interview);
     }
