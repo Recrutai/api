@@ -5,7 +5,7 @@ public record VacancyResponse(
         String title,
         String description,
         String workModel,
-        double avgSalary,
+        int avgSalary,
         short positions,
         int applications,
         int recruiterId,

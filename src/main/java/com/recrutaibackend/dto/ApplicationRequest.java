@@ -12,6 +12,6 @@ public record ApplicationRequest(
 
         @NotNull
         @Range(min = 1, max = 10_000_000)
-        Double expectedSalary
+        Integer expectedSalary
 ) {
 }

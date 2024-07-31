@@ -14,7 +14,7 @@ public class ApplicationMapper {
         return new Application(
                 candidate,
                 vacancy,
-                convertExpectedSalaryToCents(request.expectedSalary())
+                request.expectedSalary() * 100 // convert to cents
         );
     }
 
@@ -23,16 +23,8 @@ public class ApplicationMapper {
                 application.getId(),
                 application.getCandidate().getId(),
                 application.getVacancy().getId(),
-                convertExpectedSalaryFromCents(application.getExpectedSalary())
+                application.getExpectedSalary() / 100 // convert back to original value
         );
-    }
-
-    private int convertExpectedSalaryToCents(double expectedSalary) {
-        return (int) (expectedSalary * 100);
-    }
-
-    private double convertExpectedSalaryFromCents(int expectedSalary) {
-        return expectedSalary / 100.0;
     }
 
 }

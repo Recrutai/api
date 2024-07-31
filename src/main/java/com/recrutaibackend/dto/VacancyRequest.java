@@ -20,7 +20,7 @@ public record VacancyRequest(
 
         @NotNull
         @Range(min = 1, max = 10_000_000)
-        Double avgSalary,
+        Integer avgSalary,
 
         @NotNull
         @Range(min = 1, max = 500)
