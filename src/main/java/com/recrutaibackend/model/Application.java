@@ -34,6 +34,7 @@ public class Application {
     private Integer expectedSalary;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 
     @CreationTimestamp
