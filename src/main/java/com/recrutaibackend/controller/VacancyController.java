@@ -3,6 +3,9 @@ package com.recrutaibackend.controller;
 import com.recrutaibackend.dto.VacancyRequest;
 import com.recrutaibackend.dto.VacancyResponse;
 import com.recrutaibackend.service.VacancyService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,7 @@ public class VacancyController {
     }
 
     @PostMapping
-    ResponseEntity<VacancyResponse> create(@RequestBody VacancyRequest vacancyRequest) {
+    ResponseEntity<VacancyResponse> create(@RequestBody @Valid VacancyRequest vacancyRequest) {
         var response = vacancyService.create(vacancyRequest);
         return ResponseEntity.ok(response);
     }
@@ -31,13 +34,13 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<VacancyResponse> vacancyDetails(@PathVariable Integer id) {
+    ResponseEntity<VacancyResponse> vacancyDetails(@PathVariable @NotNull Integer id) {
         var response = vacancyService.vacancyDetails(id);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/search")
-    ResponseEntity<VacancyResponse> searchVacancy(@RequestParam String title) {
+    ResponseEntity<VacancyResponse> searchVacancy(@RequestParam @NotBlank String title) {
         var response = vacancyService.findVacancyByTitle(title);
         return ResponseEntity.ok(response);
     }

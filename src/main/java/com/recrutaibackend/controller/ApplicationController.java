@@ -3,6 +3,7 @@ package com.recrutaibackend.controller;
 import com.recrutaibackend.dto.ApplicationRequest;
 import com.recrutaibackend.dto.ApplicationResponse;
 import com.recrutaibackend.service.ApplicationService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class ApplicationController {
     }
 
     @PostMapping
-    ResponseEntity<ApplicationResponse> create(@RequestBody ApplicationRequest applicationRequest) {
+    ResponseEntity<ApplicationResponse> create(@RequestBody @Valid ApplicationRequest applicationRequest) {
         var response = applicationService.create(applicationRequest);
         return ResponseEntity.ok(response);
     }

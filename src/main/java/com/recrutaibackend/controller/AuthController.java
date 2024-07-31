@@ -4,6 +4,7 @@ import com.recrutaibackend.dto.LoginRequest;
 import com.recrutaibackend.dto.UserRequest;
 import com.recrutaibackend.dto.UserResponse;
 import com.recrutaibackend.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    ResponseEntity<Void> registerUser(@RequestBody UserRequest request) {
+    ResponseEntity<Void> registerUser(@RequestBody @Valid UserRequest request) {
         authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserResponse> logUserIn(@RequestBody LoginRequest loginRequest) {
+    ResponseEntity<UserResponse> logUserIn(@RequestBody @Valid LoginRequest loginRequest) {
         var user = authService.login(loginRequest);
         return ResponseEntity.ok(user);
     }
