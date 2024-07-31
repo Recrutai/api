@@ -17,7 +17,7 @@ public class VacancyMapper {
                 request.title(),
                 request.description(),
                 request.workModel(),
-                this.convertAvgSalaryToCents(request.avgSalary()),
+                request.avgSalary() * 100, // convert to cents
                 request.positions(),
                 recruiter,
                 publisher
@@ -30,7 +30,7 @@ public class VacancyMapper {
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getWorkModel(),
-                this.convertAvgSalaryFromCents(entity.getAvgSalary()),
+                entity.getAvgSalary() / 100, // convert back to original value
                 entity.getPositions(),
                 entity.getApplications(),
                 entity.getRecruiter().getId(),
@@ -40,14 +40,6 @@ public class VacancyMapper {
 
     public List<VacancyResponse> streamList(List<Vacancy> vacancyList) {
         return vacancyList.stream().map(this::mapToResponse).collect(Collectors.toList());
-    }
-
-    private int convertAvgSalaryToCents(double avgSalary) {
-        return (int) (avgSalary * 100);
-    }
-
-    private double convertAvgSalaryFromCents(int avgSalary) {
-        return avgSalary / 100.0;
     }
 
 }
