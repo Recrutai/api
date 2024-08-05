@@ -7,10 +7,10 @@ spring:
     name: recrutai-backend
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:recrutai_db
-    username: recrutai-user
-    password: pass123
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
   jpa:
     show-sql: true
@@ -20,12 +20,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
 
   mail:
     host: ${SMTP_HOST}

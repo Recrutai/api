@@ -33,10 +33,10 @@ public class Address {
     @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "latitude", columnDefinition = "decimal(8, 6)")
+    @Column(name = "latitude", columnDefinition = "numeric(8, 6)")
     private Double latitude;
 
-    @Column(name = "longitude", columnDefinition = "decimal(9, 6)")
+    @Column(name = "longitude", columnDefinition = "numeric(9, 6)")
     private Double longitude;
 
     public Address(
