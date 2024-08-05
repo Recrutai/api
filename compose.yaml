@@ -1,0 +1,47 @@
+services:
+  api:
+    build: .
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+        restart: true
+    networks:
+      - api_database
+
+  database:
+    image: postgres:16.3-alpine
+    restart: always
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD_FILE: /run/secrets/database_password
+      PGPORT: ${DB_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      retries: 10
+      interval: 5s
+      timeout: 10s
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    networks:
+      - api_database
+    secrets:
+      - database_password
+
+volumes:
+  database_data:
+
+networks:
+  api_database:
+
+secrets:
+  database_password:
+    environment: DB_PASSWORD
