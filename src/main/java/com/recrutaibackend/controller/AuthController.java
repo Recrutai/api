@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.UserRequest;
 import com.recrutaibackend.dto.UserResponse;
 import com.recrutaibackend.service.AuthService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,12 @@ public class AuthController {
     ResponseEntity<UserResponse> logUserIn(@RequestBody @Valid LoginRequest loginRequest) {
         var user = authService.login(loginRequest);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/verify-account")
+    ResponseEntity<Void> verifyAccount(@RequestParam(name = "code") @NotEmpty String verificationCode) {
+        authService.verifyAccount(verificationCode);
+        return ResponseEntity.ok().build();
     }
 
 }

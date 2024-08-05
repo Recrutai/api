@@ -26,3 +26,18 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${SMTP_EMAIL}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail.smtp:
+        timeout: 30000
+        writetimeout: 10000
+        connectiontimeout: 30000
+        auth: true
+        starttls:
+          enable: true
+          require: true

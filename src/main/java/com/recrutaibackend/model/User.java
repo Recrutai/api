@@ -38,10 +38,14 @@ public class User {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     public User(String firstName, String lastName, String email, String hashedPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.hashedPassword = hashedPassword;
+        this.isActive = false;
     }
 }
