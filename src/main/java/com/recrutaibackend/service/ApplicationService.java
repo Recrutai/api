@@ -1,6 +1,7 @@
 package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.ApplicationRequest;
+import com.recrutaibackend.dto.ApplicationResponse;
 import com.recrutaibackend.model.Application;
 import com.recrutaibackend.repository.ApplicationRepository;
 import org.springframework.http.HttpStatus;
