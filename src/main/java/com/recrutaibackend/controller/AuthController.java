@@ -16,31 +16,31 @@ public class AuthController {
 
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    AuthController(AuthService authService) {
         this.authService = authService;
     }
 
     @PostMapping("/register")
-    ResponseEntity<Void> registerUser(@RequestBody @Valid UserRequest request) {
-        authService.register(request);
+    ResponseEntity<Void> register(@RequestBody @Valid UserRequest userRequest) {
+        authService.register(userRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserResponse> logUserIn(@RequestBody @Valid LoginRequest loginRequest) {
-        var user = authService.login(loginRequest);
+    ResponseEntity<UserResponse> authenticate(@RequestBody @Valid LoginRequest loginRequest) {
+        var user = authService.authenticate(loginRequest);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/verify-account")
-    ResponseEntity<Void> verifyAccount(@RequestParam(name = "code") @NotEmpty String verificationCode) {
-        authService.verifyAccount(verificationCode);
+    ResponseEntity<Void> verifyAccount(@RequestParam @NotEmpty String code) {
+        authService.verifyAccount(code);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/resend-code")
-    ResponseEntity<Void> resendCode(@RequestBody String email) {
-        authService.resendVerifyCode(email);
+    ResponseEntity<Void> resendCode(@RequestBody @NotEmpty String email) {
+        authService.resendCode(email);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
