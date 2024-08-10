@@ -28,14 +28,13 @@ public class ApplicationService {
         this.applicationMapper = applicationMapper;
     }
 
-    public ApplicationResponse create(ApplicationRequest request) {
-        var user = userService.findUserById(request.candidateId());
-        var vacancy = vacancyService.findVacancy(request.vacancyId());
+    public Application create(ApplicationRequest request) {
+        var user = userService.findById(request.candidateId());
+        var vacancy = vacancyService.findById(request.vacancyId());
 
         var application = applicationMapper.mapToEntity(request, user, vacancy);
-        var applicationSaved = applicationRepository.save(application);
 
-        return applicationMapper.mapToResponse(applicationSaved);
+        return applicationRepository.save(application);
     }
 
     public Application findById(int id) {

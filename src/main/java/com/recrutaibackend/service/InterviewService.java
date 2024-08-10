@@ -1,8 +1,8 @@
 package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.InterviewRequest;
-import com.recrutaibackend.dto.InterviewResponse;
 import com.recrutaibackend.model.Application;
+import com.recrutaibackend.model.Interview;
 import com.recrutaibackend.model.InterviewModel;
 import com.recrutaibackend.model.Member;
 import com.recrutaibackend.repository.InterviewRepository;
@@ -31,17 +31,17 @@ public class InterviewService {
         this.addressService = addressService;
     }
 
-    public InterviewResponse createInterview(InterviewRequest request) {
+    public Interview create(InterviewRequest request) {
         var interviewer = memberService.findById(request.interviewerId());
         var application = applicationService.findById(request.candidateApplicationId());
         var creator = memberService.findById(request.createdBy());
         if (request.model().equals(InterviewModel.LOCAL)) {
-            return this.createLocalInterview(request, interviewer, application, creator);
+            return createLocal(request, interviewer, application, creator);
         }
-        return this.createRemoteInterview(request, interviewer, application, creator);
+        return createRemote(request, interviewer, application, creator);
     }
 
-    private InterviewResponse createLocalInterview(
+    private Interview createLocal(
             InterviewRequest request,
             Member interviewer,
             Application application,
@@ -49,18 +49,16 @@ public class InterviewService {
     ) {
         var address = addressService.createAddress(request.address());
         var interview = interviewMapper.mapToLocalEntity(request, interviewer, application, address, creator);
-        var savedInterview = interviewRepository.save(interview);
-        return interviewMapper.mapToResponse(savedInterview);
+        return interviewRepository.save(interview);
     }
 
-    private InterviewResponse createRemoteInterview(
+    private Interview createRemote(
             InterviewRequest request,
             Member interviewer,
             Application application,
             Member creator
     ) {
         var interview = interviewMapper.mapToRemoteEntity(request, interviewer, application, creator);
-        var savedInterview = interviewRepository.save(interview);
-        return interviewMapper.mapToResponse(savedInterview);
+        return interviewRepository.save(interview);
     }
 }

@@ -17,7 +17,12 @@ public class InterviewMapper {
         this.addressMapper = addressMapper;
     }
 
-    public Interview mapToRemoteEntity(InterviewRequest request, Member interviewer, Application application, Member creator) {
+    public Interview mapToRemoteEntity(
+            InterviewRequest request,
+            Member interviewer,
+            Application application,
+            Member creator
+    ) {
         return Interview.createRemote(
                 interviewer,
                 application,
@@ -29,7 +34,13 @@ public class InterviewMapper {
         );
     }
 
-    public Interview mapToLocalEntity(InterviewRequest request, Member interviewer, Application application, Address address, Member creator) {
+    public Interview mapToLocalEntity(
+            InterviewRequest request,
+            Member interviewer,
+            Application application,
+            Address address,
+            Member creator
+    ) {
         return Interview.createLocal(
                 interviewer,
                 application,

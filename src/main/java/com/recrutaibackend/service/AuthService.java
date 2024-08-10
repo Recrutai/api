@@ -36,12 +36,12 @@ public class AuthService {
         emailVerificationService.send(user, emailVerification.getCode());
     }
 
-    public UserResponse login(LoginRequest request) {
-        var user = userService.findUserByEmail(request.email());
+    public UserResponse authenticate(LoginRequest request) {
+        var user = userService.findByEmail(request.email());
         if (!passwordEncoder.matches(request.password(), user.getHashedPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
-        if(!user.getIsActive()) {
+        if (!user.getIsActive()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Account not verified");
         }
         return userMapper.mapToResponse(user);
@@ -54,9 +54,8 @@ public class AuthService {
         userService.activateUser(emailVerification.getUser());
     }
 
-    @Transactional
-    public void resendVerifyCode(String email) {
-        var user = userService.findUserByEmail(email);
+    public void resendCode(String email) {
+        var user = userService.findByEmail(email);
         var emailVerification = emailVerificationService.create(user);
         emailVerificationService.send(user, emailVerification.getCode());
     }
