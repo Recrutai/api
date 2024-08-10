@@ -46,8 +46,8 @@ public class VacancyController {
     }
 
     @GetMapping("/search")
-    ResponseEntity<List<VacancyResponse>> findByTitle(@RequestParam @NotBlank String title) {
-        var response = vacancyService.getAllVacanciesByTitleSeach(title);
+    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam @NotBlank String title) {
+        var response = vacancyService.findAllByTitle(title);
         return ResponseEntity.ok(response);
     }
 
