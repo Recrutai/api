@@ -41,6 +41,9 @@ public class AuthService {
         if (!passwordEncoder.matches(request.password(), user.getHashedPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
+        if(!user.getIsActive()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Account not verified");
+        }
         return userMapper.mapToResponse(user);
     }
 
@@ -49,6 +52,13 @@ public class AuthService {
         var emailVerification = emailVerificationService.findByCode(verificationCode);
         emailVerificationService.verify(emailVerification);
         userService.activateUser(emailVerification.getUser());
+    }
+
+    @Transactional
+    public void resendVerifyCode(String email) {
+        var user = userService.findUserByEmail(email);
+        var emailVerification = emailVerificationService.create(user);
+        emailVerificationService.send(user, emailVerification.getCode());
     }
 
 }

@@ -38,4 +38,10 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/resend-code")
+    ResponseEntity<Void> resendCode(@RequestBody String email) {
+        authService.resendVerifyCode(email);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }
