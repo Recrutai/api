@@ -21,17 +21,17 @@ public class AddressService {
         this.addressMapper = addressMapper;
     }
 
-    public Address createAddress(AddressRequest request) {
-        var address = addressMapper.mapToEntity(request);
+    public Address create(AddressRequest addressRequest) {
+        var address = addressMapper.mapToEntity(addressRequest);
         return addressRepository.save(address);
     }
 
-    public List<Address> getAllAddress() {
+    public List<Address> findAll() {
         return addressRepository.findAll();
     }
 
-    public AddressResponse getAddressByStreet(String street) {
-        var address = addressRepository.findByStreetAddress(street)
+    public AddressResponse findByStreetAddress(String streetAddress) {
+        var address = addressRepository.findByStreetAddress(streetAddress)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found!"));
         return addressMapper.mapToResponse(address);
     }
