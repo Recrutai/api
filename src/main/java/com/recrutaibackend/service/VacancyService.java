@@ -46,6 +46,14 @@ public class VacancyService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }
 
+    public List<VacancyResponse> getAllVacanciesByTitleSeach(String title) {
+        var vacancies = vacancyRepository.findAllByTitleContains(title);
+        return vacancies
+                .stream()
+                .map(vacancyMapper::mapToResponse)
+                .toList();
+    }
+
     public List<Vacancy> findAll() {
         return vacancyRepository.findAll();
     }

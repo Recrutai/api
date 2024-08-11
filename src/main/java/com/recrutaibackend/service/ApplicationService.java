@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class ApplicationService {
 
@@ -40,5 +42,14 @@ public class ApplicationService {
     public Application findById(int id) {
         return applicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
+    }
+
+    public List<ApplicationResponse> getAllApplicationsByUser(int id) {
+        var user = userService.findById(id);
+        var applications = applicationRepository.findAllByCandidate(user);
+        return applications
+                .stream()
+                .map(applicationMapper::mapToResponse)
+                .toList();
     }
 }
