@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/address")
+@RequestMapping("/api/addresses")
 public class AddressController {
 
     private final AddressService addressService;
     private final AddressMapper addressMapper;
 
-    public AddressController(AddressService addressService, AddressMapper addressMapper) {
+    AddressController(AddressService addressService, AddressMapper addressMapper) {
         this.addressService = addressService;
         this.addressMapper = addressMapper;
     }
 
     @PostMapping
     ResponseEntity<AddressResponse> create(@RequestBody @Valid AddressRequest addressRequest) {
-        var address = addressService.createAddress(addressRequest);
-        return ResponseEntity.ok(addressMapper.mapToResponse(address));
-    }
-
-    @GetMapping
-    ResponseEntity<List<AddressResponse>> getAll() {
-        var address = addressService.getAllAddress()
-                .stream()
-                .map(addressMapper::mapToResponse)
-                .toList();
+        var address = addressMapper.mapToResponse(addressService.create(addressRequest));
         return ResponseEntity.ok(address);
     }
 
+    @GetMapping
+    ResponseEntity<List<AddressResponse>> findAll() {
+        var addresses = addressService.findAll()
+                .stream()
+                .map(addressMapper::mapToResponse)
+                .toList();
+        return ResponseEntity.ok(addresses);
+    }
+
     @GetMapping("/search")
-    ResponseEntity<AddressResponse> getAddressByStreet(@RequestParam @NotBlank String streetName) {
-        var address = addressService.getAddressByStreet(streetName);
+    ResponseEntity<AddressResponse> findByStreetAddress(@RequestParam @NotBlank String streetAddress) {
+        var address = addressService.findByStreetAddress(streetAddress);
         return ResponseEntity.ok(address);
     }
 }
