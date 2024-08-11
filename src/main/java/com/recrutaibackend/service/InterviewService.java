@@ -47,7 +47,7 @@ public class InterviewService {
             Application application,
             Member creator
     ) {
-        var address = addressService.createAddress(request.address());
+        var address = addressService.create(request.address());
         var interview = interviewMapper.mapToLocalEntity(request, interviewer, application, address, creator);
         return interviewRepository.save(interview);
     }

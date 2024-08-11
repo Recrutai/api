@@ -41,14 +41,8 @@ public class VacancyService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }
 
-    public Vacancy findByTitle(String title) {
-        return vacancyRepository.findByTitle(title)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
-    }
-
-    public List<VacancyResponse> getAllVacanciesByTitleSeach(String title) {
-        var vacancies = vacancyRepository.findAllByTitleContains(title);
-        return vacancies
+    public List<VacancyResponse> findAllByTitle(String title) {
+        return vacancyRepository.findAllByTitleContainsIgnoreCase(title)
                 .stream()
                 .map(vacancyMapper::mapToResponse)
                 .toList();
