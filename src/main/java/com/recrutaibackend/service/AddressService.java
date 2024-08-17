@@ -2,6 +2,7 @@ package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.AddressRequest;
 import com.recrutaibackend.dto.AddressResponse;
+import com.recrutaibackend.mappers.AddressMapper;
 import com.recrutaibackend.model.Address;
 import com.recrutaibackend.repository.AddressRepository;
 import org.springframework.http.HttpStatus;

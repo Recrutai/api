@@ -2,7 +2,7 @@ package com.recrutaibackend.controller;
 
 import com.recrutaibackend.dto.VacancyRequest;
 import com.recrutaibackend.dto.VacancyResponse;
-import com.recrutaibackend.service.VacancyMapper;
+import com.recrutaibackend.mappers.VacancyMapper;
 import com.recrutaibackend.service.VacancyService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

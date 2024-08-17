@@ -1,6 +1,7 @@
 package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.UserRequest;
+import com.recrutaibackend.mappers.UserMapper;
 import com.recrutaibackend.model.User;
 import com.recrutaibackend.repository.UserRepository;
 import org.springframework.http.HttpStatus;

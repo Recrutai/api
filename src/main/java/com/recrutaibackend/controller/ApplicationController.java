@@ -2,7 +2,7 @@ package com.recrutaibackend.controller;
 
 import com.recrutaibackend.dto.ApplicationRequest;
 import com.recrutaibackend.dto.ApplicationResponse;
-import com.recrutaibackend.service.ApplicationMapper;
+import com.recrutaibackend.mappers.ApplicationMapper;
 import com.recrutaibackend.service.ApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

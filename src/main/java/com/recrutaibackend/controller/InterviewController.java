@@ -2,7 +2,7 @@ package com.recrutaibackend.controller;
 
 import com.recrutaibackend.dto.InterviewRequest;
 import com.recrutaibackend.dto.InterviewResponse;
-import com.recrutaibackend.service.InterviewMapper;
+import com.recrutaibackend.mappers.InterviewMapper;
 import com.recrutaibackend.service.InterviewService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

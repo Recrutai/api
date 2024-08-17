@@ -2,6 +2,7 @@ package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.VacancyRequest;
 import com.recrutaibackend.dto.VacancyResponse;
+import com.recrutaibackend.mappers.VacancyMapper;
 import com.recrutaibackend.model.Vacancy;
 import com.recrutaibackend.repository.VacancyRepository;
 import org.springframework.http.HttpStatus;

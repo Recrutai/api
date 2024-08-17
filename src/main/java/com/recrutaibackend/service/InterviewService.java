@@ -1,6 +1,7 @@
 package com.recrutaibackend.service;
 
 import com.recrutaibackend.dto.InterviewRequest;
+import com.recrutaibackend.mappers.InterviewMapper;
 import com.recrutaibackend.model.Application;
 import com.recrutaibackend.model.Interview;
 import com.recrutaibackend.model.InterviewModel;

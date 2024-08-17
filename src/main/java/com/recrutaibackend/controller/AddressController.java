@@ -2,7 +2,7 @@ package com.recrutaibackend.controller;
 
 import com.recrutaibackend.dto.AddressRequest;
 import com.recrutaibackend.dto.AddressResponse;
-import com.recrutaibackend.service.AddressMapper;
+import com.recrutaibackend.mappers.AddressMapper;
 import com.recrutaibackend.service.AddressService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

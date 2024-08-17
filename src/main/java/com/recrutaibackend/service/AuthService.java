@@ -3,6 +3,7 @@ package com.recrutaibackend.service;
 import com.recrutaibackend.dto.LoginRequest;
 import com.recrutaibackend.dto.UserRequest;
 import com.recrutaibackend.dto.UserResponse;
+import com.recrutaibackend.mappers.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

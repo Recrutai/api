@@ -1,4 +1,4 @@
-package com.recrutaibackend.service;
+package com.recrutaibackend.mappers;
 
 import com.recrutaibackend.dto.InterviewRequest;
 import com.recrutaibackend.dto.InterviewResponse;
