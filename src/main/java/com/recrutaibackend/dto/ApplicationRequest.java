@@ -5,13 +5,13 @@ import org.hibernate.validator.constraints.Range;
 
 public record ApplicationRequest(
         @NotNull
-        Integer candidateId,
+        Long candidateId,
 
         @NotNull
-        Integer vacancyId,
+        Long vacancyId,
 
         @NotNull
-        @Range(min = 1, max = 10_000_000)
+        @Range(min = 1, max = 1_000_000)
         Integer expectedSalary
 ) {
 }

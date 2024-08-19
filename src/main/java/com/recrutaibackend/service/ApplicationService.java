@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.ApplicationResponse;
 import com.recrutaibackend.mappers.ApplicationMapper;
 import com.recrutaibackend.model.Application;
 import com.recrutaibackend.repository.ApplicationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,6 +32,7 @@ public class ApplicationService {
         this.applicationMapper = applicationMapper;
     }
 
+    @Transactional
     public Application create(ApplicationRequest request) {
         var user = userService.findById(request.candidateId());
         var vacancy = vacancyService.findById(request.vacancyId());
@@ -40,12 +42,12 @@ public class ApplicationService {
         return applicationRepository.save(application);
     }
 
-    public Application findById(int id) {
+    public Application findById(long id) {
         return applicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
     }
 
-    public List<ApplicationResponse> getAllApplicationsByUser(int id) {
+    public List<ApplicationResponse> findAllByUserId(long id) {
         var user = userService.findById(id);
         var applications = applicationRepository.findAllByCandidate(user);
         return applications

@@ -2,7 +2,6 @@ package com.recrutaibackend.mappers;
 
 import com.recrutaibackend.dto.InterviewRequest;
 import com.recrutaibackend.dto.InterviewResponse;
-import com.recrutaibackend.model.Address;
 import com.recrutaibackend.model.Application;
 import com.recrutaibackend.model.Interview;
 import com.recrutaibackend.model.Member;
@@ -12,58 +11,47 @@ import org.springframework.stereotype.Service;
 public class InterviewMapper {
 
     private final AddressMapper addressMapper;
+    private final ApplicationMapper applicationMapper;
+    private final MemberMapper memberMapper;
 
-    public InterviewMapper(AddressMapper addressMapper) {
+    public InterviewMapper(AddressMapper addressMapper, ApplicationMapper applicationMapper, MemberMapper memberMapper) {
         this.addressMapper = addressMapper;
+        this.applicationMapper = applicationMapper;
+        this.memberMapper = memberMapper;
     }
 
-    public Interview mapToRemoteEntity(
+    public Interview mapToEntity(
             InterviewRequest request,
-            Member interviewer,
             Application application,
-            Member creator
+            Member interviewer,
+            Member createdBy
     ) {
-        return Interview.createRemote(
-                interviewer,
+        return new Interview(
                 application,
+                interviewer,
                 request.title(),
                 request.description(),
                 request.scheduledTo(),
+                addressMapper.mapToEntity(request.address()),
                 request.reunionUrl(),
-                creator
+                request.isRemote(),
+                createdBy
         );
     }
 
-    public Interview mapToLocalEntity(
-            InterviewRequest request,
-            Member interviewer,
-            Application application,
-            Address address,
-            Member creator
-    ) {
-        return Interview.createLocal(
-                interviewer,
-                application,
-                request.title(),
-                request.description(),
-                request.scheduledTo(),
-                address,
-                creator
-        );
-    }
-
-    public InterviewResponse mapToResponse(Interview entity) {
+    public InterviewResponse mapToResponse(Interview interview) {
         return new InterviewResponse(
-                entity.getId(),
-                entity.getInterviewer().getId(),
-                entity.getCandidateApplication().getId(),
-                entity.getTitle(),
-                entity.getDescription(),
-                entity.getScheduledTo(),
-                entity.getModel().toString(),
-                entity.getReunionURL(),
-                entity.getAddress() != null ? addressMapper.mapToResponse(entity.getAddress()) : null,
-                entity.getCreatedBy().getId()
+                interview.getId(),
+                applicationMapper.mapToResponse(interview.getApplication()),
+                memberMapper.mapToResponse(interview.getInterviewer()),
+                interview.getTitle(),
+                interview.getDescription(),
+                interview.getScheduledTo(),
+                addressMapper.mapToResponse(interview.getAddress()),
+                interview.getReunionURL(),
+                interview.getIsRemote(),
+                memberMapper.mapToResponse(interview.getCreatedBy())
         );
     }
+
 }

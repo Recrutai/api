@@ -1,11 +1,14 @@
 package com.recrutaibackend.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record CourseResponse(
+        long id,
+        UserResponse user,
+        SchoolResponse school,
         String name,
-        String description,
-        String sender,
-        Date conclusion
+        int workloadHours,
+        LocalDate completionDate,
+        String description
 ) {
 }

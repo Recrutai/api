@@ -13,8 +13,8 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @Column(name = "street_address")
     private String streetAddress;

@@ -18,8 +18,8 @@ public class Vacancy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -28,10 +28,19 @@ public class Vacancy {
     private String description;
 
     @Column(name = "work_model")
-    private String workModel;
+    @Enumerated(EnumType.STRING)
+    private WorkModel workModel;
 
-    @Column(name = "avg_salary")
-    private Integer avgSalary;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "location_id")
+    private Address location;
+
+    @Column(name = "salary")
+    private Integer salary;
+
+    @Column(name = "currency_code", columnDefinition = "bpchar(3)")
+    @Enumerated(EnumType.STRING)
+    private CurrencyCode currencyCode;
 
     @Column(name = "positions")
     private Short positions;
@@ -45,7 +54,7 @@ public class Vacancy {
     private Member recruiter;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "published_by")
+    @JoinColumn(name = "published_by_id")
     private Member publishedBy;
 
     @CreationTimestamp
@@ -53,7 +62,7 @@ public class Vacancy {
     private Instant publishedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
+    @JoinColumn(name = "closed_by_id")
     private Member closedBy;
 
     @Column(name = "closed_at")
@@ -62,8 +71,10 @@ public class Vacancy {
     public Vacancy(
             String title,
             String description,
-            String workModel,
-            Integer avgSalary,
+            WorkModel workModel,
+            Address location,
+            Integer salary,
+            CurrencyCode currencyCode,
             Short positions,
             Member recruiter,
             Member publishedBy
@@ -71,7 +82,9 @@ public class Vacancy {
         this.title = title;
         this.description = description;
         this.workModel = workModel;
-        this.avgSalary = avgSalary;
+        this.location = location;
+        this.salary = salary;
+        this.currencyCode = currencyCode;
         this.positions = positions;
         this.recruiter = recruiter;
         this.publishedBy = publishedBy;

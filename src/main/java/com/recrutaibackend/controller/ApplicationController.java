@@ -29,9 +29,9 @@ public class ApplicationController {
         return ResponseEntity.ok(application);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<List<ApplicationResponse>> getAllByUser(@PathVariable @Valid int id) {
-        var applications = applicationService.getAllApplicationsByUser(id);
+    @GetMapping("/{userId}")
+    ResponseEntity<List<ApplicationResponse>> findAllByUserId(@PathVariable @Valid long userId) {
+        var applications = applicationService.findAllByUserId(userId);
         return ResponseEntity.ok(applications);
     }
 

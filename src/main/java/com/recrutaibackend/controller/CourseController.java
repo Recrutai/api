@@ -17,20 +17,19 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    public CourseController(CourseService courseService) {
+    CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
     @PostMapping
-    @Transactional
     ResponseEntity<CourseResponse> create(@RequestBody @Valid CourseRequest request) {
         var course = courseService.create(request);
         return ResponseEntity.ok(course);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<List<CourseResponse>> getAll(@PathVariable @NotNull int id) {
-        var courses = courseService.getAll(id);
+    @GetMapping("/{userId}")
+    ResponseEntity<List<CourseResponse>> findAllByUserId(@PathVariable @NotNull int userId) {
+        var courses = courseService.findAllByUsersId(userId);
         return ResponseEntity.ok(courses);
     }
 

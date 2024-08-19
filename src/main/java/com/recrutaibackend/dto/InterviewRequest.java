@@ -1,6 +1,5 @@
 package com.recrutaibackend.dto;
 
-import com.recrutaibackend.model.InterviewModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,31 +9,31 @@ import java.time.OffsetDateTime;
 
 public record InterviewRequest(
         @NotNull
-        Integer interviewerId,
+        Long interviewerId,
 
         @NotNull
-        Integer candidateApplicationId,
+        Long applicationId,
 
         @NotEmpty
-        @Size(max = 120)
+        @Size(max = 100)
         String title,
 
-        @Size(max = 2500)
+        @Size(max = 2000)
         String description,
 
         @NotNull
         OffsetDateTime scheduledTo,
 
-        @NotNull
-        InterviewModel model,
-
-        @Size(max = 2000)
-        String reunionUrl,
-
         @Valid
         AddressRequest address,
 
+        @Size(max = 255)
+        String reunionUrl,
+
         @NotNull
-        Integer createdBy
+        Boolean isRemote,
+
+        @NotNull
+        Long createdBy
 ) {
 }
