@@ -25,7 +25,7 @@ public record InstitutionRequest(
         String industry,
 
         @NotNull
-        Integer companySizeId,
+        Short companySizeId,
 
         @Valid
         AddressRequest headquarters,

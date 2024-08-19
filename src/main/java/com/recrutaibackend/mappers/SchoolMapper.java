@@ -15,8 +15,8 @@ public class SchoolMapper {
         this.institutionMapper = institutionMapper;
     }
 
-    public School mapToEntity(Institution institution, InstitutionSize institutionSize) {
-        return new School(institution, institutionSize);
+    public School mapToEntity(Institution institution, InstitutionSize schoolSize) {
+        return new School(institution, schoolSize);
     }
 
     public SchoolResponse mapToResponse(School school) {
