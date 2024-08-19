@@ -1,5 +1,6 @@
 package com.recrutaibackend.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 public record UserRequest(
@@ -11,6 +12,9 @@ public record UserRequest(
         @Size(max = 40)
         String lastName,
 
+        @Size(max = 150)
+        String headline,
+
         @NotEmpty
         @Size(min = 6, max = 255)
         @Email(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$")
@@ -19,6 +23,9 @@ public record UserRequest(
         @NotEmpty
         @Size(min = 12)
         @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()\\[\\]{}\\\\-_+=.,:;<>/|?]).{12,}$")
-        String password
+        String password,
+
+        @Valid
+        AddressRequest location
 ) {
 }

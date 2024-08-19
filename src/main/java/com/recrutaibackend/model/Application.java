@@ -16,8 +16,8 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "candidate_id")
@@ -30,18 +30,18 @@ public class Application {
     @Column(name = "expected_salary")
     private Integer expectedSalary;
 
-    @Column(name = "status")
+    @Column(name = "currency_code", columnDefinition = "bpchar(3)")
     @Enumerated(EnumType.STRING)
-    private ApplicationStatus status;
+    private CurrencyCode currencyCode;
 
     @CreationTimestamp
     @Column(name = "applied_at")
     private Instant appliedAt;
 
-    public Application(User candidate, Vacancy vacancy, Integer expectedSalary) {
+    public Application(User candidate, Vacancy vacancy, Integer expectedSalary, CurrencyCode currencyCode) {
         this.candidate = candidate;
         this.vacancy = vacancy;
         this.expectedSalary = expectedSalary;
-        this.status = ApplicationStatus.RECEIVED;
+        this.currencyCode = currencyCode;
     }
 }

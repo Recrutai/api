@@ -1,9 +1,13 @@
 package com.recrutaibackend.dto;
 
+import java.time.Instant;
+
 public record ApplicationResponse(
-        int id,
-        int candidateId,
-        int vacancyId,
-        int expectedSalary
+        long id,
+        UserResponse user,
+        VacancyResponse vacancy,
+        int expectedSalary,
+        String currencyCode,
+        Instant appliedAt
 ) {
 }

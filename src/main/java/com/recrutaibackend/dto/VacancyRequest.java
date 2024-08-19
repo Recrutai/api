@@ -1,5 +1,7 @@
 package com.recrutaibackend.dto;
 
+import com.recrutaibackend.model.WorkModel;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,29 +9,31 @@ import org.hibernate.validator.constraints.Range;
 
 public record VacancyRequest(
         @NotEmpty
-        @Size(max = 120)
+        @Size(max = 100)
         String title,
 
         @NotEmpty
-        @Size(max = 2500)
+        @Size(max = 3850)
         String description,
 
-        @NotEmpty
-        @Size(max = 60)
-        String workModel,
+        @NotNull
+        WorkModel workModel,
+
+        @Valid
+        AddressRequest location,
 
         @NotNull
-        @Range(min = 1, max = 10_000_000)
-        Integer avgSalary,
+        @Range(min = 1, max = 1_000_000)
+        Integer salary,
 
         @NotNull
         @Range(min = 1, max = 500)
         Short positions,
 
         @NotNull
-        Integer recruiterId,
+        Long recruiterId,
 
         @NotNull
-        Integer publisherId
+        Long publishedById
 ) {
 }

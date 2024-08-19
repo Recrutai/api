@@ -3,38 +3,52 @@ package com.recrutaibackend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "tbl_courses")
+@Table(name = "tb_course")
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "sender")
-    private String sender;
-    @Column(name = "conclusion")
-    private Date conclusion;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Course(String name, String description, String sender, Date conclusion, User user) {
-        this.name = name;
-        this.description = description;
-        this.sender = sender;
-        this.conclusion = conclusion;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "school_id")
+    private School school;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "workload_hours")
+    private Integer workloadHours;
+
+    @Column(name = "completion_date")
+    private Integer completionDate;
+
+    @Column(name = "description")
+    private String description;
+
+    public Course(
+            User user,
+            School school,
+            String name,
+            Integer workloadHours,
+            Integer completionDate,
+            String description
+    ) {
         this.user = user;
+        this.school = school;
+        this.name = name;
+        this.workloadHours = workloadHours;
+        this.completionDate = completionDate;
+        this.description = description;
     }
 }

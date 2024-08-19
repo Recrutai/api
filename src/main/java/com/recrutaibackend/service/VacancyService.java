@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.VacancyResponse;
 import com.recrutaibackend.mappers.VacancyMapper;
 import com.recrutaibackend.model.Vacancy;
 import com.recrutaibackend.repository.VacancyRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,8 +29,9 @@ public class VacancyService {
         this.memberService = memberService;
     }
 
+    @Transactional
     public Vacancy create(VacancyRequest request) {
-        var publisher = memberService.findById(request.publisherId());
+        var publisher = memberService.findById(request.publishedById());
         var recruiter = memberService.findById(request.recruiterId());
 
         var vacancy = vacancyMapper.mapToEntity(request, recruiter, publisher);
@@ -37,7 +39,7 @@ public class VacancyService {
         return vacancyRepository.save(vacancy);
     }
 
-    public Vacancy findById(Integer id) {
+    public Vacancy findById(Long id) {
         return vacancyRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }

@@ -13,8 +13,8 @@ public class Employment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
@@ -27,8 +27,17 @@ public class Employment {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "type")
-    private String type;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "type_id")
+    private EmploymentType type;
+
+    @Column(name = "work_model")
+    @Enumerated(EnumType.STRING)
+    private WorkModel workModel;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "work_address_id")
+    private Address workAddress;
 
     @Column(name = "description")
     private String description;
@@ -43,7 +52,9 @@ public class Employment {
             User user,
             Institution institution,
             String title,
-            String type,
+            EmploymentType type,
+            WorkModel workModel,
+            Address workAddress,
             String description,
             Integer startDate,
             Integer endDate
@@ -52,6 +63,8 @@ public class Employment {
         this.institution = institution;
         this.title = title;
         this.type = type;
+        this.workModel = workModel;
+        this.workAddress = workAddress;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;

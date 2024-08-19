@@ -15,7 +15,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member findById(int id) {
+    public Member findById(long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
     }

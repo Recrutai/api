@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS tb_email_verification
 (
-    id           integer GENERATED ALWAYS AS IDENTITY NOT NULL,
-    code         varchar(12)                          NOT NULL,
-    user_id      integer                              NOT NULL,
-    created_at   timestamp with time zone             NOT NULL,
-    expires_at   timestamp with time zone             NOT NULL,
+    id           bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    code         varchar(12)                         NOT NULL,
+    user_id      bigint                              NOT NULL,
+    created_at   timestamp with time zone            NOT NULL,
+    expires_at   timestamp with time zone            NOT NULL,
     confirmed_at timestamp with time zone
 );
 

@@ -40,7 +40,7 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<VacancyResponse> findById(@PathVariable @NotNull Integer id) {
+    ResponseEntity<VacancyResponse> findById(@PathVariable @NotNull long id) {
         var vacancy = vacancyMapper.mapToResponse(vacancyService.findById(id));
         return ResponseEntity.ok(vacancy);
     }

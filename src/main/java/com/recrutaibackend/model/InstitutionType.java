@@ -1,6 +1,18 @@
 package com.recrutaibackend.model;
 
+import lombok.Getter;
+
+@Getter
 public enum InstitutionType {
-    COMPANY,
-    EDUCATIONAL_INSTITUTION
+    PUBLIC("Pública"),
+    PRIVATE("Privada"),
+    ASSOCIATION("Associação"),
+    SELF_EMPLOYED("Autônomo");
+
+    private final String name;
+
+    InstitutionType(String name) {
+        this.name = name;
+    }
+
 }

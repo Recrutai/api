@@ -1,6 +1,6 @@
 package com.recrutaibackend.model;
 
-public enum ModalityJob {
+public enum WorkModel {
     PRESENCIAL,
     REMOTO,
     HIBRIDO

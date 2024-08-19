@@ -35,3 +35,9 @@ spring:
         starttls:
           enable: true
           require: true
+
+springdoc:
+  swagger-ui:
+    groups-order: asc
+    operations-sorter: method
+    tags-sorter: alpha

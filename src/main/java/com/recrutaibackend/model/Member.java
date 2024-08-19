@@ -16,8 +16,8 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
@@ -31,7 +31,7 @@ public class Member {
     private String role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "added_by")
+    @JoinColumn(name = "added_by_id")
     private Member addedBy;
 
     @CreationTimestamp
@@ -39,7 +39,7 @@ public class Member {
     private Instant addedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "removed_by")
+    @JoinColumn(name = "removed_by_id")
     private Member removedBy;
 
     @Column(name = "removed_at")

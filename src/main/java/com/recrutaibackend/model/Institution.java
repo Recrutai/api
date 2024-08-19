@@ -3,8 +3,6 @@ package com.recrutaibackend.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 
@@ -18,12 +16,8 @@ public class Institution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Setter(AccessLevel.NONE)
-    private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @Setter(AccessLevel.PACKAGE)
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -32,83 +26,60 @@ public class Institution {
     @Enumerated(EnumType.STRING)
     private InstitutionType type;
 
-    @Column(name = "industry")
-    private String industry;
+    @Column(name = "headline")
+    private String headline;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
-    @Column(name = "employees")
-    @Generated(event = EventType.INSERT)
-    private Integer employees;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "industry_id")
+    private Industry industry;
 
-    @Column(name = "alumni")
-    @Generated(event = EventType.INSERT)
-    private Integer alumni;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_size_id")
+    private InstitutionSize companySize;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "associated_employees")
+    private Integer associatedEmployees;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "headquarters_id")
+    private Address headquarters;
 
     @Column(name = "website")
     private String website;
+
+    @Column(name = "about")
+    private String about;
 
     @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
-    private Institution(
-            User owner,
+    @Column(name = "deactivated_at")
+    private Instant deactivatedAt;
+
+    public Institution(
             String name,
             InstitutionType type,
-            String industry,
-            Address address,
-            String description,
-            String website
+            String headline,
+            User owner,
+            Industry industry,
+            InstitutionSize companySize,
+            Address headquarters,
+            String website,
+            String about
     ) {
-        this.owner = owner;
         this.name = name;
         this.type = type;
+        this.headline = headline;
+        this.owner = owner;
         this.industry = industry;
-        this.address = address;
-        this.description = description;
+        this.companySize = companySize;
+        this.headquarters = headquarters;
         this.website = website;
-    }
-
-    public static Institution createCompany(
-            User owner,
-            String name,
-            String industry,
-            Address address,
-            String description,
-            String website
-    ) {
-        return new Institution(
-                owner,
-                name,
-                InstitutionType.COMPANY,
-                industry,
-                address,
-                description,
-                website
-        );
-    }
-
-    public static Institution createEducationalInstitution(
-            User owner,
-            String name,
-            Address address,
-            String description,
-            String website
-    ) {
-        return new Institution(
-                owner,
-                name,
-                InstitutionType.EDUCATIONAL_INSTITUTION,
-                null,
-                address,
-                description,
-                website
-        );
+        this.about = about;
     }
 }
