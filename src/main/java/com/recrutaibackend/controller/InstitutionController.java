@@ -6,6 +6,7 @@ import com.recrutaibackend.dto.SchoolRequest;
 import com.recrutaibackend.dto.SchoolResponse;
 import com.recrutaibackend.mappers.InstitutionMapper;
 import com.recrutaibackend.mappers.SchoolMapper;
+import com.recrutaibackend.model.Industry;
 import com.recrutaibackend.model.InstitutionSize;
 import com.recrutaibackend.service.InstitutionService;
 import jakarta.validation.Valid;
@@ -50,6 +51,12 @@ public class InstitutionController {
     ResponseEntity<List<InstitutionResponse>> findAll() {
         var institutions = service.findAll();
         return ResponseEntity.ok(institutions);
+    }
+
+    @GetMapping("/industries")
+    ResponseEntity<List<Industry>> findAllIndustries() {
+        var industries = service.findAllIndustries();
+        return ResponseEntity.ok(industries);
     }
 
     @GetMapping("/sizes")
