@@ -1,15 +1,14 @@
 package com.recrutaibackend.controller;
 
-import com.recrutaibackend.dto.InstitutionRequest;
-import com.recrutaibackend.dto.InstitutionResponse;
-import com.recrutaibackend.dto.SchoolRequest;
-import com.recrutaibackend.dto.SchoolResponse;
+import com.recrutaibackend.dto.*;
 import com.recrutaibackend.mappers.InstitutionMapper;
 import com.recrutaibackend.mappers.SchoolMapper;
 import com.recrutaibackend.model.Industry;
 import com.recrutaibackend.model.InstitutionSize;
 import com.recrutaibackend.service.InstitutionService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,6 +50,18 @@ public class InstitutionController {
     ResponseEntity<List<InstitutionResponse>> findAll() {
         var institutions = service.findAll();
         return ResponseEntity.ok(institutions);
+    }
+
+    @PostMapping("/{id}/members")
+    ResponseEntity<MemberResponse> createMember(@PathVariable Long id, @Valid @RequestBody MemberRequest request) {
+        var member = service.createMember(id, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(member);
+    }
+
+    @GetMapping("/{id}/members")
+    ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable @NotNull Long id) {
+        var members = service.findAllMembers(id);
+        return ResponseEntity.ok(members);
     }
 
     @GetMapping("/industries")

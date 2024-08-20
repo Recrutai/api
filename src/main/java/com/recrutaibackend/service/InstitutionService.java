@@ -1,8 +1,6 @@
 package com.recrutaibackend.service;
 
-import com.recrutaibackend.dto.InstitutionRequest;
-import com.recrutaibackend.dto.InstitutionResponse;
-import com.recrutaibackend.dto.SchoolRequest;
+import com.recrutaibackend.dto.*;
 import com.recrutaibackend.mappers.InstitutionMapper;
 import com.recrutaibackend.mappers.SchoolMapper;
 import com.recrutaibackend.model.Industry;
@@ -29,6 +27,7 @@ public class InstitutionService {
     private final SchoolMapper schoolMapper;
     private final SchoolRepository schoolRepository;
     private final IndustryRepository industryRepository;
+    private final MemberService memberService;
 
     public InstitutionService(
             InstitutionRepository institutionRepository,
@@ -37,8 +36,8 @@ public class InstitutionService {
             InstitutionSizeRepository institutionSizeRepository,
             SchoolMapper schoolMapper,
             SchoolRepository schoolRepository,
-            IndustryRepository industryRepository
-    ) {
+            IndustryRepository industryRepository,
+            MemberService memberService) {
         this.institutionRepository = institutionRepository;
         this.institutionMapper = institutionMapper;
         this.userService = userService;
@@ -46,6 +45,7 @@ public class InstitutionService {
         this.schoolMapper = schoolMapper;
         this.schoolRepository = schoolRepository;
         this.industryRepository = industryRepository;
+        this.memberService = memberService;
     }
 
     public Institution findById(long id) {
@@ -79,6 +79,15 @@ public class InstitutionService {
                 .stream()
                 .map(institutionMapper::mapToResponse)
                 .toList();
+    }
+
+    public List<MemberResponse> findAllMembers(long id) {
+        return memberService.findAllByInstitutionId(id);
+    }
+
+    public MemberResponse createMember(long id, MemberRequest request) {
+        var institution = this.findById(id);
+        return memberService.create(institution, request);
     }
 
     private Industry findIndustryByName(String name) {

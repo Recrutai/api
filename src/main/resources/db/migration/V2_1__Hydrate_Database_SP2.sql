@@ -14,7 +14,7 @@ VALUES (1, 1),
        (201, 1000),
        (1001, 5000),
        (5001, 10000),
-       (10000);
+       (10000, NULL);
 
 INSERT INTO tb_industry(name)
 VALUES ('Tecnologia'),
