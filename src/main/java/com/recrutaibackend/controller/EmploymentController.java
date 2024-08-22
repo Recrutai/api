@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.EmploymentResponse;
 import com.recrutaibackend.service.EmploymentService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class EmploymentController {
     @PostMapping
     ResponseEntity<EmploymentResponse> create(@RequestBody @Valid EmploymentRequest request) {
         var employment = employmentService.create(request);
-        return ResponseEntity.ok(employment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(employment);
     }
 
     @GetMapping("/{userId}")

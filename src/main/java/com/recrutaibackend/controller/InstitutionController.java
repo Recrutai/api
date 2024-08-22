@@ -31,13 +31,13 @@ public class InstitutionController {
     @PostMapping
     ResponseEntity<InstitutionResponse> create(@Valid @RequestBody InstitutionRequest request) {
         var institution = institutionMapper.mapToResponse(service.create(request));
-        return ResponseEntity.ok(institution);
+        return ResponseEntity.status(HttpStatus.CREATED).body(institution);
     }
 
     @PostMapping("/school")
     ResponseEntity<SchoolResponse> createSchool(@Valid @RequestBody SchoolRequest request) {
         var school = schoolMapper.mapToResponse(service.createSchool(request));
-        return ResponseEntity.ok(school);
+        return ResponseEntity.status(HttpStatus.CREATED).body(school);
     }
 
     @GetMapping("/{id}")

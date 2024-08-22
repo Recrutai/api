@@ -5,8 +5,8 @@ import com.recrutaibackend.dto.CourseResponse;
 import com.recrutaibackend.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class CourseController {
     @PostMapping
     ResponseEntity<CourseResponse> create(@RequestBody @Valid CourseRequest request) {
         var course = courseService.create(request);
-        return ResponseEntity.ok(course);
+        return ResponseEntity.status(HttpStatus.CREATED).body(course);
     }
 
     @GetMapping("/{userId}")

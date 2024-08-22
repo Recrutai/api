@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.ApplicationResponse;
 import com.recrutaibackend.mappers.ApplicationMapper;
 import com.recrutaibackend.service.ApplicationService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class ApplicationController {
     @PostMapping
     ResponseEntity<ApplicationResponse> create(@RequestBody @Valid ApplicationRequest applicationRequest) {
         var application = applicationMapper.mapToResponse(applicationService.create(applicationRequest));
-        return ResponseEntity.ok(application);
+        return ResponseEntity.status(HttpStatus.CREATED).body(application);
     }
 
     @GetMapping("/{userId}")

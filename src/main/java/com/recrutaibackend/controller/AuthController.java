@@ -41,7 +41,7 @@ public class AuthController {
     @PostMapping("/resend-code")
     ResponseEntity<Void> resendCode(@RequestBody @NotEmpty String email) {
         authService.resendCode(email);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -7,6 +7,7 @@ import com.recrutaibackend.service.VacancyService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class VacancyController {
     @PostMapping
     ResponseEntity<VacancyResponse> create(@RequestBody @Valid VacancyRequest vacancyRequest) {
         var vacancy = vacancyMapper.mapToResponse(vacancyService.create(vacancyRequest));
-        return ResponseEntity.ok(vacancy);
+        return ResponseEntity.status(HttpStatus.CREATED).body(vacancy);
     }
 
     @GetMapping
