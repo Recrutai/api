@@ -33,7 +33,7 @@ public class EmploymentController {
         return ResponseEntity.ok(employments);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteById(@PathVariable @NotNull long id) {
         employmentService.deleteById(id);
         return ResponseEntity.noContent().build();

@@ -33,7 +33,7 @@ public class CourseController {
         return ResponseEntity.ok(courses);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable @NotNull int id) {
         courseService.delete(id);
         return ResponseEntity.noContent().build();
