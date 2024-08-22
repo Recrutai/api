@@ -5,6 +5,7 @@ import com.recrutaibackend.dto.InterviewResponse;
 import com.recrutaibackend.mappers.InterviewMapper;
 import com.recrutaibackend.service.InterviewService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class InterviewController {
     @PostMapping
     ResponseEntity<InterviewResponse> create(@RequestBody @Valid InterviewRequest interviewRequest) {
         var interview = interviewMapper.mapToResponse(interviewService.create(interviewRequest));
-        return ResponseEntity.ok(interview);
+        return ResponseEntity.status(HttpStatus.CREATED).body(interview);
     }
 
 }

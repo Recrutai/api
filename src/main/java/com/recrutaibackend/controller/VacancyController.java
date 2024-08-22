@@ -5,8 +5,7 @@ import com.recrutaibackend.dto.VacancyResponse;
 import com.recrutaibackend.mappers.VacancyMapper;
 import com.recrutaibackend.service.VacancyService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class VacancyController {
     @PostMapping
     ResponseEntity<VacancyResponse> create(@RequestBody @Valid VacancyRequest vacancyRequest) {
         var vacancy = vacancyMapper.mapToResponse(vacancyService.create(vacancyRequest));
-        return ResponseEntity.ok(vacancy);
+        return ResponseEntity.status(HttpStatus.CREATED).body(vacancy);
     }
 
     @GetMapping
@@ -40,13 +39,13 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<VacancyResponse> findById(@PathVariable @NotNull long id) {
+    ResponseEntity<VacancyResponse> findById(@PathVariable long id) {
         var vacancy = vacancyMapper.mapToResponse(vacancyService.findById(id));
         return ResponseEntity.ok(vacancy);
     }
 
     @GetMapping("/search")
-    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam @NotBlank String title) {
+    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam String title) {
         var response = vacancyService.findAllByTitle(title);
         return ResponseEntity.ok(response);
     }

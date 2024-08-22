@@ -9,7 +9,7 @@ public record InstitutionResponse(
         String headline,
         UserResponse owner,
         String industry,
-        int companySizeId,
+        short companySizeId,
         int associatedEmployees,
         AddressResponse headquarters,
         String website,

@@ -41,8 +41,8 @@ public class MemberService {
         return memberMapper.mapToResponse(savedMember);
     }
 
-    public List<MemberResponse> findAllByInstitutionId(long institutionId) {
-        return memberRepository.findAllByInstitutionId(institutionId)
+    public List<MemberResponse> findAllByInstitutionId(long id) {
+        return memberRepository.findAllByInstitutionId(id)
                 .stream()
                 .map(memberMapper::mapToResponse)
                 .toList();
