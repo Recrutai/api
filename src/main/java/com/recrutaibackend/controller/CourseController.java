@@ -4,7 +4,6 @@ import com.recrutaibackend.dto.CourseRequest;
 import com.recrutaibackend.dto.CourseResponse;
 import com.recrutaibackend.service.CourseService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +27,13 @@ public class CourseController {
     }
 
     @GetMapping("/{userId}")
-    ResponseEntity<List<CourseResponse>> findAllByUserId(@PathVariable @NotNull int userId) {
+    ResponseEntity<List<CourseResponse>> findAllByUserId(@PathVariable long userId) {
         var courses = courseService.findAllByUsersId(userId);
         return ResponseEntity.ok(courses);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable @NotNull int id) {
+    ResponseEntity<Void> delete(@PathVariable long id) {
         courseService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -4,7 +4,6 @@ import com.recrutaibackend.dto.EmploymentRequest;
 import com.recrutaibackend.dto.EmploymentResponse;
 import com.recrutaibackend.service.EmploymentService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +27,13 @@ public class EmploymentController {
     }
 
     @GetMapping("/{userId}")
-    ResponseEntity<List<EmploymentResponse>> findAllByUserId(@PathVariable @NotNull long userId) {
+    ResponseEntity<List<EmploymentResponse>> findAllByUserId(@PathVariable long userId) {
         var employments = employmentService.findAllByUserId(userId);
         return ResponseEntity.ok(employments);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteById(@PathVariable @NotNull long id) {
+    ResponseEntity<Void> deleteById(@PathVariable long id) {
         employmentService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

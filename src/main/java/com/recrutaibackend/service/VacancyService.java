@@ -39,7 +39,7 @@ public class VacancyService {
         return vacancyRepository.save(vacancy);
     }
 
-    public Vacancy findById(Long id) {
+    public Vacancy findById(long id) {
         return vacancyRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }

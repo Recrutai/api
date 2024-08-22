@@ -51,7 +51,7 @@ public class CourseService {
                 .toList();
     }
 
-    public void delete(int id) {
+    public void delete(long id) {
         var course = this.findById(id);
         courseRepository.delete(course);
     }

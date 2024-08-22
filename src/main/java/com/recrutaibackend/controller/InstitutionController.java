@@ -7,7 +7,6 @@ import com.recrutaibackend.model.Industry;
 import com.recrutaibackend.model.InstitutionSize;
 import com.recrutaibackend.service.InstitutionService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +40,7 @@ public class InstitutionController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<InstitutionResponse> findById(@PathVariable Long id) {
+    ResponseEntity<InstitutionResponse> findById(@PathVariable long id) {
         var institution = institutionMapper.mapToResponse(service.findById(id));
         return ResponseEntity.ok(institution);
     }
@@ -53,13 +52,13 @@ public class InstitutionController {
     }
 
     @PostMapping("/{id}/members")
-    ResponseEntity<MemberResponse> createMember(@PathVariable Long id, @Valid @RequestBody MemberRequest request) {
+    ResponseEntity<MemberResponse> createMember(@PathVariable long id, @Valid @RequestBody MemberRequest request) {
         var member = service.createMember(id, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(member);
     }
 
     @GetMapping("/{id}/members")
-    ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable @NotNull Long id) {
+    ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable long id) {
         var members = service.findAllMembers(id);
         return ResponseEntity.ok(members);
     }

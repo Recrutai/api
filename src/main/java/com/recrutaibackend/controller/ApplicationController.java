@@ -31,7 +31,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/{userId}")
-    ResponseEntity<List<ApplicationResponse>> findAllByUserId(@PathVariable @Valid long userId) {
+    ResponseEntity<List<ApplicationResponse>> findAllByUserId(@PathVariable long userId) {
         var applications = applicationService.findAllByUserId(userId);
         return ResponseEntity.ok(applications);
     }
