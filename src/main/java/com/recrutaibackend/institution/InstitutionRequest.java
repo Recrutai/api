@@ -27,9 +27,6 @@ public record InstitutionRequest(
         @NotNull
         Short companySizeId,
 
-        @Valid
-        AddressRequest headquarters,
-
         @Size(max = 255)
         String website,
 

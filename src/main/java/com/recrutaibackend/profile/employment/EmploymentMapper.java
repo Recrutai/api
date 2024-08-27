@@ -12,12 +12,10 @@ import java.time.LocalDate;
 @Service
 public class EmploymentMapper {
 
-    private final AddressMapper addressMapper;
     private final UserMapper userMapper;
     private final InstitutionMapper institutionMapper;
 
-    public EmploymentMapper(AddressMapper addressMapper, UserMapper userMapper, InstitutionMapper institutionMapper) {
-        this.addressMapper = addressMapper;
+    public EmploymentMapper(UserMapper userMapper, InstitutionMapper institutionMapper) {
         this.userMapper = userMapper;
         this.institutionMapper = institutionMapper;
     }
@@ -29,7 +27,6 @@ public class EmploymentMapper {
                 request.title(),
                 type,
                 request.workModel(),
-                addressMapper.mapToEntity(request.workAddress()),
                 request.description(),
                 this.convertDateToYYYYMM(request.startDate()),
                 this.convertDateToYYYYMM(request.endDate())
@@ -44,7 +41,6 @@ public class EmploymentMapper {
                 employment.getTitle(),
                 employment.getType().getName(),
                 employment.getWorkModel().toString(),
-                addressMapper.mapToResponse(employment.getWorkAddress()),
                 employment.getDescription(),
                 this.convertYYYYMMToDate(employment.getStartDate()),
                 this.convertYYYYMMToDate(employment.getEndDate())

@@ -1,5 +1,7 @@
 package com.recrutaibackend.institution;
 
+import com.recrutaibackend.address.AddressMapper;
+import com.recrutaibackend.address.AddressRequest;
 import com.recrutaibackend.institution.member.MemberRequest;
 import com.recrutaibackend.institution.member.MemberResponse;
 import com.recrutaibackend.institution.member.MemberService;
@@ -27,6 +29,7 @@ public class InstitutionService {
     private final SchoolRepository schoolRepository;
     private final IndustryRepository industryRepository;
     private final MemberService memberService;
+    private final AddressMapper addressMapper;
 
     public InstitutionService(
             InstitutionRepository institutionRepository,
@@ -36,7 +39,7 @@ public class InstitutionService {
             SchoolMapper schoolMapper,
             SchoolRepository schoolRepository,
             IndustryRepository industryRepository,
-            MemberService memberService) {
+            MemberService memberService, AddressMapper addressMapper) {
         this.institutionRepository = institutionRepository;
         this.institutionMapper = institutionMapper;
         this.userService = userService;
@@ -45,6 +48,7 @@ public class InstitutionService {
         this.schoolRepository = schoolRepository;
         this.industryRepository = industryRepository;
         this.memberService = memberService;
+        this.addressMapper = addressMapper;
     }
 
     public Institution findById(long id) {
@@ -105,5 +109,12 @@ public class InstitutionService {
 
     public List<InstitutionSize> findAllSizes() {
         return institutionSizeRepository.findAll();
+    }
+
+    public void setAddress(AddressRequest request, Long id) {
+        var institution = institutionRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Institution not found"));
+        institution.setHeadquarters(addressMapper.mapToEntity(request));
+        institutionRepository.save(institution);
     }
 }

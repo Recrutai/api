@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class InstitutionMapper {
 
-    private final AddressMapper addressMapper;
     private final UserMapper userMapper;
 
-    public InstitutionMapper(AddressMapper addressMapper, UserMapper userMapper) {
-        this.addressMapper = addressMapper;
+    public InstitutionMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
@@ -25,7 +23,6 @@ public class InstitutionMapper {
                 owner,
                 industry,
                 size,
-                addressMapper.mapToEntity(request.headquarters()),
                 request.website(),
                 request.about()
         );
@@ -41,7 +38,6 @@ public class InstitutionMapper {
                 institution.getIndustry().getName(),
                 institution.getCompanySize().getId(),
                 institution.getAssociatedEmployees(),
-                addressMapper.mapToResponse(institution.getHeadquarters()),
                 institution.getWebsite(),
                 institution.getAbout(),
                 institution.getCreatedAt()

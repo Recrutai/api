@@ -14,7 +14,6 @@ public record InstitutionResponse(
         String industry,
         short companySizeId,
         int associatedEmployees,
-        AddressResponse headquarters,
         String website,
         String about,
         Instant createdAt

@@ -71,7 +71,6 @@ public class Institution {
             User owner,
             Industry industry,
             InstitutionSize companySize,
-            Address headquarters,
             String website,
             String about
     ) {
@@ -81,7 +80,7 @@ public class Institution {
         this.owner = owner;
         this.industry = industry;
         this.companySize = companySize;
-        this.headquarters = headquarters;
+        this.headquarters = null;
         this.website = website;
         this.about = about;
     }

@@ -25,9 +25,6 @@ public record EmploymentRequest(
 
         WorkModel workModel,
 
-        @Valid
-        AddressRequest workAddress,
-
         @Size(max = 2500)
         String description,
 

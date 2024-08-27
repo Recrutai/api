@@ -59,7 +59,6 @@ CREATE TABLE tb_employment
     title           varchar(100)                        NOT NULL,
     type_id         smallint,
     work_model      varchar(50),
-    work_address_id bigint,
     description     varchar(2500),
     start_date      integer                             NOT NULL,
     end_date        integer
@@ -244,10 +243,6 @@ ALTER TABLE tb_employment
 ALTER TABLE tb_employment
     ADD CONSTRAINT fk_employment_type_id
         FOREIGN KEY (type_id) REFERENCES tb_employment_type;
-
-ALTER TABLE tb_employment
-    ADD CONSTRAINT fk_employment_work_address_id
-        FOREIGN KEY (work_address_id) REFERENCES tb_address;
 
 ALTER TABLE tb_vacancy
     ADD CONSTRAINT fk_vacancy_location_id

@@ -13,7 +13,6 @@ public record EmploymentResponse(
         String title,
         String type,
         String workModel,
-        AddressResponse workAddress,
         String description,
         LocalDate startDate,
         LocalDate endDate

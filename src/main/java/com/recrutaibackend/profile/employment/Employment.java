@@ -39,10 +39,6 @@ public class Employment {
     @Enumerated(EnumType.STRING)
     private WorkModel workModel;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "work_address_id")
-    private Address workAddress;
-
     @Column(name = "description")
     private String description;
 
@@ -58,7 +54,6 @@ public class Employment {
             String title,
             EmploymentType type,
             WorkModel workModel,
-            Address workAddress,
             String description,
             Integer startDate,
             Integer endDate
@@ -68,7 +63,6 @@ public class Employment {
         this.title = title;
         this.type = type;
         this.workModel = workModel;
-        this.workAddress = workAddress;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
