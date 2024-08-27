@@ -24,9 +24,6 @@ public record UserRequest(
         @NotEmpty
         @Size(min = 12)
         @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()\\[\\]{}\\\\-_+=.,:;<>/|?]).{12,}$")
-        String password,
-
-        @Valid
-        AddressRequest location
+        String password
 ) {
 }

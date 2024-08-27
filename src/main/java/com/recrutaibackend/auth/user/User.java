@@ -51,15 +51,13 @@ public class User {
             String lastName,
             String headline,
             String email,
-            String hashedPassword,
-            Address location
+            String hashedPassword
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.headline = headline;
         this.email = email;
         this.hashedPassword = hashedPassword;
-        this.location = location;
         this.isActive = false;
     }
 }
