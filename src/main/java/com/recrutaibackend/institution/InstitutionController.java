@@ -2,6 +2,7 @@ package com.recrutaibackend.institution;
 
 import com.recrutaibackend.institution.member.MemberRequest;
 import com.recrutaibackend.institution.member.MemberResponse;
+import com.recrutaibackend.institution.member.MemberService;
 import com.recrutaibackend.institution.school.SchoolMapper;
 import com.recrutaibackend.institution.school.SchoolRequest;
 import com.recrutaibackend.institution.school.SchoolResponse;
@@ -20,11 +21,13 @@ public class InstitutionController {
     private final InstitutionService service;
     private final InstitutionMapper institutionMapper;
     private final SchoolMapper schoolMapper;
+    private final MemberService memberService;
 
-    InstitutionController(InstitutionService service, InstitutionMapper institutionMapper, SchoolMapper schoolMapper) {
+    InstitutionController(InstitutionService service, InstitutionMapper institutionMapper, SchoolMapper schoolMapper, MemberService memberService) {
         this.service = service;
         this.institutionMapper = institutionMapper;
         this.schoolMapper = schoolMapper;
+        this.memberService = memberService;
     }
 
     @PostMapping
@@ -59,7 +62,7 @@ public class InstitutionController {
 
     @GetMapping("/{id}/members")
     ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable long id) {
-        var members = service.findAllMembers(id);
+        var members = memberService.findAllByInstitutionId(id);
         return ResponseEntity.ok(members);
     }
 

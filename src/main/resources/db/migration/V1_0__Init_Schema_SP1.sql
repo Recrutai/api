@@ -17,7 +17,7 @@ CREATE TABLE tb_institution
     name                 varchar(120)                        NOT NULL,
     type                 varchar(50)                         NOT NULL,
     headline             varchar(150),
-    owner_id             bigint                              NOT NULL,
+    owner_id             bigint,
     industry_id          smallint                            NOT NULL,
     company_size_id      smallint                            NOT NULL,
     associated_employees integer                             NOT NULL DEFAULT 0,
@@ -42,7 +42,7 @@ CREATE TABLE tb_member
 (
     id             bigint                   NOT NULL,
     user_id        bigint                   NOT NULL,
-    institution_id bigint                   NOT NULL,
+    institution_id bigint,
     role           varchar(50)              NOT NULL,
     added_by_id    bigint,
     added_at       timestamp with time zone NOT NULL,
