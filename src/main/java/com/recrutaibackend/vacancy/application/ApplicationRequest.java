@@ -8,9 +8,6 @@ public record ApplicationRequest(
         Long candidateId,
 
         @NotNull
-        Long vacancyId,
-
-        @NotNull
         @Range(min = 1, max = 1_000_000)
         Integer expectedSalary
 ) {

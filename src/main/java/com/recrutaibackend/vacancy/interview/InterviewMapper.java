@@ -1,23 +1,16 @@
 package com.recrutaibackend.vacancy.interview;
 
 import com.recrutaibackend.address.AddressMapper;
-import com.recrutaibackend.vacancy.application.ApplicationMapper;
-import com.recrutaibackend.vacancy.application.Application;
-import com.recrutaibackend.institution.member.MemberMapper;
 import com.recrutaibackend.institution.member.Member;
+import com.recrutaibackend.vacancy.application.Application;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InterviewMapper {
-
     private final AddressMapper addressMapper;
-    private final ApplicationMapper applicationMapper;
-    private final MemberMapper memberMapper;
 
-    public InterviewMapper(AddressMapper addressMapper, ApplicationMapper applicationMapper, MemberMapper memberMapper) {
+    public InterviewMapper(AddressMapper addressMapper) {
         this.addressMapper = addressMapper;
-        this.applicationMapper = applicationMapper;
-        this.memberMapper = memberMapper;
     }
 
     public Interview mapToEntity(
@@ -39,18 +32,18 @@ public class InterviewMapper {
         );
     }
 
-    public InterviewResponse mapToResponse(Interview interview) {
+    public InterviewResponse mapToResponse(Interview entity) {
         return new InterviewResponse(
-                interview.getId(),
-                applicationMapper.mapToResponse(interview.getApplication()),
-                memberMapper.mapToResponse(interview.getInterviewer()),
-                interview.getTitle(),
-                interview.getDescription(),
-                interview.getScheduledTo(),
-                addressMapper.mapToResponse(interview.getAddress()),
-                interview.getReunionURL(),
-                interview.getIsRemote(),
-                memberMapper.mapToResponse(interview.getCreatedBy())
+                entity.getId(),
+                entity.getApplication().getId(),
+                entity.getInterviewer().getId(),
+                entity.getTitle(),
+                entity.getDescription(),
+                entity.getScheduledTo(),
+                addressMapper.mapToResponse(entity.getAddress()),
+                entity.getReunionURL(),
+                entity.getIsRemote(),
+                entity.getCreatedBy().getId()
         );
     }
 

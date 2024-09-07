@@ -1,8 +1,8 @@
 package com.recrutaibackend.institution;
 
 import com.recrutaibackend.address.Address;
-import com.recrutaibackend.institution.industry.Industry;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.industry.Industry;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,22 +32,22 @@ public class Institution {
     @Column(name = "headline")
     private String headline;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "founder_id")
+    private User founder;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "industry_id")
     private Industry industry;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "company_size_id")
+    @Column(name = "company_size", columnDefinition = "bpchar(2)")
+    @Enumerated(EnumType.STRING)
     private InstitutionSize companySize;
 
     @Column(name = "associated_employees")
     private Integer associatedEmployees;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "headquarters_id")
     private Address headquarters;
 
@@ -68,20 +68,23 @@ public class Institution {
             String name,
             InstitutionType type,
             String headline,
-            User owner,
+            User founder,
             Industry industry,
             InstitutionSize companySize,
+            Address headquarters,
             String website,
             String about
     ) {
         this.name = name;
         this.type = type;
         this.headline = headline;
-        this.owner = owner;
+        this.founder = founder;
         this.industry = industry;
         this.companySize = companySize;
-        this.headquarters = null;
+        this.associatedEmployees = 0;
+        this.headquarters = headquarters;
         this.website = website;
         this.about = about;
     }
+
 }

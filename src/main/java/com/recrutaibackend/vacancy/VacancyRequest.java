@@ -1,6 +1,6 @@
 package com.recrutaibackend.vacancy;
 
-import com.recrutaibackend.address.AddressRequest;
+import com.recrutaibackend.address.CityAddressRequest;
 import com.recrutaibackend.shared.WorkModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +21,7 @@ public record VacancyRequest(
         WorkModel workModel,
 
         @Valid
-        AddressRequest location,
+        CityAddressRequest location,
 
         @NotNull
         @Range(min = 1, max = 1_000_000)

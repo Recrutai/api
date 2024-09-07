@@ -1,46 +1,47 @@
 package com.recrutaibackend.institution;
 
 import com.recrutaibackend.address.AddressMapper;
-import com.recrutaibackend.auth.user.UserMapper;
-import com.recrutaibackend.institution.industry.Industry;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.industry.Industry;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InstitutionMapper {
+    private final AddressMapper addressMapper;
 
-    private final UserMapper userMapper;
-
-    public InstitutionMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
+    public InstitutionMapper(AddressMapper addressMapper) {
+        this.addressMapper = addressMapper;
     }
 
-    public Institution mapToEntity(InstitutionRequest request, User owner, Industry industry, InstitutionSize size) {
+    public Institution mapToEntity(InstitutionRequest request, User founder, Industry industry) {
         return new Institution(
                 request.name(),
                 request.type(),
                 request.headline(),
-                owner,
+                founder,
                 industry,
-                size,
+                request.companySize(),
+                addressMapper.mapToEntity(request.headquarters()),
                 request.website(),
                 request.about()
         );
     }
 
-    public InstitutionResponse mapToResponse(Institution institution) {
+    public InstitutionResponse mapToResponse(Institution entity) {
         return new InstitutionResponse(
-                institution.getId(),
-                institution.getName(),
-                institution.getType().toString(),
-                institution.getHeadline(),
-                userMapper.mapToResponse(institution.getOwner()),
-                institution.getIndustry().getName(),
-                institution.getCompanySize().getId(),
-                institution.getAssociatedEmployees(),
-                institution.getWebsite(),
-                institution.getAbout(),
-                institution.getCreatedAt()
+                entity.getId(),
+                entity.getName(),
+                entity.getType().toString(),
+                entity.getHeadline(),
+                entity.getFounder().getId(),
+                entity.getIndustry().getName(),
+                entity.getCompanySize().getValue(),
+                entity.getAssociatedEmployees(),
+                addressMapper.mapToResponse(entity.getHeadquarters()),
+                entity.getWebsite(),
+                entity.getAbout(),
+                entity.getCreatedAt()
         );
     }
+
 }

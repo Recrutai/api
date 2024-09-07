@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapper {
-
     private final PasswordEncoder passwordEncoder;
+    private final AddressMapper addressMapper;
 
-    public UserMapper(PasswordEncoder passwordEncoder) {
+    public UserMapper(PasswordEncoder passwordEncoder, AddressMapper addressMapper) {
         this.passwordEncoder = passwordEncoder;
+        this.addressMapper = addressMapper;
     }
 
     public User mapToEntity(UserRequest request) {
@@ -19,7 +20,8 @@ public class UserMapper {
                 request.lastName(),
                 request.headline(),
                 request.email(),
-                passwordEncoder.encode(request.password())
+                passwordEncoder.encode(request.password()),
+                addressMapper.mapToEntity(request.location())
         );
     }
 
@@ -29,7 +31,9 @@ public class UserMapper {
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getHeadline(),
-                entity.getEmail()
+                entity.getEmail(),
+                addressMapper.mapToResponse(entity.getLocation())
         );
     }
+
 }

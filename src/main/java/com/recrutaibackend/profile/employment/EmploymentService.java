@@ -1,7 +1,7 @@
 package com.recrutaibackend.profile.employment;
 
-import com.recrutaibackend.institution.InstitutionService;
 import com.recrutaibackend.auth.user.UserService;
+import com.recrutaibackend.institution.InstitutionService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,40 +13,34 @@ import java.util.List;
 public class EmploymentService {
     private final EmploymentRepository employmentRepository;
     private final EmploymentMapper employmentMapper;
-    private final EmploymentTypeRepository employmentTypeRepository;
     private final UserService userService;
     private final InstitutionService institutionService;
 
     public EmploymentService(
             EmploymentRepository employmentRepository,
             EmploymentMapper employmentMapper,
-            EmploymentTypeRepository employmentTypeRepository,
             UserService userService,
             InstitutionService institutionService
     ) {
         this.employmentRepository = employmentRepository;
         this.employmentMapper = employmentMapper;
-        this.employmentTypeRepository = employmentTypeRepository;
         this.userService = userService;
         this.institutionService = institutionService;
     }
 
-
     @Transactional
-    public EmploymentResponse create(EmploymentRequest request) {
-        var user = userService.findById(request.userId());
+    public EmploymentResponse create(long userId, EmploymentRequest request) {
+        var user = userService.findById(userId);
         var institution = institutionService.findById(request.institutionId());
-        var type = this.findTypeByName(request.type());
 
-        var employment = employmentMapper.mapToEntity(request, user, institution, type);
+        var employment = employmentMapper.mapToEntity(request, user, institution);
         var savedEmployment = employmentRepository.save(employment);
 
         return employmentMapper.mapToResponse(savedEmployment);
     }
 
     public List<EmploymentResponse> findAllByUserId(long id) {
-        var user = userService.findById(id);
-        return employmentRepository.findAllByUser(user)
+        return employmentRepository.findAllByUserId(id)
                 .stream()
                 .map(employmentMapper::mapToResponse)
                 .toList();
@@ -62,8 +56,4 @@ public class EmploymentService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employment not found"));
     }
 
-    private EmploymentType findTypeByName(String name) {
-        return employmentTypeRepository.findByName(name)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Type not found"));
-    }
 }

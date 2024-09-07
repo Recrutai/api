@@ -35,6 +35,6 @@ public record InterviewRequest(
         Boolean isRemote,
 
         @NotNull
-        Long createdBy
+        Long createdById
 ) {
 }

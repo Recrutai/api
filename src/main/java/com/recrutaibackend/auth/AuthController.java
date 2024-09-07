@@ -9,25 +9,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
-
     private final AuthService authService;
 
     AuthController(AuthService authService) {
         this.authService = authService;
     }
 
-    @PostMapping("/register")
-    ResponseEntity<Void> register(@RequestBody @Valid UserRequest userRequest) {
-        authService.register(userRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping("/login")
+    ResponseEntity<UserResponse> authenticate(@RequestBody @Valid AuthRequest request) {
+        var user = authService.authenticate(request);
+        return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/login")
-    ResponseEntity<UserResponse> authenticate(@RequestBody @Valid AuthRequest authRequest) {
-        var user = authService.authenticate(authRequest);
-        return ResponseEntity.ok(user);
+    @PostMapping("/register")
+    ResponseEntity<Void> register(@RequestBody @Valid UserRequest request) {
+        authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/verify-account")

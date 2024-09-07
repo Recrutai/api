@@ -17,10 +17,10 @@ CREATE TABLE tb_institution
     name                 varchar(120)                        NOT NULL,
     type                 varchar(50)                         NOT NULL,
     headline             varchar(150),
-    owner_id             bigint,
+    founder_id           bigint                              NOT NULL,
     industry_id          smallint                            NOT NULL,
-    company_size_id      smallint                            NOT NULL,
-    associated_employees integer                             NOT NULL DEFAULT 0,
+    company_size         char(2)                             NOT NULL,
+    associated_employees integer                             NOT NULL,
     headquarters_id      bigint,
     website              varchar(255),
     about                varchar(2500)                       NOT NULL,
@@ -31,21 +31,21 @@ CREATE TABLE tb_institution
 -- Every school is a institution with some more information
 CREATE TABLE tb_school
 (
-    institution_id    bigint   NOT NULL,
-    school_size_id    smallint NOT NULL,
-    associated_alumni integer  NOT NULL DEFAULT 0
+    institution_id    bigint  NOT NULL,
+    school_size       char(2) NOT NULL,
+    associated_alumni integer NOT NULL
 );
 
 -- Added by a privileged member (owner/admin)
 -- if `added_by` is null, member is the owner
 CREATE TABLE tb_member
 (
-    id             bigint                   NOT NULL,
-    user_id        bigint                   NOT NULL,
-    institution_id bigint,
-    role           varchar(50)              NOT NULL,
+    id             bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    user_id        bigint                              NOT NULL,
+    institution_id bigint                              NOT NULL,
+    role           varchar(50)                         NOT NULL,
     added_by_id    bigint,
-    added_at       timestamp with time zone NOT NULL,
+    added_at       timestamp with time zone            NOT NULL,
     removed_by_id  bigint,
     removed_at     timestamp with time zone
 );
@@ -53,15 +53,16 @@ CREATE TABLE tb_member
 -- Added by the user to his resume as work experience
 CREATE TABLE tb_employment
 (
-    id              bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
-    user_id         bigint                              NOT NULL,
-    institution_id  bigint                              NOT NULL,
-    title           varchar(100)                        NOT NULL,
-    type_id         smallint,
-    work_model      varchar(50),
-    description     varchar(2500),
-    start_date      integer                             NOT NULL,
-    end_date        integer
+    id             bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    user_id        bigint                              NOT NULL,
+    institution_id bigint                              NOT NULL,
+    title          varchar(100)                        NOT NULL,
+    type           varchar(50),
+    work_model     varchar(50),
+    address_id     bigint,
+    description    varchar(2500),
+    start_date     integer                             NOT NULL,
+    end_date       integer
 );
 
 CREATE TABLE tb_vacancy
@@ -120,20 +121,6 @@ CREATE TABLE tb_address
     longitude      decimal(9, 6)
 );
 
--- Contract, Freelancer, Internship, Full-time, Part-time, Indirect Contract
-CREATE TABLE tb_employment_type
-(
-    id   smallint GENERATED ALWAYS AS IDENTITY NOT NULL,
-    name varchar(50)                           NOT NULL
-);
-
-CREATE TABLE tb_institution_size
-(
-    id          smallint GENERATED ALWAYS AS IDENTITY NOT NULL,
-    lower_bound smallint                              NOT NULL,
-    upper_bound smallint
-);
-
 CREATE TABLE tb_industry
 (
     id   smallint GENERATED ALWAYS AS IDENTITY NOT NULL,
@@ -175,12 +162,6 @@ ALTER TABLE tb_interview
 ALTER TABLE tb_address
     ADD CONSTRAINT pk_address PRIMARY KEY (id);
 
-ALTER TABLE tb_employment_type
-    ADD CONSTRAINT pk_employment_type PRIMARY KEY (id);
-
-ALTER TABLE tb_institution_size
-    ADD CONSTRAINT pk_institution_size PRIMARY KEY (id);
-
 ALTER TABLE tb_industry
     ADD CONSTRAINT pk_industry PRIMARY KEY (id);
 
@@ -194,27 +175,20 @@ ALTER TABLE tb_user
         FOREIGN KEY (location_id) REFERENCES tb_address;
 
 ALTER TABLE tb_institution
-    ADD CONSTRAINT fk_institution_owner_id
-        FOREIGN KEY (owner_id) REFERENCES tb_member;
+    ADD CONSTRAINT fk_institution_founder_id
+        FOREIGN KEY (founder_id) REFERENCES tb_user;
 
 ALTER TABLE tb_institution
     ADD CONSTRAINT fk_institution_industry_id
         FOREIGN KEY (industry_id) REFERENCES tb_industry;
 
 ALTER TABLE tb_institution
-    ADD CONSTRAINT fk_institution_company_size_id
-        FOREIGN KEY (company_size_id) REFERENCES tb_institution_size;
-
-ALTER TABLE tb_institution
     ADD CONSTRAINT fk_institution_headquarters_id
         FOREIGN KEY (headquarters_id) REFERENCES tb_address;
 
 ALTER TABLE tb_school
-    ADD CONSTRAINT fk_school_institution_id FOREIGN KEY (institution_id) REFERENCES tb_institution;
-
-ALTER TABLE tb_school
-    ADD CONSTRAINT fk_school_school_size_id
-        FOREIGN KEY (school_size_id) REFERENCES tb_institution_size;
+    ADD CONSTRAINT fk_school_institution_id
+        FOREIGN KEY (institution_id) REFERENCES tb_institution;
 
 ALTER TABLE tb_member
     ADD CONSTRAINT fk_member_user_id
@@ -241,8 +215,8 @@ ALTER TABLE tb_employment
         FOREIGN KEY (institution_id) REFERENCES tb_institution;
 
 ALTER TABLE tb_employment
-    ADD CONSTRAINT fk_employment_type_id
-        FOREIGN KEY (type_id) REFERENCES tb_employment_type;
+    ADD CONSTRAINT fk_employment_address_id
+        FOREIGN KEY (address_id) REFERENCES tb_address;
 
 ALTER TABLE tb_vacancy
     ADD CONSTRAINT fk_vacancy_location_id

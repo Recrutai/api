@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/interviews")
+@RequestMapping("/api/v1/interviews")
 public class InterviewController {
-
     private final InterviewService interviewService;
     private final InterviewMapper interviewMapper;
 
@@ -21,8 +20,8 @@ public class InterviewController {
     }
 
     @PostMapping
-    ResponseEntity<InterviewResponse> create(@RequestBody @Valid InterviewRequest interviewRequest) {
-        var interview = interviewMapper.mapToResponse(interviewService.create(interviewRequest));
+    ResponseEntity<InterviewResponse> create(@RequestBody @Valid InterviewRequest request) {
+        var interview = interviewMapper.mapToResponse(interviewService.create(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(interview);
     }
 

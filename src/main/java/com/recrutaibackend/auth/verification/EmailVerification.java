@@ -41,4 +41,5 @@ public class EmailVerification {
         this.expiresAt = expiresAt;
         this.user = user;
     }
+
 }

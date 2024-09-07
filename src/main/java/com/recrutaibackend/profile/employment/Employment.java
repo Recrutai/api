@@ -1,8 +1,8 @@
 package com.recrutaibackend.profile.employment;
 
 import com.recrutaibackend.address.Address;
-import com.recrutaibackend.institution.Institution;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.institution.Institution;
 import com.recrutaibackend.shared.WorkModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,13 +31,17 @@ public class Employment {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type_id")
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private EmploymentType type;
 
     @Column(name = "work_model")
     @Enumerated(EnumType.STRING)
     private WorkModel workModel;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     @Column(name = "description")
     private String description;
@@ -54,6 +58,7 @@ public class Employment {
             String title,
             EmploymentType type,
             WorkModel workModel,
+            Address address,
             String description,
             Integer startDate,
             Integer endDate
@@ -63,8 +68,10 @@ public class Employment {
         this.title = title;
         this.type = type;
         this.workModel = workModel;
+        this.address = address;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
 }

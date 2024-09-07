@@ -35,7 +35,7 @@ public class User {
     @Column(name = "hashed_password")
     private String hashedPassword;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "location_id")
     private Address location;
 
@@ -51,13 +51,16 @@ public class User {
             String lastName,
             String headline,
             String email,
-            String hashedPassword
+            String hashedPassword,
+            Address location
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.headline = headline;
         this.email = email;
         this.hashedPassword = hashedPassword;
+        this.location = location;
         this.isActive = false;
     }
+
 }

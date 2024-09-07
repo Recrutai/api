@@ -1,4 +1,4 @@
-package com.recrutaibackend.institution.industry;
+package com.recrutaibackend.industry;
 
 import jakarta.persistence.*;
 import lombok.*;

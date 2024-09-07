@@ -7,8 +7,6 @@ import com.recrutaibackend.shared.WorkModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 
@@ -50,7 +48,6 @@ public class Vacancy {
     private Short positions;
 
     @Column(name = "applications")
-    @Generated(event = EventType.INSERT)
     private Integer applications;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -90,7 +87,9 @@ public class Vacancy {
         this.salary = salary;
         this.currencyCode = currencyCode;
         this.positions = positions;
+        this.applications = 0;
         this.recruiter = recruiter;
         this.publishedBy = publishedBy;
     }
+
 }

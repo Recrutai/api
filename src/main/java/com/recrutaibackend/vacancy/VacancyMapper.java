@@ -1,20 +1,16 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.address.AddressMapper;
-import com.recrutaibackend.institution.member.MemberMapper;
-import com.recrutaibackend.shared.CurrencyCode;
 import com.recrutaibackend.institution.member.Member;
+import com.recrutaibackend.shared.CurrencyCode;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VacancyMapper {
-
     private final AddressMapper addressMapper;
-    private final MemberMapper memberMapper;
 
-    public VacancyMapper(AddressMapper addressMapper, MemberMapper memberMapper) {
+    public VacancyMapper(AddressMapper addressMapper) {
         this.addressMapper = addressMapper;
-        this.memberMapper = memberMapper;
     }
 
     public Vacancy mapToEntity(VacancyRequest request, Member recruiter, Member publishedBy) {
@@ -42,10 +38,10 @@ public class VacancyMapper {
                 entity.getCurrencyCode().toString(),
                 entity.getPositions(),
                 entity.getApplications(),
-                memberMapper.mapToResponse(entity.getRecruiter()),
-                memberMapper.mapToResponse(entity.getPublishedBy()),
+                entity.getRecruiter().getId(),
+                entity.getPublishedBy().getId(),
                 entity.getPublishedAt(),
-                memberMapper.mapToResponse(entity.getClosedBy()),
+                entity.getClosedBy() != null ? entity.getClosedBy().getId() : null,
                 entity.getClosedAt()
         );
     }

@@ -47,4 +47,5 @@ public class Application {
         this.expectedSalary = expectedSalary;
         this.currencyCode = currencyCode;
     }
+
 }

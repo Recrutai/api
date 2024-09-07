@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class AddressMapper {
 
     public Address mapToEntity(AddressRequest request) {
+        if (request == null) return null;
         return new Address(
                 request.streetAddress(),
                 request.city(),
@@ -17,7 +18,21 @@ public class AddressMapper {
         );
     }
 
+    public Address mapToEntity(CityAddressRequest request) {
+        if (request == null) return null;
+        return new Address(
+                null,
+                request.city(),
+                request.state(),
+                request.country(),
+                null,
+                null,
+                null
+        );
+    }
+
     public AddressResponse mapToResponse(Address entity) {
+        if (entity == null) return null;
         return new AddressResponse(
                 entity.getId(),
                 entity.getStreetAddress(),
