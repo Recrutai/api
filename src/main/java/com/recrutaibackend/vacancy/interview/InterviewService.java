@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InterviewService {
-
     private final InterviewRepository interviewRepository;
     private final InterviewMapper interviewMapper;
     private final MemberService memberService;
@@ -29,7 +28,7 @@ public class InterviewService {
     public Interview create(InterviewRequest request) {
         var application = applicationService.findById(request.applicationId());
         var interviewer = memberService.findById(request.interviewerId());
-        var createdBy = memberService.findById(request.createdBy());
+        var createdBy = memberService.findById(request.createdById());
 
         var interview = interviewMapper.mapToEntity(request, application, interviewer, createdBy);
 

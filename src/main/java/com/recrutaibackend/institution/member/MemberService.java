@@ -1,35 +1,39 @@
 package com.recrutaibackend.institution.member;
 
-import com.recrutaibackend.institution.Institution;
 import com.recrutaibackend.auth.user.UserService;
+import com.recrutaibackend.institution.InstitutionService;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Service
 public class MemberService {
-
     private final MemberRepository memberRepository;
     private final UserService userService;
     private final MemberMapper memberMapper;
+    private final InstitutionService institutionService;
 
     public MemberService(
             MemberRepository memberRepository,
             UserService userService,
-            MemberMapper memberMapper
+            MemberMapper memberMapper,
+            InstitutionService institutionService
     ) {
         this.memberRepository = memberRepository;
         this.userService = userService;
         this.memberMapper = memberMapper;
+        this.institutionService = institutionService;
     }
 
     @Transactional
-    public MemberResponse create(Institution institution, MemberRequest request) {
+    public MemberResponse create(long institutionId, MemberRequest request) {
+        var institution = institutionService.findById(institutionId);
         var user = userService.findById(request.userId());
-        var addedBy = this.findById(request.addedById());
+        var addedBy = findById(request.addedById());
 
         var member = memberMapper.mapToEntity(request, user, institution, addedBy);
         var savedMember = memberRepository.save(member);
@@ -46,6 +50,7 @@ public class MemberService {
 
     public Member findById(long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Member not found"));
     }
+
 }

@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthService {
-
     private final UserService userService;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
@@ -34,8 +33,7 @@ public class AuthService {
     @Transactional
     public void register(UserRequest request) {
         var user = userService.create(request);
-        var emailVerification = emailVerificationService.create(user);
-        emailVerificationService.send(user, emailVerification.getCode());
+        emailVerificationService.send(user);
     }
 
     public UserResponse authenticate(AuthRequest request) {
@@ -51,15 +49,13 @@ public class AuthService {
 
     @Transactional
     public void verifyAccount(String verificationCode) {
-        var emailVerification = emailVerificationService.findByCode(verificationCode);
-        emailVerificationService.verify(emailVerification);
+        var emailVerification = emailVerificationService.verify(verificationCode);
         userService.activateUser(emailVerification.getUser());
     }
 
     public void resendCode(String email) {
         var user = userService.findByEmail(email);
-        var emailVerification = emailVerificationService.create(user);
-        emailVerificationService.send(user, emailVerification.getCode());
+        emailVerificationService.send(user);
     }
 
 }

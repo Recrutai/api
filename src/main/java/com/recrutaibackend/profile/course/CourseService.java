@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class CourseService {
-
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
     private final UserService userService;
@@ -30,8 +29,8 @@ public class CourseService {
     }
 
     @Transactional
-    public CourseResponse create(CourseRequest request) {
-        var user = userService.findById(request.userId());
+    public CourseResponse create(long userId, CourseRequest request) {
+        var user = userService.findById(userId);
         var school = schoolService.findById(request.schoolId());
 
         var course = courseMapper.mapToEntity(request, user, school);
@@ -41,8 +40,7 @@ public class CourseService {
     }
 
     public List<CourseResponse> findAllByUsersId(long id) {
-        var user = userService.findById(id);
-        return courseRepository.findAllByUser(user)
+        return courseRepository.findAllByUserId(id)
                 .stream()
                 .map(courseMapper::mapToResponse)
                 .toList();
@@ -57,4 +55,5 @@ public class CourseService {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
     }
+
 }

@@ -21,18 +21,19 @@ public class Member {
     @Setter(AccessLevel.PACKAGE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "institution_id")
     private Institution institution;
 
     @Column(name = "role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "added_by_id")
     private Member addedBy;
 
@@ -40,17 +41,18 @@ public class Member {
     @Column(name = "added_at")
     private Instant addedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "removed_by_id")
     private Member removedBy;
 
     @Column(name = "removed_at")
     private Instant removedAt;
 
-    public Member(User user, Institution institution, String role, Member addedBy) {
+    public Member(User user, Institution institution, MemberRole role, Member addedBy) {
         this.user = user;
         this.institution = institution;
         this.role = role;
         this.addedBy = addedBy;
     }
+
 }

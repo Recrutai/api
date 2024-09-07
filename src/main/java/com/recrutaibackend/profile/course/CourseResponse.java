@@ -1,17 +1,13 @@
 package com.recrutaibackend.profile.course;
 
-import com.recrutaibackend.institution.school.SchoolResponse;
-import com.recrutaibackend.auth.user.UserResponse;
-
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 public record CourseResponse(
         long id,
-        UserResponse user,
-        SchoolResponse school,
+        long schoolId,
         String name,
         int workloadHours,
-        LocalDate completionDate,
+        YearMonth completionDate,
         String description
 ) {
 }

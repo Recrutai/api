@@ -18,14 +18,17 @@ public record InstitutionRequest(
         String headline,
 
         @NotNull
-        Long ownerId,
+        Long founderId,
 
         @NotEmpty
         @Size(max = 100)
         String industry,
 
         @NotNull
-        Short companySizeId,
+        InstitutionSize companySize,
+
+        @Valid
+        AddressRequest headquarters,
 
         @Size(max = 255)
         String website,

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class ApplicationService {
-
     private final ApplicationRepository applicationRepository;
     private final UserService userService;
     private final VacancyService vacancyService;
@@ -30,13 +29,14 @@ public class ApplicationService {
     }
 
     @Transactional
-    public Application create(ApplicationRequest request) {
+    public ApplicationResponse create(long vacancyId, ApplicationRequest request) {
         var user = userService.findById(request.candidateId());
-        var vacancy = vacancyService.findById(request.vacancyId());
+        var vacancy = vacancyService.findById(vacancyId);
 
         var application = applicationMapper.mapToEntity(request, user, vacancy);
+        var savedApplication = applicationRepository.save(application);
 
-        return applicationRepository.save(application);
+        return applicationMapper.mapToResponse(savedApplication);
     }
 
     public Application findById(long id) {
@@ -45,11 +45,17 @@ public class ApplicationService {
     }
 
     public List<ApplicationResponse> findAllByUserId(long id) {
-        var user = userService.findById(id);
-        var applications = applicationRepository.findAllByCandidate(user);
-        return applications
+        return applicationRepository.findAllByCandidateId(id)
                 .stream()
                 .map(applicationMapper::mapToResponse)
                 .toList();
     }
+
+    public List<ApplicationResponse> findAllByVacancyId(long id) {
+        return applicationRepository.findAllByVacancyId(id)
+                .stream()
+                .map(applicationMapper::mapToResponse)
+                .toList();
+    }
+
 }

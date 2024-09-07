@@ -1,7 +1,6 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.address.AddressResponse;
-import com.recrutaibackend.institution.member.MemberResponse;
 
 import java.time.Instant;
 
@@ -15,10 +14,10 @@ public record VacancyResponse(
         String currencyCode,
         short positions,
         int applications,
-        MemberResponse recruiter,
-        MemberResponse publishedBy,
+        long recruiterId,
+        long publishedById,
         Instant publishedAt,
-        MemberResponse closedBy,
+        Long closedById,
         Instant closedAt
 ) {
 }

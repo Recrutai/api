@@ -1,24 +1,36 @@
 package com.recrutaibackend.institution;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.Getter;
 
-@Entity
-@Table(name = "tb_institution_size")
-@NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+import java.util.Arrays;
+
+// S = SMALL, M = MEDIUM, L = LARGE
 @Getter
-@Setter
-public class InstitutionSize {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @Setter(AccessLevel.PACKAGE)
-    private Short id;
+public enum InstitutionSize {
+    S1("1"),
+    S2("2 - 10"),
+    S3("11 - 50"),
+    M1("51 - 200"),
+    M2("201 - 500"),
+    M3("501 - 1.000"),
+    L1("1.001 - 5.000"),
+    L2("5.001 - 10.000"),
+    L3("10.001+");
 
-    @Column(name = "lower_bound")
-    private Short lowerBound;
+    private final String value;
 
-    @Column(name = "upper_bound")
-    private Short upperBound;
+    InstitutionSize(String value) {
+        this.value = value;
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static InstitutionSize fromString(String value) {
+        if (value == null) return null;
+        return Arrays.stream(InstitutionSize.values())
+                .filter(x -> x.value.equals(value))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid value: " + value));
+    }
+
 }

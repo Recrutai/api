@@ -53,4 +53,5 @@ public class Course {
         this.completionDate = completionDate;
         this.description = description;
     }
+
 }

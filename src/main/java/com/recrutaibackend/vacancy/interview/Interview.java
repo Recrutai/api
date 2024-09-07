@@ -79,4 +79,5 @@ public class Interview {
         this.isRemote = isRemote;
         this.createdBy = createdBy;
     }
+
 }

@@ -21,8 +21,8 @@ public class School {
     @MapsId
     private Institution institution;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "school_size_id")
+    @Column(name = "school_size", columnDefinition = "bpchar(2)")
+    @Enumerated(EnumType.STRING)
     private InstitutionSize schoolSize;
 
     @Column(name = "associated_alumni")
@@ -31,5 +31,7 @@ public class School {
     public School(Institution institution, InstitutionSize schoolSize) {
         this.institution = institution;
         this.schoolSize = schoolSize;
+        this.associatedAlumni = 0;
     }
+
 }

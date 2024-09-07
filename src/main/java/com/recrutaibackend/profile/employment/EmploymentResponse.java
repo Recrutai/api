@@ -1,20 +1,18 @@
 package com.recrutaibackend.profile.employment;
 
 import com.recrutaibackend.address.AddressResponse;
-import com.recrutaibackend.institution.InstitutionResponse;
-import com.recrutaibackend.auth.user.UserResponse;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 public record EmploymentResponse(
         long id,
-        UserResponse user,
-        InstitutionResponse institution,
+        long institutionId,
         String title,
         String type,
         String workModel,
+        AddressResponse address,
         String description,
-        LocalDate startDate,
-        LocalDate endDate
+        YearMonth startDate,
+        YearMonth endDate
 ) {
 }

@@ -1,8 +1,8 @@
 package com.recrutaibackend.auth.verification;
 
 import com.recrutaibackend.auth.user.User;
-import com.recrutaibackend.notification.email.Email;
 import com.recrutaibackend.notification.NotificationService;
+import com.recrutaibackend.notification.email.Email;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,9 +11,10 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+
 @Service
 public class EmailVerificationService {
-    
     private static final int VERIFICATION_CODE_LENGTH = 6;
     private static final Duration VERIFICATION_CODE_VALIDITY = Duration.ofMinutes(10);
 
@@ -28,7 +29,25 @@ public class EmailVerificationService {
         this.notificationService = notificationService;
     }
 
-    public EmailVerification create(User user) {
+    public void send(User user) {
+        var emailVerification = create(user);
+        var message = buildMessage(emailVerification);
+        notificationService.send(message);
+    }
+
+    public EmailVerification verify(String verificationCode) {
+        var emailVerification = findByCode(verificationCode);
+
+        if (emailVerification.getConfirmedAt() != null || emailVerification.getExpiresAt().isBefore(Instant.now())) {
+            throw new ResponseStatusException(UNAUTHORIZED, "Invalid verification code");
+        }
+
+        emailVerification.setConfirmedAt(Instant.now());
+
+        return emailVerificationRepository.save(emailVerification);
+    }
+
+    private EmailVerification create(User user) {
         var now = Instant.now();
         var emailVerification = new EmailVerification(
                 generateVerificationCode(),
@@ -39,33 +58,15 @@ public class EmailVerificationService {
         return emailVerificationRepository.save(emailVerification);
     }
 
-    public void send(User user, String verificationCode) {
-        var verificationEmail = buildMessage(user, verificationCode);
-        notificationService.send(verificationEmail);
-    }
-
-    public void verify(EmailVerification emailVerification) {
-        if (emailVerification.getConfirmedAt() != null || emailVerification.getExpiresAt().isBefore(Instant.now())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid verification code");
-        }
-        emailVerification.setConfirmedAt(Instant.now());
-        emailVerificationRepository.save(emailVerification);
-    }
-
-    public EmailVerification findByCode(String verificationCode) {
-        return emailVerificationRepository.findByCode(verificationCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid verification code"));
-    }
-
-    private Email buildMessage(User user, String verificationCode) {
+    private Email buildMessage(EmailVerification emailVerification) {
         return new Email(
                 "no-reply@recrutai.com",
-                user.getEmail(),
+                emailVerification.getUser().getEmail(),
                 "Recrutaí - Verificação de Email",
                 "Obrigado por iniciar o processo de criação de conta no Recrutaí. " +
                 "Queremos ter certeza de que é realmente você.\n\n" +
                 "Por favor, insira o seguinte código de verificação quando for solicitado.\n\n" +
-                verificationCode +
+                emailVerification.getCode() +
                 "\n\nO código tem validade de 10 minutos. Se você não fez esta solicitação, por favor desconsidere este email." +
                 "\n\nEquipe de Suporte do Recrutaí."
         );
@@ -81,4 +82,10 @@ public class EmailVerificationService {
         }
         return code.toString();
     }
+
+    private EmailVerification findByCode(String verificationCode) {
+        return emailVerificationRepository.findWithUserByCode(verificationCode)
+                .orElseThrow(() -> new ResponseStatusException(UNAUTHORIZED, "Invalid verification code"));
+    }
+
 }

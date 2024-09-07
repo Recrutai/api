@@ -1,8 +1,15 @@
 package com.recrutaibackend.institution.member;
 
+import jakarta.validation.constraints.NotNull;
+
 public record MemberRequest(
+        @NotNull
         Long userId,
-        String role,
+
+        @NotNull
+        MemberRole role,
+
+        @NotNull
         Long addedById
 ) {
 }

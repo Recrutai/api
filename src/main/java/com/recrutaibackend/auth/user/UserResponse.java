@@ -7,6 +7,7 @@ public record UserResponse(
         String firstName,
         String lastName,
         String headline,
-        String email
+        String email,
+        AddressResponse location
 ) {
 }

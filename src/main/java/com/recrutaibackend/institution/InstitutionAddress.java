@@ -28,4 +28,5 @@ public class InstitutionAddress {
         this.institution = institution;
         this.address = address;
     }
+
 }

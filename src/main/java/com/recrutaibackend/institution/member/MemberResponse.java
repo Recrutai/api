@@ -1,18 +1,15 @@
 package com.recrutaibackend.institution.member;
 
-import com.recrutaibackend.institution.InstitutionResponse;
-import com.recrutaibackend.auth.user.UserResponse;
-
 import java.time.Instant;
 
 public record MemberResponse(
         long id,
-        UserResponse user,
-        InstitutionResponse institution,
+        long userId,
+        long institutionId,
         String role,
-        long addedById,
+        Long addedById,
         Instant addedAt,
-        long removedById,
+        Long removedById,
         Instant removedAt
 ) {
 }

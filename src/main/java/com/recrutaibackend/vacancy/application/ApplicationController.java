@@ -1,34 +1,25 @@
 package com.recrutaibackend.vacancy.application;
 
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/applications")
+@RequestMapping("/api/v1")
 public class ApplicationController {
-
     private final ApplicationService applicationService;
-    private final ApplicationMapper applicationMapper;
 
-    ApplicationController(ApplicationService applicationService,
-                          ApplicationMapper applicationMapper) {
+    ApplicationController(ApplicationService applicationService) {
         this.applicationService = applicationService;
-        this.applicationMapper = applicationMapper;
     }
 
-    @PostMapping
-    ResponseEntity<ApplicationResponse> create(@RequestBody @Valid ApplicationRequest applicationRequest) {
-        var application = applicationMapper.mapToResponse(applicationService.create(applicationRequest));
-        return ResponseEntity.status(HttpStatus.CREATED).body(application);
-    }
-
-    @GetMapping("/{userId}")
-    ResponseEntity<List<ApplicationResponse>> findAllByUserId(@PathVariable long userId) {
-        var applications = applicationService.findAllByUserId(userId);
+    @GetMapping("/users/{user_id}/applications")
+    ResponseEntity<List<ApplicationResponse>> findAllByUserId(@PathVariable("user_id") long id) {
+        var applications = applicationService.findAllByUserId(id);
         return ResponseEntity.ok(applications);
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class VacancyService {
-
     private final VacancyRepository vacancyRepository;
     private final VacancyMapper vacancyMapper;
     private final MemberService memberService;
@@ -26,13 +25,21 @@ public class VacancyService {
     }
 
     @Transactional
-    public Vacancy create(VacancyRequest request) {
+    public VacancyResponse create(VacancyRequest request) {
         var publisher = memberService.findById(request.publishedById());
         var recruiter = memberService.findById(request.recruiterId());
 
         var vacancy = vacancyMapper.mapToEntity(request, recruiter, publisher);
+        var savedVacancy = vacancyRepository.save(vacancy);
 
-        return vacancyRepository.save(vacancy);
+        return vacancyMapper.mapToResponse(savedVacancy);
+    }
+
+    public List<VacancyResponse> findAllByTitle(String title) {
+        return vacancyRepository.findAllWithLocationByTitleContainsIgnoreCase(title)
+                .stream()
+                .map(vacancyMapper::mapToResponse)
+                .toList();
     }
 
     public Vacancy findById(long id) {
@@ -40,15 +47,10 @@ public class VacancyService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }
 
-    public List<VacancyResponse> findAllByTitle(String title) {
-        return vacancyRepository.findAllByTitleContainsIgnoreCase(title)
+    public List<VacancyResponse> findAllByInstitutionId(long id) {
+        return vacancyRepository.findAllByPublishedBy_Institution_Id(id)
                 .stream()
                 .map(vacancyMapper::mapToResponse)
                 .toList();
     }
-
-    public List<Vacancy> findAll() {
-        return vacancyRepository.findAll();
-    }
-
 }

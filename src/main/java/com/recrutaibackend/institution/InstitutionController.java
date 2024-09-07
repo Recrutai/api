@@ -3,10 +3,8 @@ package com.recrutaibackend.institution;
 import com.recrutaibackend.institution.member.MemberRequest;
 import com.recrutaibackend.institution.member.MemberResponse;
 import com.recrutaibackend.institution.member.MemberService;
-import com.recrutaibackend.institution.school.SchoolMapper;
-import com.recrutaibackend.institution.school.SchoolRequest;
-import com.recrutaibackend.institution.school.SchoolResponse;
-import com.recrutaibackend.institution.industry.Industry;
+import com.recrutaibackend.vacancy.VacancyResponse;
+import com.recrutaibackend.vacancy.VacancyService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,66 +13,62 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/institutions")
+@RequestMapping("/api/v1/institutions")
 public class InstitutionController {
-
-    private final InstitutionService service;
+    private final InstitutionService institutionService;
     private final InstitutionMapper institutionMapper;
-    private final SchoolMapper schoolMapper;
     private final MemberService memberService;
+    private final VacancyService vacancyService;
 
-    InstitutionController(InstitutionService service, InstitutionMapper institutionMapper, SchoolMapper schoolMapper, MemberService memberService) {
-        this.service = service;
+    InstitutionController(
+            InstitutionService institutionService,
+            InstitutionMapper institutionMapper,
+            MemberService memberService,
+            VacancyService vacancyService
+    ) {
+        this.institutionService = institutionService;
         this.institutionMapper = institutionMapper;
-        this.schoolMapper = schoolMapper;
         this.memberService = memberService;
+        this.vacancyService = vacancyService;
     }
 
     @PostMapping
     ResponseEntity<InstitutionResponse> create(@Valid @RequestBody InstitutionRequest request) {
-        var institution = institutionMapper.mapToResponse(service.create(request));
+        var institution = institutionMapper.mapToResponse(institutionService.create(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(institution);
     }
 
-    @PostMapping("/school")
-    ResponseEntity<SchoolResponse> createSchool(@Valid @RequestBody SchoolRequest request) {
-        var school = schoolMapper.mapToResponse(service.createSchool(request));
-        return ResponseEntity.status(HttpStatus.CREATED).body(school);
-    }
-
-    @GetMapping("/{id}")
-    ResponseEntity<InstitutionResponse> findById(@PathVariable long id) {
-        var institution = institutionMapper.mapToResponse(service.findById(id));
+    @GetMapping("/{institution_id}")
+    ResponseEntity<InstitutionResponse> findById(@PathVariable("institution_id") long id) {
+        var institution = institutionMapper.mapToResponse(institutionService.findById(id));
         return ResponseEntity.ok(institution);
     }
 
     @GetMapping
     ResponseEntity<List<InstitutionResponse>> findAll() {
-        var institutions = service.findAll();
+        var institutions = institutionService.findAll();
         return ResponseEntity.ok(institutions);
     }
 
-    @PostMapping("/{id}/members")
-    ResponseEntity<MemberResponse> createMember(@PathVariable long id, @Valid @RequestBody MemberRequest request) {
-        var member = service.createMember(id, request);
+    @PostMapping("/{institution_id}/members")
+    ResponseEntity<MemberResponse> createMember(
+            @PathVariable("institution_id") long id,
+            @Valid @RequestBody MemberRequest request
+    ) {
+        var member = memberService.create(id, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(member);
     }
 
-    @GetMapping("/{id}/members")
-    ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable long id) {
+    @GetMapping("/{institution_id}/members")
+    ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable("institution_id") long id) {
         var members = memberService.findAllByInstitutionId(id);
         return ResponseEntity.ok(members);
     }
 
-    @GetMapping("/industries")
-    ResponseEntity<List<Industry>> findAllIndustries() {
-        var industries = service.findAllIndustries();
-        return ResponseEntity.ok(industries);
+    @GetMapping("/{institution_id}/vacancies")
+    ResponseEntity<List<VacancyResponse>> findAllVacancies(@PathVariable("institution_id") long id) {
+        var vacancies = vacancyService.findAllByInstitutionId(id);
+        return ResponseEntity.ok(vacancies);
     }
 
-    @GetMapping("/sizes")
-    ResponseEntity<List<InstitutionSize>> findSizes() {
-        var sizes = service.findAllSizes();
-        return ResponseEntity.ok(sizes);
-    }
 }

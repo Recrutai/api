@@ -8,30 +8,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/v1")
 public class CourseController {
-
     private final CourseService courseService;
 
     CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
-    @PostMapping
-    ResponseEntity<CourseResponse> create(@RequestBody @Valid CourseRequest request) {
-        var course = courseService.create(request);
+    @PostMapping("/users/{user_id}/courses")
+    ResponseEntity<CourseResponse> create(@PathVariable("user_id") long id, @RequestBody @Valid CourseRequest request) {
+        var course = courseService.create(id, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(course);
     }
 
-    @GetMapping("/{userId}")
-    ResponseEntity<List<CourseResponse>> findAllByUserId(@PathVariable long userId) {
-        var courses = courseService.findAllByUsersId(userId);
+    @GetMapping("/users/{user_id}/courses")
+    ResponseEntity<List<CourseResponse>> findAllByUserId(@PathVariable("user_id") long id) {
+        var courses = courseService.findAllByUsersId(id);
         return ResponseEntity.ok(courses);
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable long id) {
+    @DeleteMapping("/courses/{course_id}")
+    ResponseEntity<Void> delete(@PathVariable("course_id") long id) {
         courseService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 }
