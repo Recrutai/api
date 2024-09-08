@@ -41,7 +41,7 @@ public class EmploymentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(employment);
     }
 
-    @Operation(summary = "Find all user's courses")
+    @Operation(summary = "Find all user's employments")
     @ApiResponse(
             responseCode = "200",
             description = "OK",
