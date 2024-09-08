@@ -70,6 +70,7 @@ CREATE TABLE tb_vacancy
     id              bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
     title           varchar(100)                        NOT NULL,
     description     varchar(3850)                       NOT NULL,
+    employment_type varchar(50)                         NOT NULL,
     work_model      varchar(50)                         NOT NULL,
     location_id     bigint                              NOT NULL,
     salary          integer                             NOT NULL,

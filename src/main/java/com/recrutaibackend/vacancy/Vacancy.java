@@ -3,6 +3,7 @@ package com.recrutaibackend.vacancy;
 import com.recrutaibackend.address.Address;
 import com.recrutaibackend.institution.member.Member;
 import com.recrutaibackend.shared.CurrencyCode;
+import com.recrutaibackend.shared.EmploymentType;
 import com.recrutaibackend.shared.WorkModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,6 +29,10 @@ public class Vacancy {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "employment_type")
+    @Enumerated(EnumType.STRING)
+    private EmploymentType employmentType;
 
     @Column(name = "work_model")
     @Enumerated(EnumType.STRING)
@@ -72,6 +77,7 @@ public class Vacancy {
     public Vacancy(
             String title,
             String description,
+            EmploymentType employmentType,
             WorkModel workModel,
             Address location,
             Integer salary,
@@ -82,6 +88,7 @@ public class Vacancy {
     ) {
         this.title = title;
         this.description = description;
+        this.employmentType = employmentType;
         this.workModel = workModel;
         this.location = location;
         this.salary = salary;

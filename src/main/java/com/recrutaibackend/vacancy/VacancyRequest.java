@@ -1,6 +1,7 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.address.CityAddressRequest;
+import com.recrutaibackend.shared.EmploymentType;
 import com.recrutaibackend.shared.WorkModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
@@ -23,6 +24,10 @@ public record VacancyRequest(
                 requiredMode = RequiredMode.REQUIRED
         )
         String description,
+
+        @NotNull
+        @Schema(example = "FULL_TIME", requiredMode = RequiredMode.REQUIRED)
+        EmploymentType employmentType,
 
         @NotNull
         @Schema(example = "ON_SITE", requiredMode = RequiredMode.REQUIRED)
