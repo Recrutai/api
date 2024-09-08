@@ -1,7 +1,7 @@
 package com.recrutaibackend.vacancy.application;
 
-import com.recrutaibackend.shared.CurrencyCode;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.shared.CurrencyCode;
 import com.recrutaibackend.vacancy.Vacancy;
 import jakarta.persistence.*;
 import lombok.*;

@@ -11,8 +11,6 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.Instant;
 
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-
 @Service
 public class EmailVerificationService {
     private static final int VERIFICATION_CODE_LENGTH = 6;
@@ -39,7 +37,7 @@ public class EmailVerificationService {
         var emailVerification = findByCode(verificationCode);
 
         if (emailVerification.getConfirmedAt() != null || emailVerification.getExpiresAt().isBefore(Instant.now())) {
-            throw new ResponseStatusException(UNAUTHORIZED, "Invalid verification code");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid verification code");
         }
 
         emailVerification.setConfirmedAt(Instant.now());
@@ -85,7 +83,7 @@ public class EmailVerificationService {
 
     private EmailVerification findByCode(String verificationCode) {
         return emailVerificationRepository.findWithUserByCode(verificationCode)
-                .orElseThrow(() -> new ResponseStatusException(UNAUTHORIZED, "Invalid verification code"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid verification code"));
     }
 
 }

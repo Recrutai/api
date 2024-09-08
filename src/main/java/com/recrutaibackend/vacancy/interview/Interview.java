@@ -1,8 +1,8 @@
 package com.recrutaibackend.vacancy.interview;
 
 import com.recrutaibackend.address.Address;
-import com.recrutaibackend.vacancy.application.Application;
 import com.recrutaibackend.institution.member.Member;
+import com.recrutaibackend.vacancy.application.Application;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

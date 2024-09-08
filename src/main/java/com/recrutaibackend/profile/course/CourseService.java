@@ -1,7 +1,7 @@
 package com.recrutaibackend.profile.course;
 
-import com.recrutaibackend.institution.school.SchoolService;
 import com.recrutaibackend.auth.user.UserService;
+import com.recrutaibackend.institution.school.SchoolService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
