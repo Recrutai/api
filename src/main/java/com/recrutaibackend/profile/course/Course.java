@@ -1,7 +1,7 @@
 package com.recrutaibackend.profile.course;
 
-import com.recrutaibackend.institution.school.School;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.institution.school.School;
 import jakarta.persistence.*;
 import lombok.*;
 

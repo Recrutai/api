@@ -37,7 +37,14 @@ spring:
           require: true
 
 springdoc:
+  api-docs:
+    version: openapi_3_1
   swagger-ui:
-    groups-order: asc
-    operations-sorter: method
+    path: /api/docs
     tags-sorter: alpha
+    operations-sorter: method
+    groups-order: asc
+    display-request-duration: true
+    disable-swagger-default-url: true
+    syntax-highlight:
+      theme: tomorrow-night

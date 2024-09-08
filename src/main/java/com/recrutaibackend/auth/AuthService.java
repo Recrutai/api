@@ -1,8 +1,8 @@
 package com.recrutaibackend.auth;
 
+import com.recrutaibackend.auth.user.UserMapper;
 import com.recrutaibackend.auth.user.UserRequest;
 import com.recrutaibackend.auth.user.UserResponse;
-import com.recrutaibackend.auth.user.UserMapper;
 import com.recrutaibackend.auth.user.UserService;
 import com.recrutaibackend.auth.verification.EmailVerificationService;
 import jakarta.transaction.Transactional;

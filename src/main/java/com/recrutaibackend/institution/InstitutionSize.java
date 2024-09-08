@@ -1,12 +1,11 @@
 package com.recrutaibackend.institution;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 
 // S = SMALL, M = MEDIUM, L = LARGE
-@Getter
 public enum InstitutionSize {
     S1("1"),
     S2("2 - 10"),
@@ -22,6 +21,11 @@ public enum InstitutionSize {
 
     InstitutionSize(String value) {
         this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+        return value;
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)

@@ -1,7 +1,7 @@
 package com.recrutaibackend.institution.member;
 
-import com.recrutaibackend.institution.Institution;
 import com.recrutaibackend.auth.user.User;
+import com.recrutaibackend.institution.Institution;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
