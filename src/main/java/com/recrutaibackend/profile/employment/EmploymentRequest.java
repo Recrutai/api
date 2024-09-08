@@ -1,6 +1,7 @@
 package com.recrutaibackend.profile.employment;
 
 import com.recrutaibackend.address.CityAddressRequest;
+import com.recrutaibackend.shared.EmploymentType;
 import com.recrutaibackend.shared.WorkModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;

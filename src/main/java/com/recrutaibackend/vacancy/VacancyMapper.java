@@ -17,6 +17,7 @@ public class VacancyMapper {
         return new Vacancy(
                 request.title(),
                 request.description(),
+                request.employmentType(),
                 request.workModel(),
                 addressMapper.mapToEntity(request.location()),
                 request.salary(),
@@ -32,6 +33,7 @@ public class VacancyMapper {
                 entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
+                entity.getEmploymentType().toString(),
                 entity.getWorkModel().toString(),
                 addressMapper.mapToResponse(entity.getLocation()),
                 entity.getSalary(),

@@ -15,6 +15,9 @@ public record VacancyResponse(
         @Schema(example = "We're looking for high skilled software engineers, with 3+ years of experience in back end development.")
         String description,
 
+        @Schema(example = "FULL_TIME")
+        String employmentType,
+
         @Schema(example = "ON_SITE")
         String workModel,
 

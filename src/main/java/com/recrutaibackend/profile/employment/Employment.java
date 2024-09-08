@@ -3,6 +3,7 @@ package com.recrutaibackend.profile.employment;
 import com.recrutaibackend.address.Address;
 import com.recrutaibackend.auth.user.User;
 import com.recrutaibackend.institution.Institution;
+import com.recrutaibackend.shared.EmploymentType;
 import com.recrutaibackend.shared.WorkModel;
 import jakarta.persistence.*;
 import lombok.*;
