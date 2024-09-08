@@ -40,7 +40,7 @@ public class EmploymentService {
     }
 
     public List<EmploymentResponse> findAllByUserId(long id) {
-        return employmentRepository.findAllByUserId(id)
+        return employmentRepository.findAllWithAddressByUserId(id)
                 .stream()
                 .map(employmentMapper::mapToResponse)
                 .toList();
