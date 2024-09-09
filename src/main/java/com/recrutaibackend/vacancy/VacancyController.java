@@ -50,9 +50,21 @@ public class VacancyController {
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = VacancyResponse.class)))
     )
     @GetMapping
-    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam(required = false) String title) {
-        var response = vacancyService.findAllByTitle(title);
-        return ResponseEntity.ok(response);
+    ResponseEntity<List<VacancyResponse>> findAll() {
+        var vacancies = vacancyService.findAll();
+        return ResponseEntity.ok(vacancies);
+    }
+
+    @Operation(summary = "Find all vacancies by title")
+    @ApiResponse(
+            responseCode = "200",
+            description = "OK",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = VacancyResponse.class)))
+    )
+    @GetMapping("/search")
+    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam String title) {
+        var vacancies = vacancyService.findAllByTitle(title);
+        return ResponseEntity.ok(vacancies);
     }
 
     @Operation(summary = "Find all vacancy's applications")

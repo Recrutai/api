@@ -53,4 +53,12 @@ public class VacancyService {
                 .map(vacancyMapper::mapToResponse)
                 .toList();
     }
+
+    public List<VacancyResponse> findAll() {
+        return vacancyRepository.findAllWithLocationBy()
+                .stream()
+                .map(vacancyMapper::mapToResponse)
+                .toList();
+    }
+
 }
