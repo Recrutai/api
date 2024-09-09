@@ -32,7 +32,7 @@ public class InterviewController {
             @ApiResponse(
                     responseCode = "201",
                     description = "Created",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Interview.class)))),
+                    content = @Content(schema = @Schema(implementation = InterviewResponse.class))),
             @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
     })
     @PostMapping
