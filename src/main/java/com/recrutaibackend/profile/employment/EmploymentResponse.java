@@ -1,6 +1,7 @@
 package com.recrutaibackend.profile.employment;
 
 import com.recrutaibackend.address.AddressResponse;
+import com.recrutaibackend.institution.SimpleInstitutionResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.YearMonth;
@@ -9,8 +10,8 @@ public record EmploymentResponse(
         @Schema(example = "1")
         long id,
 
-        @Schema(example = "1")
-        long institutionId,
+        @Schema(implementation = SimpleInstitutionResponse.class)
+        SimpleInstitutionResponse institution,
 
         @Schema(example = "Back End Developer")
         String title,

@@ -44,4 +44,13 @@ public class InstitutionMapper {
         );
     }
 
+    public SimpleInstitutionResponse mapToSimpleResponse(Institution entity) {
+        return new SimpleInstitutionResponse(
+                entity.getId(),
+                entity.getName(),
+                entity.getHeadline(),
+                addressMapper.mapToCityResponse(entity.getHeadquarters())
+        );
+    }
+
 }
