@@ -1,6 +1,7 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.address.AddressMapper;
+import com.recrutaibackend.institution.InstitutionMapper;
 import com.recrutaibackend.institution.member.Member;
 import com.recrutaibackend.shared.CurrencyCode;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class VacancyMapper {
     private final AddressMapper addressMapper;
+    private final InstitutionMapper institutionMapper;
 
-    public VacancyMapper(AddressMapper addressMapper) {
+    public VacancyMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper) {
         this.addressMapper = addressMapper;
+        this.institutionMapper = institutionMapper;
     }
 
     public Vacancy mapToEntity(VacancyRequest request, Member recruiter, Member publishedBy) {
@@ -31,6 +34,7 @@ public class VacancyMapper {
     public VacancyResponse mapToResponse(Vacancy entity) {
         return new VacancyResponse(
                 entity.getId(),
+                institutionMapper.mapToSimpleResponse(entity.getPublishedBy().getInstitution()),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getEmploymentType().toString(),

@@ -3,15 +3,18 @@ package com.recrutaibackend.profile.employment;
 import com.recrutaibackend.address.AddressMapper;
 import com.recrutaibackend.auth.user.User;
 import com.recrutaibackend.institution.Institution;
+import com.recrutaibackend.institution.InstitutionMapper;
 import com.recrutaibackend.shared.DateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmploymentMapper {
     private final AddressMapper addressMapper;
+    private final InstitutionMapper institutionMapper;
 
-    public EmploymentMapper(AddressMapper addressMapper) {
+    public EmploymentMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper) {
         this.addressMapper = addressMapper;
+        this.institutionMapper = institutionMapper;
     }
 
     public Employment mapToEntity(EmploymentRequest request, User user, Institution institution) {
@@ -31,7 +34,7 @@ public class EmploymentMapper {
     public EmploymentResponse mapToResponse(Employment entity) {
         return new EmploymentResponse(
                 entity.getId(),
-                entity.getInstitution().getId(),
+                institutionMapper.mapToSimpleResponse(entity.getInstitution()),
                 entity.getTitle(),
                 entity.getType().toString(),
                 entity.getWorkModel().toString(),

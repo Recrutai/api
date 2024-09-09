@@ -9,13 +9,13 @@ import java.util.List;
 @Repository
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
 
-    @EntityGraph(attributePaths = {"location"})
+    @EntityGraph(attributePaths = {"location", "publishedBy.institution.headquarters"})
     List<Vacancy> findAllWithLocationByTitleContainsIgnoreCase(String title);
 
-    @EntityGraph(attributePaths = {"location"})
+    @EntityGraph(attributePaths = {"location", "publishedBy.institution.headquarters"})
     List<Vacancy> findAllWithLocationBy();
 
-    @EntityGraph(attributePaths = {"location"})
+    @EntityGraph(attributePaths = {"location", "publishedBy.institution.headquarters"})
     List<Vacancy> findAllByPublishedBy_Institution_Id(long institutionId);
 
 }

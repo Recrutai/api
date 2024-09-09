@@ -45,4 +45,14 @@ public class AddressMapper {
         );
     }
 
+    public CityAddressResponse mapToCityResponse(Address entity) {
+        if (entity == null) return null;
+        return new CityAddressResponse(
+                entity.getId(),
+                entity.getCity(),
+                entity.getState(),
+                entity.getCountry()
+        );
+    }
+
 }
