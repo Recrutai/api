@@ -32,7 +32,8 @@ public class InterviewController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = InterviewResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping
     ResponseEntity<InterviewResponse> create(@RequestBody @Valid InterviewRequest request) {
