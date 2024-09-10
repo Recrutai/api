@@ -87,7 +87,8 @@ public class InstitutionController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = MemberResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping("/{institution_id}/members")
     ResponseEntity<MemberResponse> createMember(
