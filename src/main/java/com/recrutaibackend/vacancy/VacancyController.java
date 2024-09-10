@@ -35,7 +35,8 @@ public class VacancyController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = VacancyResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping
     ResponseEntity<VacancyResponse> create(@RequestBody @Valid VacancyRequest request) {
@@ -85,7 +86,8 @@ public class VacancyController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = ApplicationResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping("/{vacancy_id}/applications")
     ResponseEntity<ApplicationResponse> createApplication(

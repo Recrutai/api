@@ -30,7 +30,8 @@ public class EmploymentController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = EmploymentResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping("/users/{user_id}/employments")
     ResponseEntity<EmploymentResponse> create(

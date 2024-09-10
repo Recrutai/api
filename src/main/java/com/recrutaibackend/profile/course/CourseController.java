@@ -30,7 +30,8 @@ public class CourseController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = CourseResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content),
+            @ApiResponse(responseCode = "422", description = "Validation failed", content = @Content)
     })
     @PostMapping("/users/{user_id}/courses")
     ResponseEntity<CourseResponse> create(@PathVariable("user_id") long id, @RequestBody @Valid CourseRequest request) {
