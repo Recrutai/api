@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.YearMonth;
@@ -40,9 +41,11 @@ public record EmploymentRequest(
         String description,
 
         @NotNull
+        @PastOrPresent
         @Schema(example = "2022-03", requiredMode = RequiredMode.REQUIRED)
         YearMonth startDate,
 
+        @PastOrPresent
         @Schema(example = "2024-09", requiredMode = RequiredMode.NOT_REQUIRED)
         YearMonth endDate
 ) {

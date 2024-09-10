@@ -4,6 +4,7 @@ import com.recrutaibackend.address.AddressRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,6 +33,7 @@ public record InterviewRequest(
         String description,
 
         @NotNull
+        @Future
         OffsetDateTime scheduledTo,
 
         @Valid
