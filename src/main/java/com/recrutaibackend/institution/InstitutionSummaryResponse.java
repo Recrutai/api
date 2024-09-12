@@ -1,9 +1,12 @@
 package com.recrutaibackend.institution;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.recrutaibackend.address.CityAddressResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public record SimpleInstitutionResponse(
+@JsonInclude(Include.NON_NULL)
+public record InstitutionSummaryResponse(
         @Schema(example = "1")
         long id,
 

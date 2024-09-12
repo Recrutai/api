@@ -1,6 +1,6 @@
 package com.recrutaibackend.profile.course;
 
-import com.recrutaibackend.institution.SimpleInstitutionResponse;
+import com.recrutaibackend.institution.InstitutionSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.YearMonth;
@@ -9,8 +9,8 @@ public record CourseResponse(
         @Schema(example = "1")
         long id,
 
-        @Schema(implementation = SimpleInstitutionResponse.class)
-        SimpleInstitutionResponse school,
+        @Schema(implementation = InstitutionSummaryResponse.class)
+        InstitutionSummaryResponse school,
 
         @Schema(example = "Back End Development Summer Course")
         String name,

@@ -1,7 +1,7 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.address.AddressResponse;
-import com.recrutaibackend.institution.SimpleInstitutionResponse;
+import com.recrutaibackend.institution.InstitutionSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Instant;
@@ -10,8 +10,8 @@ public record VacancyResponse(
         @Schema(example = "1")
         long id,
 
-        @Schema(implementation = SimpleInstitutionResponse.class)
-        SimpleInstitutionResponse institution,
+        @Schema(implementation = InstitutionSummaryResponse.class)
+        InstitutionSummaryResponse institution,
 
         @Schema(example = "Back End Developer")
         String title,
