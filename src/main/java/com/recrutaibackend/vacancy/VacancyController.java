@@ -1,5 +1,7 @@
 package com.recrutaibackend.vacancy;
 
+import com.recrutaibackend.shared.EmploymentType;
+import com.recrutaibackend.shared.WorkModel;
 import com.recrutaibackend.vacancy.application.ApplicationRequest;
 import com.recrutaibackend.vacancy.application.ApplicationResponse;
 import com.recrutaibackend.vacancy.application.ApplicationService;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/vacancies")
@@ -44,27 +47,16 @@ public class VacancyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vacancy);
     }
 
-    @Operation(summary = "Find all vacancies")
-    @ApiResponse(
-            responseCode = "200",
-            description = "OK",
-            content = @Content(array = @ArraySchema(schema = @Schema(implementation = VacancyResponse.class)))
-    )
+    @Operation(summary = "Search through vacancies")
+    @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
     @GetMapping
-    ResponseEntity<List<VacancyResponse>> findAll() {
-        var vacancies = vacancyService.findAll();
-        return ResponseEntity.ok(vacancies);
-    }
-
-    @Operation(summary = "Find all vacancies by title")
-    @ApiResponse(
-            responseCode = "200",
-            description = "OK",
-            content = @Content(array = @ArraySchema(schema = @Schema(implementation = VacancyResponse.class)))
-    )
-    @GetMapping("/search")
-    ResponseEntity<List<VacancyResponse>> findAllByTitle(@RequestParam String title) {
-        var vacancies = vacancyService.findAllByTitle(title);
+    ResponseEntity<List<VacancySummaryResponse>> findAllFiltered(
+            @RequestParam Optional<String> title,
+            @RequestParam(required = false) Long locationId,
+            @RequestParam(required = false) WorkModel workModel,
+            @RequestParam(required = false) EmploymentType employmentType
+    ) {
+        var vacancies = vacancyService.findAllFiltered(title, locationId, workModel, employmentType);
         return ResponseEntity.ok(vacancies);
     }
 

@@ -1,12 +1,15 @@
 package com.recrutaibackend.vacancy;
 
 import com.recrutaibackend.institution.member.MemberService;
+import com.recrutaibackend.shared.EmploymentType;
+import com.recrutaibackend.shared.WorkModel;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VacancyService {
@@ -35,13 +38,6 @@ public class VacancyService {
         return vacancyMapper.mapToResponse(savedVacancy);
     }
 
-    public List<VacancyResponse> findAllByTitle(String title) {
-        return vacancyRepository.findAllWithLocationByTitleContainsIgnoreCase(title)
-                .stream()
-                .map(vacancyMapper::mapToResponse)
-                .toList();
-    }
-
     public Vacancy findById(long id) {
         return vacancyRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
@@ -54,11 +50,18 @@ public class VacancyService {
                 .toList();
     }
 
-    public List<VacancyResponse> findAll() {
-        return vacancyRepository.findAllWithLocationBy()
-                .stream()
-                .map(vacancyMapper::mapToResponse)
-                .toList();
+    public List<VacancySummaryResponse> findAllFiltered(
+            Optional<String> title,
+            Long locationId,
+            WorkModel workModel,
+            EmploymentType employmentType
+    ) {
+        return vacancyRepository.findAllFiltered(
+                title.map(String::strip).orElse(""),
+                locationId,
+                workModel,
+                employmentType
+        );
     }
 
 }

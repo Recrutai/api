@@ -44,8 +44,8 @@ public class InstitutionMapper {
         );
     }
 
-    public SimpleInstitutionResponse mapToSimpleResponse(Institution entity) {
-        return new SimpleInstitutionResponse(
+    public InstitutionSummaryResponse mapToSimpleResponse(Institution entity) {
+        return new InstitutionSummaryResponse(
                 entity.getId(),
                 entity.getName(),
                 entity.getHeadline(),
