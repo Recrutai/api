@@ -1,6 +1,7 @@
 package com.recrutai.api.vacancy;
 
 import com.recrutai.api.address.AddressMapper;
+import com.recrutai.api.institution.Institution;
 import com.recrutai.api.institution.InstitutionMapper;
 import com.recrutai.api.institution.member.Member;
 import com.recrutai.api.shared.CurrencyCode;
@@ -16,7 +17,7 @@ public class VacancyMapper {
         this.institutionMapper = institutionMapper;
     }
 
-    public Vacancy mapToEntity(VacancyRequest request, Member recruiter, Member publishedBy) {
+    public Vacancy mapToEntity(VacancyRequest request, Institution institution, Member recruiter, Member publishedBy) {
         return new Vacancy(
                 request.title(),
                 request.description(),
@@ -26,6 +27,7 @@ public class VacancyMapper {
                 request.salary(),
                 CurrencyCode.BRL,
                 request.positions(),
+                institution,
                 recruiter,
                 publishedBy
         );
@@ -34,7 +36,7 @@ public class VacancyMapper {
     public VacancyResponse mapToResponse(Vacancy entity) {
         return new VacancyResponse(
                 entity.getId(),
-                institutionMapper.mapToSimpleResponse(entity.getPublishedBy().getInstitution()),
+                institutionMapper.mapToSimpleResponse(entity.getInstitution()),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getEmploymentType().toString(),
