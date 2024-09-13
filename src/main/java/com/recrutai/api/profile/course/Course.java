@@ -22,9 +22,12 @@ public class Course {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private School school;
+
+    @Column(name = "fallback_school_name")
+    private String fallbackSchoolName;
 
     @Column(name = "name")
     private String name;
@@ -41,6 +44,7 @@ public class Course {
     public Course(
             User user,
             School school,
+            String fallbackSchoolName,
             String name,
             Integer workloadHours,
             Integer completionDate,
@@ -48,6 +52,7 @@ public class Course {
     ) {
         this.user = user;
         this.school = school;
+        this.fallbackSchoolName = fallbackSchoolName;
         this.name = name;
         this.workloadHours = workloadHours;
         this.completionDate = completionDate;

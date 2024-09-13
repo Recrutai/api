@@ -25,9 +25,12 @@ public class Employment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")
     private Institution institution;
+
+    @Column(name = "fallback_institution_name")
+    private String fallbackInstitutionName;
 
     @Column(name = "title")
     private String title;
@@ -56,6 +59,7 @@ public class Employment {
     public Employment(
             User user,
             Institution institution,
+            String fallbackInstitutionName,
             String title,
             EmploymentType type,
             WorkModel workModel,
@@ -66,6 +70,7 @@ public class Employment {
     ) {
         this.user = user;
         this.institution = institution;
+        this.fallbackInstitutionName = fallbackInstitutionName;
         this.title = title;
         this.type = type;
         this.workModel = workModel;

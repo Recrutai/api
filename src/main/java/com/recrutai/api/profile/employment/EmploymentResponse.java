@@ -13,6 +13,9 @@ public record EmploymentResponse(
         @Schema(implementation = InstitutionSummaryResponse.class)
         InstitutionSummaryResponse institution,
 
+        @Schema(example = "University of Oxford")
+        String fallbackInstitutionName,
+
         @Schema(example = "Back End Developer")
         String title,
 

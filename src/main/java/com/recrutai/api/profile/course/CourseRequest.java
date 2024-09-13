@@ -11,9 +11,11 @@ import org.hibernate.validator.constraints.Range;
 import java.time.YearMonth;
 
 public record CourseRequest(
-        @NotNull
-        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+        @Schema(example = "1", requiredMode = RequiredMode.NOT_REQUIRED)
         Long schoolId,
+
+        @Schema(example = "University of Oxford", requiredMode = RequiredMode.NOT_REQUIRED)
+        String fallbackSchoolName,
 
         @NotEmpty
         @Size(max = 120)

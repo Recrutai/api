@@ -24,7 +24,7 @@ public class SchoolService {
 
     @Transactional
     public SchoolResponse create(SchoolRequest request) {
-        var institution = institutionService.create(request.institution());
+        var institution = institutionService.create(request.getInstitution());
 
         var school = schoolMapper.mapToEntity(request, institution);
         var savedSchool = schoolRepository.save(school);

@@ -1,6 +1,7 @@
 package com.recrutai.api.profile.employment;
 
 import com.recrutai.api.auth.user.UserService;
+import com.recrutai.api.institution.Institution;
 import com.recrutai.api.institution.InstitutionService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -31,12 +32,23 @@ public class EmploymentService {
     @Transactional
     public EmploymentResponse create(long userId, EmploymentRequest request) {
         var user = userService.findById(userId);
-        var institution = institutionService.findById(request.institutionId());
+        var institution = getInstitution(request);
 
         var employment = employmentMapper.mapToEntity(request, user, institution);
         var savedEmployment = employmentRepository.save(employment);
 
         return employmentMapper.mapToResponse(savedEmployment);
+    }
+
+    private Institution getInstitution(EmploymentRequest request) {
+        if (request.institutionId() != null) {
+            return institutionService.findById(request.institutionId());
+        }
+        if (request.fallbackInstitutionName() == null) {
+            var msg = "The institution's name is required when the id of an existing one is not provided";
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, msg);
+        }
+        return null;
     }
 
     public List<EmploymentResponse> findAllByUserId(long id) {
