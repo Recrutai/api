@@ -68,6 +68,7 @@ CREATE TABLE tb_employment
 CREATE TABLE tb_vacancy
 (
     id              bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    institution_id  bigint                              NOT NULL,
     title           varchar(100)                        NOT NULL,
     description     varchar(3850)                       NOT NULL,
     employment_type varchar(50)                         NOT NULL,
@@ -218,6 +219,10 @@ ALTER TABLE tb_employment
 ALTER TABLE tb_employment
     ADD CONSTRAINT fk_employment_address_id
         FOREIGN KEY (address_id) REFERENCES tb_address;
+
+ALTER TABLE tb_vacancy
+    ADD CONSTRAINT fk_vacancy_institution_id
+        FOREIGN KEY (institution_id) REFERENCES tb_institution;
 
 ALTER TABLE tb_vacancy
     ADD CONSTRAINT fk_vacancy_location_id

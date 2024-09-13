@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
 
-    @EntityGraph(attributePaths = {"location", "publishedBy.institution.headquarters"})
+    @EntityGraph(attributePaths = {"location", "institution.headquarters"})
     List<Vacancy> findAllByPublishedBy_Institution_Id(long institutionId);
 
     @Query("""
@@ -28,7 +28,7 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
             )
             FROM Vacancy v
             JOIN FETCH Address a ON v.location.id = a.id
-            JOIN FETCH Institution i ON v.publishedBy.institution.id = i.id
+            JOIN FETCH Institution i ON v.institution.id = i.id
             WHERE (:title = '' OR (lower(v.title) LIKE concat('%', lower(:title), '%')))
             AND (:locationId IS NULL OR v.location.id = :locationId)
             AND (:workModel IS NULL OR v.workModel = :workModel)

@@ -1,5 +1,6 @@
 package com.recrutai.api.vacancy;
 
+import com.recrutai.api.institution.InstitutionService;
 import com.recrutai.api.institution.member.MemberService;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
@@ -16,23 +17,26 @@ public class VacancyService {
     private final VacancyRepository vacancyRepository;
     private final VacancyMapper vacancyMapper;
     private final MemberService memberService;
+    private final InstitutionService institutionService;
 
     public VacancyService(
             VacancyRepository vacancyRepository,
             VacancyMapper vacancyMapper,
-            MemberService memberService
-    ) {
+            MemberService memberService,
+            InstitutionService institutionService) {
         this.vacancyRepository = vacancyRepository;
         this.vacancyMapper = vacancyMapper;
         this.memberService = memberService;
+        this.institutionService = institutionService;
     }
 
     @Transactional
     public VacancyResponse create(VacancyRequest request) {
+        var institution = institutionService.findById(request.institutionId());
         var publisher = memberService.findById(request.publishedById());
         var recruiter = memberService.findById(request.recruiterId());
 
-        var vacancy = vacancyMapper.mapToEntity(request, recruiter, publisher);
+        var vacancy = vacancyMapper.mapToEntity(request, institution, recruiter, publisher);
         var savedVacancy = vacancyRepository.save(vacancy);
 
         return vacancyMapper.mapToResponse(savedVacancy);

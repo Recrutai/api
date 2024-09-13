@@ -17,6 +17,10 @@ public record VacancyRequest(
         @Schema(example = "Back End Developer", requiredMode = RequiredMode.REQUIRED)
         String title,
 
+        @NotNull
+        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+        Long institutionId,
+
         @NotEmpty
         @Size(max = 3850)
         @Schema(
