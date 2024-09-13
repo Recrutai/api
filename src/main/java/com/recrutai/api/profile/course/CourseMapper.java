@@ -18,11 +18,11 @@ public class CourseMapper {
         return new Course(
                 user,
                 school,
-                request.fallbackSchoolName(),
-                request.name(),
-                request.workloadHours(),
-                DateUtils.convertYearMonthToNumber(request.completionDate()),
-                request.description()
+                request.getFallbackSchoolName(),
+                request.getName(),
+                request.getWorkloadHours(),
+                DateUtils.convertYearMonthToNumber(request.getCompletionDate()),
+                request.getDescription()
         );
     }
 

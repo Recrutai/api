@@ -10,45 +10,69 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 
 import java.time.YearMonth;
 
-public record EmploymentRequest(
-        @Schema(example = "1", requiredMode = RequiredMode.NOT_REQUIRED)
-        Long institutionId,
+@Getter
+public class EmploymentRequest {
+    @Schema(example = "1", requiredMode = RequiredMode.NOT_REQUIRED)
+    private final Long institutionId;
 
-        @Schema(example = "University of Oxford", requiredMode = RequiredMode.NOT_REQUIRED)
-        String fallbackInstitutionName,
+    @Schema(example = "University of Oxford", requiredMode = RequiredMode.NOT_REQUIRED)
+    private final String fallbackInstitutionName;
 
-        @NotEmpty
-        @Size(max = 100)
-        @Schema(example = "Back End Developer", requiredMode = RequiredMode.REQUIRED)
-        String title,
+    @NotEmpty
+    @Size(max = 100)
+    @Schema(example = "Back End Developer", requiredMode = RequiredMode.REQUIRED)
+    private final String title;
 
-        @Schema(example = "CONTRACT", requiredMode = RequiredMode.NOT_REQUIRED)
-        EmploymentType type,
+    @Schema(example = "CONTRACT", requiredMode = RequiredMode.NOT_REQUIRED)
+    private final EmploymentType type;
 
-        @Schema(example = "ON_SITE", requiredMode = RequiredMode.NOT_REQUIRED)
-        WorkModel workModel,
+    @Schema(example = "ON_SITE", requiredMode = RequiredMode.NOT_REQUIRED)
+    private final WorkModel workModel;
 
-        @Valid
-        @Schema(implementation = CityAddressRequest.class, requiredMode = RequiredMode.NOT_REQUIRED)
-        CityAddressRequest address,
+    @Valid
+    @Schema(implementation = CityAddressRequest.class, requiredMode = RequiredMode.NOT_REQUIRED)
+    private final CityAddressRequest address;
 
-        @Size(max = 2500)
-        @Schema(
-                example = "I've worked maintaining internal services developed in Java and Spring Boot.",
-                requiredMode = RequiredMode.NOT_REQUIRED
-        )
-        String description,
+    @Size(max = 2500)
+    @Schema(
+            example = "I've worked maintaining internal services developed in Java and Spring Boot.",
+            requiredMode = RequiredMode.NOT_REQUIRED
+    )
+    private final String description;
 
-        @NotNull
-        @PastOrPresent
-        @Schema(example = "2022-03", requiredMode = RequiredMode.REQUIRED)
-        YearMonth startDate,
+    @NotNull
+    @PastOrPresent
+    @Schema(example = "2022-03", requiredMode = RequiredMode.REQUIRED)
+    private final YearMonth startDate;
 
-        @PastOrPresent
-        @Schema(example = "2024-09", requiredMode = RequiredMode.NOT_REQUIRED)
-        YearMonth endDate
-) {
+    @PastOrPresent
+    @Schema(example = "2024-09", requiredMode = RequiredMode.NOT_REQUIRED)
+    private final YearMonth endDate;
+
+    public EmploymentRequest(
+            Long institutionId,
+            String fallbackInstitutionName,
+            String title,
+            EmploymentType type,
+            WorkModel workModel,
+            CityAddressRequest address,
+            String description,
+            YearMonth startDate,
+            YearMonth endDate
+    ) {
+        this.institutionId = institutionId;
+        this.fallbackInstitutionName = fallbackInstitutionName;
+        this.title = title;
+        this.type = type;
+        this.workModel = workModel;
+        this.address = address;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
 }

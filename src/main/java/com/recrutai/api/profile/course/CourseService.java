@@ -41,10 +41,10 @@ public class CourseService {
     }
 
     private School getSchool(CourseRequest request) {
-        if (request.schoolId() != null) {
-            return schoolService.findById(request.schoolId());
+        if (request.getSchoolId() != null) {
+            return schoolService.findById(request.getSchoolId());
         }
-        if (request.fallbackSchoolName() == null) {
+        if (request.getFallbackSchoolName() == null) {
             var msg = "The school's name is required when the id of an existing one is not provided";
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, msg);
         }

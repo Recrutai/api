@@ -32,9 +32,9 @@ public class VacancyService {
 
     @Transactional
     public VacancyResponse create(VacancyRequest request) {
-        var institution = institutionService.findById(request.institutionId());
-        var publisher = memberService.findById(request.publishedById());
-        var recruiter = memberService.findById(request.recruiterId());
+        var institution = institutionService.findById(request.getInstitutionId());
+        var publisher = memberService.findById(request.getPublishedById());
+        var recruiter = memberService.findById(request.getRecruiterId());
 
         var vacancy = vacancyMapper.mapToEntity(request, institution, recruiter, publisher);
         var savedVacancy = vacancyRepository.save(vacancy);

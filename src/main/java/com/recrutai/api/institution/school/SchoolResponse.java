@@ -21,4 +21,5 @@ public class SchoolResponse {
         this.schoolSize = schoolSize;
         this.associatedAlumni = associatedAlumni;
     }
+
 }

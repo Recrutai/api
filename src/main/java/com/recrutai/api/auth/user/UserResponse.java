@@ -3,24 +3,42 @@ package com.recrutai.api.auth.user;
 import com.recrutai.api.address.AddressResponse;
 import com.recrutai.api.address.CityAddressRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
-public record UserResponse(
-        @Schema(example = "1")
-        long id,
+@Getter
+public class UserResponse {
+    @Schema(example = "1")
+    private final long id;
 
-        @Schema(example = "John")
-        String firstName,
+    @Schema(example = "John")
+    private final String firstName;
 
-        @Schema(example = "Smith")
-        String lastName,
+    @Schema(example = "Smith")
+    private final String lastName;
 
-        @Schema(example = "Software Developer")
-        String headline,
+    @Schema(example = "Software Developer")
+    private final String headline;
 
-        @Schema(example = "john_smith@email.com")
-        String email,
+    @Schema(example = "john_smith@email.com")
+    private final String email;
 
-        @Schema(implementation = CityAddressRequest.class)
-        AddressResponse location
-) {
+    @Schema(implementation = CityAddressRequest.class)
+    private final AddressResponse location;
+
+    public UserResponse(
+            long id,
+            String firstName,
+            String lastName,
+            String headline,
+            String email,
+            AddressResponse location
+    ) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.headline = headline;
+        this.email = email;
+        this.location = location;
+    }
+
 }

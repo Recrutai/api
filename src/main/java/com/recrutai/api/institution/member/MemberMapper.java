@@ -11,7 +11,7 @@ public class MemberMapper {
         return new Member(
                 user,
                 institution,
-                request.role(),
+                request.getRole(),
                 addedBy
         );
     }

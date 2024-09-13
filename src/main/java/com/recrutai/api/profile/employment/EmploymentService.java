@@ -41,10 +41,10 @@ public class EmploymentService {
     }
 
     private Institution getInstitution(EmploymentRequest request) {
-        if (request.institutionId() != null) {
-            return institutionService.findById(request.institutionId());
+        if (request.getInstitutionId() != null) {
+            return institutionService.findById(request.getInstitutionId());
         }
-        if (request.fallbackInstitutionName() == null) {
+        if (request.getFallbackInstitutionName() == null) {
             var msg = "The institution's name is required when the id of an existing one is not provided";
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, msg);
         }

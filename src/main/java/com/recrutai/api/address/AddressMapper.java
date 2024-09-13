@@ -8,13 +8,13 @@ public class AddressMapper {
     public Address mapToEntity(AddressRequest request) {
         if (request == null) return null;
         return new Address(
-                request.streetAddress(),
-                request.city(),
-                request.state(),
-                request.country(),
-                request.postalCode(),
-                request.latitude(),
-                request.longitude()
+                request.getStreetAddress(),
+                request.getCity(),
+                request.getState(),
+                request.getCountry(),
+                request.getPostalCode(),
+                request.getLatitude(),
+                request.getLongitude()
         );
     }
 
@@ -22,9 +22,9 @@ public class AddressMapper {
         if (request == null) return null;
         return new Address(
                 null,
-                request.city(),
-                request.state(),
-                request.country(),
+                request.getCity(),
+                request.getState(),
+                request.getCountry(),
                 null,
                 null,
                 null

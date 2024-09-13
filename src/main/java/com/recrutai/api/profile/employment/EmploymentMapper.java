@@ -21,14 +21,14 @@ public class EmploymentMapper {
         return new Employment(
                 user,
                 institution,
-                request.fallbackInstitutionName(),
-                request.title(),
-                request.type(),
-                request.workModel(),
-                addressMapper.mapToEntity(request.address()),
-                request.description(),
-                DateUtils.convertYearMonthToNumber(request.startDate()),
-                request.endDate() != null ? DateUtils.convertYearMonthToNumber(request.endDate()) : null
+                request.getFallbackInstitutionName(),
+                request.getTitle(),
+                request.getType(),
+                request.getWorkModel(),
+                addressMapper.mapToEntity(request.getAddress()),
+                request.getDescription(),
+                DateUtils.convertYearMonthToNumber(request.getStartDate()),
+                request.getEndDate() != null ? DateUtils.convertYearMonthToNumber(request.getEndDate()) : null
         );
     }
 

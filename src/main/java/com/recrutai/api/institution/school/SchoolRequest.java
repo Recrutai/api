@@ -24,4 +24,5 @@ public class SchoolRequest {
         this.institution = institution;
         this.schoolSize = schoolSize;
     }
+
 }
