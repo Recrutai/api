@@ -9,54 +9,79 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import org.hibernate.validator.constraints.Range;
 
-public record VacancyRequest(
-        @NotEmpty
-        @Size(max = 100)
-        @Schema(example = "Back End Developer", requiredMode = RequiredMode.REQUIRED)
-        String title,
+@Getter
+public class VacancyRequest {
+    @NotEmpty
+    @Size(max = 100)
+    @Schema(example = "Back End Developer", requiredMode = RequiredMode.REQUIRED)
+    private final String title;
 
-        @NotNull
-        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
-        Long institutionId,
+    @NotNull
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+    private final Long institutionId;
 
-        @NotEmpty
-        @Size(max = 3850)
-        @Schema(
-                example = "We're looking for high skilled software engineers, with 3+ years of experience in back end development.",
-                requiredMode = RequiredMode.REQUIRED
-        )
-        String description,
+    @NotEmpty
+    @Size(max = 3850)
+    @Schema(
+            example = "We're looking for high skilled software engineers, with 3+ years of experience in back end development.",
+            requiredMode = RequiredMode.REQUIRED
+    )
+    private final String description;
 
-        @NotNull
-        @Schema(example = "FULL_TIME", requiredMode = RequiredMode.REQUIRED)
-        EmploymentType employmentType,
+    @NotNull
+    @Schema(example = "FULL_TIME", requiredMode = RequiredMode.REQUIRED)
+    private final EmploymentType employmentType;
 
-        @NotNull
-        @Schema(example = "ON_SITE", requiredMode = RequiredMode.REQUIRED)
-        WorkModel workModel,
+    @NotNull
+    @Schema(example = "ON_SITE", requiredMode = RequiredMode.REQUIRED)
+    private final WorkModel workModel;
 
-        @Valid
-        @Schema(implementation = CityAddressRequest.class, requiredMode = RequiredMode.NOT_REQUIRED)
-        CityAddressRequest location,
+    @Valid
+    @Schema(implementation = CityAddressRequest.class, requiredMode = RequiredMode.NOT_REQUIRED)
+    private final CityAddressRequest location;
 
-        @NotNull
-        @Range(min = 1, max = 1_000_000)
-        @Schema(example = "5700", requiredMode = RequiredMode.REQUIRED)
-        Integer salary,
+    @NotNull
+    @Range(min = 1, max = 1_000_000)
+    @Schema(example = "5700", requiredMode = RequiredMode.REQUIRED)
+    private final Integer salary;
 
-        @NotNull
-        @Range(min = 1, max = 500)
-        @Schema(example = "2", requiredMode = RequiredMode.REQUIRED)
-        Short positions,
+    @NotNull
+    @Range(min = 1, max = 500)
+    @Schema(example = "2", requiredMode = RequiredMode.REQUIRED)
+    private final Short positions;
 
-        @NotNull
-        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
-        Long recruiterId,
+    @NotNull
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+    private final Long recruiterId;
 
-        @NotNull
-        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
-        Long publishedById
-) {
+    @NotNull
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+    private final Long publishedById;
+
+    public VacancyRequest(
+            String title,
+            Long institutionId,
+            String description,
+            EmploymentType employmentType,
+            WorkModel workModel,
+            CityAddressRequest location,
+            Integer salary,
+            Short positions,
+            Long recruiterId,
+            Long publishedById) {
+        this.title = title;
+        this.institutionId = institutionId;
+        this.description = description;
+        this.employmentType = employmentType;
+        this.workModel = workModel;
+        this.location = location;
+        this.salary = salary;
+        this.positions = positions;
+        this.recruiterId = recruiterId;
+        this.publishedById = publishedById;
+    }
+
 }

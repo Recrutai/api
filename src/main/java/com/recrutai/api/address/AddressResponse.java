@@ -2,33 +2,55 @@ package com.recrutai.api.address;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@Getter
 @JsonInclude(NON_NULL)
-public record AddressResponse(
-        @Schema(example = "1")
-        long id,
+public class AddressResponse {
+    @Schema(example = "1")
+    private final long id;
 
-        @Schema(example = "Wellington Square")
-        String streetAddress,
+    @Schema(example = "Wellington Square")
+    private final String streetAddress;
 
-        @Schema(example = "Oxford")
-        String city,
+    @Schema(example = "Oxford")
+    private final String city;
 
-        @Schema(example = "Oxfordshire")
-        String state,
+    @Schema(example = "Oxfordshire")
+    private final String state;
 
-        @Schema(example = "United Kingdom")
-        String country,
+    @Schema(example = "United Kingdom")
+    private final String country;
 
-        @Schema(example = "OX1 2JD")
-        String postalCode,
+    @Schema(example = "OX1 2JD")
+    private final String postalCode;
 
-        @Schema(example = "51.757454")
-        Double latitude,
+    @Schema(example = "51.757454")
+    private final Double latitude;
 
-        @Schema(example = "-1.254517")
-        Double longitude
-) {
+    @Schema(example = "-1.254517")
+    private final Double longitude;
+
+    public AddressResponse(
+            long id,
+            String streetAddress,
+            String city,
+            String state,
+            String country,
+            String postalCode,
+            Double latitude,
+            Double longitude
+    ) {
+        this.id = id;
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
 }

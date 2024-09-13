@@ -18,10 +18,10 @@ public class EmailService implements NotificationService<Email> {
     @Override
     public void send(Email email) {
         var message = new SimpleMailMessage();
-        message.setFrom(email.from());
-        message.setTo(email.to());
-        message.setSubject(email.subject());
-        message.setText(email.body());
+        message.setFrom(email.getFrom());
+        message.setTo(email.getTo());
+        message.setSubject(email.getSubject());
+        message.setText(email.getBody());
         mailSender.send(message);
     }
 

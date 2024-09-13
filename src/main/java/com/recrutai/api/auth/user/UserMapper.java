@@ -16,12 +16,12 @@ public class UserMapper {
 
     public User mapToEntity(UserRequest request) {
         return new User(
-                request.firstName(),
-                request.lastName(),
-                request.headline(),
-                request.email(),
-                passwordEncoder.encode(request.password()),
-                addressMapper.mapToEntity(request.location())
+                request.getFirstName(),
+                request.getLastName(),
+                request.getHeadline(),
+                request.getEmail(),
+                passwordEncoder.encode(request.getPassword()),
+                addressMapper.mapToEntity(request.getLocation())
         );
     }
 

@@ -32,8 +32,8 @@ public class MemberService {
     @Transactional
     public MemberResponse create(long institutionId, MemberRequest request) {
         var institution = institutionService.findById(institutionId);
-        var user = userService.findById(request.userId());
-        var addedBy = findById(request.addedById());
+        var user = userService.findById(request.getUserId());
+        var addedBy = findById(request.getAddedById());
 
         var member = memberMapper.mapToEntity(request, user, institution, addedBy);
         var savedMember = memberRepository.save(member);

@@ -37,8 +37,8 @@ public class AuthService {
     }
 
     public UserResponse authenticate(AuthRequest request) {
-        var user = userService.findByEmail(request.email());
-        if (!passwordEncoder.matches(request.password(), user.getHashedPassword())) {
+        var user = userService.findByEmail(request.getEmail());
+        if (!passwordEncoder.matches(request.getPassword(), user.getHashedPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
         if (!user.getIsActive()) {

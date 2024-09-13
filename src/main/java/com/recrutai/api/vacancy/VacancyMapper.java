@@ -19,14 +19,14 @@ public class VacancyMapper {
 
     public Vacancy mapToEntity(VacancyRequest request, Institution institution, Member recruiter, Member publishedBy) {
         return new Vacancy(
-                request.title(),
-                request.description(),
-                request.employmentType(),
-                request.workModel(),
-                addressMapper.mapToEntity(request.location()),
-                request.salary(),
+                request.getTitle(),
+                request.getDescription(),
+                request.getEmploymentType(),
+                request.getWorkModel(),
+                addressMapper.mapToEntity(request.getLocation()),
+                request.getSalary(),
                 CurrencyCode.BRL,
-                request.positions(),
+                request.getPositions(),
                 institution,
                 recruiter,
                 publishedBy

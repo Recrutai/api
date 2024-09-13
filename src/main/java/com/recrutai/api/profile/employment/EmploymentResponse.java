@@ -3,38 +3,64 @@ package com.recrutai.api.profile.employment;
 import com.recrutai.api.address.AddressResponse;
 import com.recrutai.api.institution.InstitutionSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
 import java.time.YearMonth;
 
-public record EmploymentResponse(
-        @Schema(example = "1")
-        long id,
+@Getter
+public class EmploymentResponse {
+    @Schema(example = "1")
+    private final long id;
 
-        @Schema(implementation = InstitutionSummaryResponse.class)
-        InstitutionSummaryResponse institution,
+    @Schema(implementation = InstitutionSummaryResponse.class)
+    private final InstitutionSummaryResponse institution;
 
-        @Schema(example = "University of Oxford")
-        String fallbackInstitutionName,
+    @Schema(example = "University of Oxford")
+    private final String fallbackInstitutionName;
 
-        @Schema(example = "Back End Developer")
-        String title,
+    @Schema(example = "Back End Developer")
+    private final String title;
 
-        @Schema(example = "CONTRACT")
-        String type,
+    @Schema(example = "CONTRACT")
+    private final String type;
 
-        @Schema(example = "ON_SITE")
-        String workModel,
+    @Schema(example = "ON_SITE")
+    private final String workModel;
 
-        @Schema(implementation = AddressResponse.class)
-        AddressResponse address,
+    @Schema(implementation = AddressResponse.class)
+    private final AddressResponse address;
 
-        @Schema(example = "I've worked maintaining internal services developed in Java and Spring Boot.")
-        String description,
+    @Schema(example = "I've worked maintaining internal services developed in Java and Spring Boot.")
+    private final String description;
 
-        @Schema(example = "2022-03")
-        YearMonth startDate,
+    @Schema(example = "2022-03")
+    private final YearMonth startDate;
 
-        @Schema(example = "2024-09")
-        YearMonth endDate
-) {
+    @Schema(example = "2024-09")
+    private final YearMonth endDate;
+
+    public EmploymentResponse(
+            long id,
+            InstitutionSummaryResponse institution,
+            String fallbackInstitutionName,
+            String title,
+            String type,
+            String workModel,
+            AddressResponse address,
+            String description,
+            YearMonth startDate,
+            YearMonth endDate
+    ) {
+        this.id = id;
+        this.institution = institution;
+        this.fallbackInstitutionName = fallbackInstitutionName;
+        this.title = title;
+        this.type = type;
+        this.workModel = workModel;
+        this.address = address;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
 }

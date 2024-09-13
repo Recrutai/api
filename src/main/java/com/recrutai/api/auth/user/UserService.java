@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public User create(UserRequest request) {
-        if (userRepository.existsByEmail(request.email())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already taken");
         }
         var user = userMapper.mapToEntity(request);
