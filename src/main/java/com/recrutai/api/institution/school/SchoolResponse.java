@@ -1,19 +1,24 @@
 package com.recrutai.api.institution.school;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.recrutai.api.institution.InstitutionResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
-public record SchoolResponse(
-        @Schema(example = "1")
-        long id,
+@Getter
+public class SchoolResponse {
+    @JsonUnwrapped
+    private final InstitutionResponse institution;
 
-        @Schema(implementation = InstitutionResponse.class)
-        InstitutionResponse institution,
+    @Schema(example = "10.001+")
+    private final String schoolSize;
 
-        @Schema(example = "10.001+")
-        String schoolSize,
+    @Schema(example = "12580")
+    private final int associatedAlumni;
 
-        @Schema(example = "12.580")
-        int associatedAlumni
-) {
+    public SchoolResponse(InstitutionResponse institution, String schoolSize, int associatedAlumni) {
+        this.institution = institution;
+        this.schoolSize = schoolSize;
+        this.associatedAlumni = associatedAlumni;
+    }
 }

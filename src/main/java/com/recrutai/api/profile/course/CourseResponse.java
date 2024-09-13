@@ -12,6 +12,9 @@ public record CourseResponse(
         @Schema(implementation = InstitutionSummaryResponse.class)
         InstitutionSummaryResponse school,
 
+        @Schema(example = "University of Oxford")
+        String fallbackSchoolName,
+
         @Schema(example = "Back End Development Summer Course")
         String name,
 

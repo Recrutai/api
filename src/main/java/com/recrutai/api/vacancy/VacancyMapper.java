@@ -36,7 +36,7 @@ public class VacancyMapper {
     public VacancyResponse mapToResponse(Vacancy entity) {
         return new VacancyResponse(
                 entity.getId(),
-                institutionMapper.mapToSimpleResponse(entity.getInstitution()),
+                institutionMapper.mapToSummaryResponse(entity.getInstitution()),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getEmploymentType().toString(),

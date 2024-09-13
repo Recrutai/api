@@ -53,16 +53,17 @@ CREATE TABLE tb_member
 -- Added by the user to his resume as work experience
 CREATE TABLE tb_employment
 (
-    id             bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
-    user_id        bigint                              NOT NULL,
-    institution_id bigint                              NOT NULL,
-    title          varchar(100)                        NOT NULL,
-    type           varchar(50),
-    work_model     varchar(50),
-    address_id     bigint,
-    description    varchar(2500),
-    start_date     integer                             NOT NULL,
-    end_date       integer
+    id                        bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    user_id                   bigint                              NOT NULL,
+    institution_id            bigint,
+    fallback_institution_name varchar(120),
+    title                     varchar(100)                        NOT NULL,
+    type                      varchar(50),
+    work_model                varchar(50),
+    address_id                bigint,
+    description               varchar(2500),
+    start_date                integer                             NOT NULL,
+    end_date                  integer
 );
 
 CREATE TABLE tb_vacancy

@@ -13,12 +13,12 @@ public class SchoolMapper {
     }
 
     public School mapToEntity(SchoolRequest request, Institution institution) {
-        return new School(institution, request.schoolSize());
+        return new School(institution, request.getSchoolSize());
     }
 
     public SchoolResponse mapToResponse(School entity) {
+        if (entity == null) return null;
         return new SchoolResponse(
-                entity.getId(),
                 institutionMapper.mapToResponse(entity.getInstitution()),
                 entity.getSchoolSize().getValue(),
                 entity.getAssociatedAlumni()

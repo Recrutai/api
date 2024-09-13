@@ -15,19 +15,20 @@ public class InstitutionMapper {
 
     public Institution mapToEntity(InstitutionRequest request, User founder, Industry industry) {
         return new Institution(
-                request.name(),
-                request.type(),
-                request.headline(),
+                request.getName(),
+                request.getType(),
+                request.getHeadline(),
                 founder,
                 industry,
-                request.companySize(),
-                addressMapper.mapToEntity(request.headquarters()),
-                request.website(),
-                request.about()
+                request.getCompanySize(),
+                addressMapper.mapToEntity(request.getHeadquarters()),
+                request.getWebsite(),
+                request.getAbout()
         );
     }
 
     public InstitutionResponse mapToResponse(Institution entity) {
+        if (entity == null) return null;
         return new InstitutionResponse(
                 entity.getId(),
                 entity.getName(),
@@ -44,7 +45,8 @@ public class InstitutionMapper {
         );
     }
 
-    public InstitutionSummaryResponse mapToSimpleResponse(Institution entity) {
+    public InstitutionSummaryResponse mapToSummaryResponse(Institution entity) {
+        if (entity == null) return null;
         return new InstitutionSummaryResponse(
                 entity.getId(),
                 entity.getName(),

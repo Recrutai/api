@@ -21,6 +21,7 @@ public class EmploymentMapper {
         return new Employment(
                 user,
                 institution,
+                request.fallbackInstitutionName(),
                 request.title(),
                 request.type(),
                 request.workModel(),
@@ -34,7 +35,8 @@ public class EmploymentMapper {
     public EmploymentResponse mapToResponse(Employment entity) {
         return new EmploymentResponse(
                 entity.getId(),
-                institutionMapper.mapToSimpleResponse(entity.getInstitution()),
+                institutionMapper.mapToSummaryResponse(entity.getInstitution()),
+                entity.getFallbackInstitutionName(),
                 entity.getTitle(),
                 entity.getType().toString(),
                 entity.getWorkModel().toString(),

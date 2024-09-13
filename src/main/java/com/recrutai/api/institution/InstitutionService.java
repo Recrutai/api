@@ -37,8 +37,8 @@ public class InstitutionService {
 
     @Transactional
     public Institution create(InstitutionRequest request) {
-        var founder = userService.findById(request.founderId());
-        var industry = industryService.findByName(request.industry());
+        var founder = userService.findById(request.getFounderId());
+        var industry = industryService.findByName(request.getIndustry());
 
         var institution = institutionMapper.mapToEntity(request, founder, industry);
         var savedInstitution = institutionRepository.save(institution);

@@ -1,6 +1,7 @@
 package com.recrutai.api.profile.course;
 
 import com.recrutai.api.auth.user.UserService;
+import com.recrutai.api.institution.school.School;
 import com.recrutai.api.institution.school.SchoolService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -31,12 +32,23 @@ public class CourseService {
     @Transactional
     public CourseResponse create(long userId, CourseRequest request) {
         var user = userService.findById(userId);
-        var school = schoolService.findById(request.schoolId());
+        var school = getSchool(request);
 
         var course = courseMapper.mapToEntity(request, user, school);
         courseRepository.save(course);
 
         return courseMapper.mapToResponse(course);
+    }
+
+    private School getSchool(CourseRequest request) {
+        if (request.schoolId() != null) {
+            return schoolService.findById(request.schoolId());
+        }
+        if (request.fallbackSchoolName() == null) {
+            var msg = "The school's name is required when the id of an existing one is not provided";
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, msg);
+        }
+        return null;
     }
 
     public List<CourseResponse> findAllByUsersId(long id) {

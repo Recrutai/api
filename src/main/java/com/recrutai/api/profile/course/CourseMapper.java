@@ -18,6 +18,7 @@ public class CourseMapper {
         return new Course(
                 user,
                 school,
+                request.fallbackSchoolName(),
                 request.name(),
                 request.workloadHours(),
                 DateUtils.convertYearMonthToNumber(request.completionDate()),
@@ -26,9 +27,11 @@ public class CourseMapper {
     }
 
     public CourseResponse mapToResponse(Course entity) {
+        var institution = entity.getSchool() != null ? entity.getSchool().getInstitution() : null;
         return new CourseResponse(
                 entity.getId(),
-                institutionMapper.mapToSimpleResponse(entity.getSchool().getInstitution()),
+                institutionMapper.mapToSummaryResponse(institution),
+                entity.getFallbackSchoolName(),
                 entity.getName(),
                 entity.getWorkloadHours(),
                 DateUtils.convertNumberToYearMonth(entity.getCompletionDate()),

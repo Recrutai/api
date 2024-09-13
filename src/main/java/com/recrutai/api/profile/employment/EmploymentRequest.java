@@ -14,9 +14,11 @@ import jakarta.validation.constraints.Size;
 import java.time.YearMonth;
 
 public record EmploymentRequest(
-        @NotNull
-        @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
+        @Schema(example = "1", requiredMode = RequiredMode.NOT_REQUIRED)
         Long institutionId,
+
+        @Schema(example = "University of Oxford", requiredMode = RequiredMode.NOT_REQUIRED)
+        String fallbackInstitutionName,
 
         @NotEmpty
         @Size(max = 100)

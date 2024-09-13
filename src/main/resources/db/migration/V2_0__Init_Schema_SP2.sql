@@ -1,12 +1,13 @@
 CREATE TABLE tb_course
 (
-    id              bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
-    user_id         bigint                              NOT NULL,
-    school_id       bigint                              NOT NULL,
-    name            varchar(120)                        NOT NULL,
-    workload_hours  integer                             NOT NULL,
-    completion_date integer                             NOT NULL,
-    description     varchar(2000)
+    id                   bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+    user_id              bigint                              NOT NULL,
+    school_id            bigint,
+    fallback_school_name varchar(120),
+    name                 varchar(120)                        NOT NULL,
+    workload_hours       integer                             NOT NULL,
+    completion_date      integer                             NOT NULL,
+    description          varchar(2000)
 );
 
 
