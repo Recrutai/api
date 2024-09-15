@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstitutionService {
@@ -58,11 +59,9 @@ public class InstitutionService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Institution not found"));
     }
 
-    public List<InstitutionResponse> findAll() {
-        return institutionRepository.findAllWithIndustryAndHeadquartersBy()
-                .stream()
-                .map(institutionMapper::mapToResponse)
-                .toList();
+    public List<InstitutionSummaryResponse> search(Optional<String> opName) {
+        var name = opName.map(String::strip).orElse("");
+        return institutionRepository.findAllFiltered(name);
     }
 
 }

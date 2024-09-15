@@ -51,7 +51,8 @@ public class InstitutionMapper {
                 entity.getId(),
                 entity.getName(),
                 entity.getHeadline(),
-                addressMapper.mapToCityResponse(entity.getHeadquarters())
+                entity.getIndustry().getName(),
+                entity.getHeadquarters().getCity() + ", " + entity.getHeadquarters().getState()
         );
     }
 
