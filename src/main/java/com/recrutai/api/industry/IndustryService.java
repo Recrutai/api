@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IndustryService {
@@ -15,15 +16,12 @@ public class IndustryService {
     }
 
     public Industry findByName(String name) {
-        return industryRepository.findByName(name)
+        return industryRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Industry not found"));
     }
 
-    public List<String> findAll() {
-        return industryRepository.findAll()
-                .stream()
-                .map(Industry::getName)
-                .toList();
+    public List<String> findAllFiltered(Optional<String> name) {
+        return industryRepository.findAllFiltered(name.map(String::strip).orElse(""));
     }
 
 }
