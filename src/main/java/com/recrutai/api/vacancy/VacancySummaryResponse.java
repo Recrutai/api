@@ -40,7 +40,7 @@ public class VacancySummaryResponse {
         this.location = location;
         this.workModel = workModel;
         this.publishedAt = publishedAt;
-        this.institution = new InstitutionSummaryResponse(institutionId, institutionName, null, null);
+        this.institution = new InstitutionSummaryResponse(institutionId, institutionName, null, null, null);
     }
 
 }

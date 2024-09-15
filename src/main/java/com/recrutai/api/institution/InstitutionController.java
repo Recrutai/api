@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/institutions")
@@ -61,11 +62,11 @@ public class InstitutionController {
         return ResponseEntity.ok(institution);
     }
 
-    @Operation(summary = "Find all institutions")
+    @Operation(summary = "Search through institutions")
     @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
     @GetMapping
-    ResponseEntity<List<InstitutionResponse>> findAll() {
-        var institutions = institutionService.findAll();
+    ResponseEntity<List<InstitutionSummaryResponse>> search(@RequestParam Optional<String> name) {
+        var institutions = institutionService.search(name);
         return ResponseEntity.ok(institutions);
     }
 

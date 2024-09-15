@@ -2,7 +2,6 @@ package com.recrutai.api.institution;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.recrutai.api.address.CityAddressResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -18,13 +17,23 @@ public class InstitutionSummaryResponse {
     @Schema(example = "The official University of Oxford Recrutaí page.")
     private final String headline;
 
-    @Schema(implementation = CityAddressResponse.class)
-    private final CityAddressResponse headquarters;
+    @Schema(example = "Technology")
+    private final String industry;
 
-    public InstitutionSummaryResponse(long id, String name, String headline, CityAddressResponse headquarters) {
+    @Schema(example = "Oxford, Oxfordshire")
+    private final String headquarters;
+
+    public InstitutionSummaryResponse(
+            long id,
+            String name,
+            String headline,
+            String industry,
+            String headquarters
+    ) {
         this.id = id;
         this.name = name;
         this.headline = headline;
+        this.industry = industry;
         this.headquarters = headquarters;
     }
 
