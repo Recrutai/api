@@ -17,7 +17,7 @@ public class InstitutionRequest {
     private final String name;
 
     @NotNull
-    @Schema(example = "PRIVATE", requiredMode = RequiredMode.REQUIRED)
+    @Schema(example = "PUBLIC", requiredMode = RequiredMode.REQUIRED)
     private final InstitutionType type;
 
     @Size(max = 150)

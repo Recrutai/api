@@ -1,11 +1,17 @@
 package com.recrutai.api.institution.member;
 
 import com.recrutai.api.auth.user.User;
+import com.recrutai.api.auth.user.UserMapper;
 import com.recrutai.api.institution.Institution;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberMapper {
+    private final UserMapper userMapper;
+
+    public MemberMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public Member mapToEntity(MemberRequest request, User user, Institution institution, Member addedBy) {
         return new Member(
@@ -17,15 +23,12 @@ public class MemberMapper {
     }
 
     public MemberResponse mapToResponse(Member entity) {
+        var addedBy = entity.getAddedBy() != null ? entity.getAddedBy().getUser() : null;
         return new MemberResponse(
-                entity.getId(),
-                entity.getUser().getId(),
-                entity.getInstitution().getId(),
-                entity.getRole().toString(),
-                entity.getAddedBy() != null ? entity.getAddedBy().getId() : null,
-                entity.getAddedAt(),
-                entity.getRemovedBy() != null ? entity.getRemovedBy().getId() : null,
-                entity.getRemovedAt()
+                userMapper.mapToResponse(entity.getUser()),
+                entity.getRole(),
+                userMapper.mapToResponse(addedBy),
+                entity.getAddedAt()
         );
     }
 

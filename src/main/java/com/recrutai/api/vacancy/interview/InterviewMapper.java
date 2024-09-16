@@ -1,6 +1,7 @@
 package com.recrutai.api.vacancy.interview;
 
 import com.recrutai.api.address.AddressMapper;
+import com.recrutai.api.auth.user.UserMapper;
 import com.recrutai.api.institution.member.Member;
 import com.recrutai.api.vacancy.application.Application;
 import org.springframework.stereotype.Service;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterviewMapper {
     private final AddressMapper addressMapper;
+    private final UserMapper userMapper;
 
-    public InterviewMapper(AddressMapper addressMapper) {
+    public InterviewMapper(AddressMapper addressMapper, UserMapper userMapper) {
         this.addressMapper = addressMapper;
+        this.userMapper = userMapper;
     }
 
     public Interview mapToEntity(
@@ -22,12 +25,12 @@ public class InterviewMapper {
         return new Interview(
                 application,
                 interviewer,
-                request.title(),
-                request.description(),
-                request.scheduledTo(),
-                addressMapper.mapToEntity(request.address()),
-                request.reunionUrl(),
-                request.isRemote(),
+                request.getTitle(),
+                request.getDescription(),
+                request.getScheduledTo(),
+                addressMapper.mapToEntity(request.getAddress()),
+                request.getReunionUrl(),
+                request.getIsRemote(),
                 createdBy
         );
     }
@@ -35,15 +38,15 @@ public class InterviewMapper {
     public InterviewResponse mapToResponse(Interview entity) {
         return new InterviewResponse(
                 entity.getId(),
-                entity.getApplication().getId(),
-                entity.getInterviewer().getId(),
+                userMapper.mapToResponse(entity.getApplication().getCandidate()),
+                userMapper.mapToResponse(entity.getInterviewer().getUser()),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getScheduledTo(),
                 addressMapper.mapToResponse(entity.getAddress()),
                 entity.getReunionURL(),
                 entity.getIsRemote(),
-                entity.getCreatedBy().getId()
+                userMapper.mapToResponse(entity.getCreatedBy().getUser())
         );
     }
 

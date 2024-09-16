@@ -40,7 +40,7 @@ public class EmploymentMapper {
                 entity.getTitle(),
                 entity.getType().toString(),
                 entity.getWorkModel().toString(),
-                addressMapper.mapToResponse(entity.getAddress()),
+                entity.getAddress().getCity() + ", " + entity.getAddress().getState(),
                 entity.getDescription(),
                 DateUtils.convertNumberToYearMonth(entity.getStartDate()),
                 entity.getEndDate() != null ? DateUtils.convertNumberToYearMonth(entity.getEndDate()) : null

@@ -1,6 +1,7 @@
 package com.recrutai.api.vacancy;
 
-import com.recrutai.api.address.AddressResponse;
+import com.recrutai.api.address.CityAddressResponse;
+import com.recrutai.api.auth.user.UserResponse;
 import com.recrutai.api.institution.InstitutionSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -27,8 +28,8 @@ public class VacancyResponse {
     @Schema(example = "ON_SITE")
     private final String workModel;
 
-    @Schema(implementation = AddressResponse.class)
-    private final AddressResponse location;
+    @Schema(implementation = CityAddressResponse.class)
+    private final CityAddressResponse location;
 
     @Schema(example = "5700")
     private final int salary;
@@ -42,16 +43,16 @@ public class VacancyResponse {
     @Schema(example = "175")
     private final int applications;
 
-    @Schema(example = "1")
-    private final long recruiterId;
+    @Schema(implementation = UserResponse.class)
+    private final UserResponse recruiter;
 
-    @Schema(example = "1")
-    private final long publishedById;
+    @Schema(implementation = UserResponse.class)
+    private final UserResponse publishedBy;
 
     private final Instant publishedAt;
 
-    @Schema(example = "1")
-    private final Long closedById;
+    @Schema(implementation = UserResponse.class)
+    private final UserResponse closedBy;
 
     private final Instant closedAt;
 
@@ -62,15 +63,15 @@ public class VacancyResponse {
             String description,
             String employmentType,
             String workModel,
-            AddressResponse location,
+            CityAddressResponse location,
             int salary,
             String currencyCode,
             short positions,
             int applications,
-            long recruiterId,
-            long publishedById,
+            UserResponse recruiter,
+            UserResponse publishedBy,
             Instant publishedAt,
-            Long closedById,
+            UserResponse closedBy,
             Instant closedAt
     ) {
         this.id = id;
@@ -84,10 +85,10 @@ public class VacancyResponse {
         this.currencyCode = currencyCode;
         this.positions = positions;
         this.applications = applications;
-        this.recruiterId = recruiterId;
-        this.publishedById = publishedById;
+        this.recruiter = recruiter;
+        this.publishedBy = publishedBy;
         this.publishedAt = publishedAt;
-        this.closedById = closedById;
+        this.closedBy = closedBy;
         this.closedAt = closedAt;
     }
 

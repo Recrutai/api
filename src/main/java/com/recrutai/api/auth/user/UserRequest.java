@@ -33,7 +33,7 @@ public class UserRequest {
     private final String email;
 
     @NotEmpty
-    @Size(min = 12)
+    @Size(min = 12, max = 255)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~`!@#$%^&*()\\[\\]{}\\\\-_+=.,:;<>/|?]).{12,}$")
     @Schema(example = "Password#123", requiredMode = RequiredMode.REQUIRED)
     private final String password;

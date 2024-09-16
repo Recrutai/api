@@ -45,13 +45,14 @@ public class VacancyController {
     @Operation(summary = "Search through vacancies")
     @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
     @GetMapping
-    ResponseEntity<List<VacancySummaryResponse>> findAllFiltered(
+    ResponseEntity<List<VacancySummaryResponse>> search(
             @RequestParam Optional<String> title,
             @RequestParam(required = false) Long locationId,
+            @RequestParam(required = false) Long institutionId,
             @RequestParam(required = false) WorkModel workModel,
             @RequestParam(required = false) EmploymentType employmentType
     ) {
-        var vacancies = vacancyService.findAllFiltered(title, locationId, workModel, employmentType);
+        var vacancies = vacancyService.search(title, locationId, institutionId, workModel, employmentType);
         return ResponseEntity.ok(vacancies);
     }
 

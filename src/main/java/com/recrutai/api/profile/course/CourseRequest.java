@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Range;
@@ -30,8 +29,7 @@ public class CourseRequest {
     private final Integer workloadHours;
 
     @NotNull
-    @PastOrPresent
-    @Schema(example = "2024-09", requiredMode = RequiredMode.NOT_REQUIRED)
+    @Schema(example = "2024-09", requiredMode = RequiredMode.REQUIRED)
     private final YearMonth completionDate;
 
     @Size(max = 2000)

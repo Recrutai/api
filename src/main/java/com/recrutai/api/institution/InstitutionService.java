@@ -61,7 +61,7 @@ public class InstitutionService {
 
     public List<InstitutionSummaryResponse> search(Optional<String> opName) {
         var name = opName.map(String::strip).orElse("");
-        return institutionRepository.findAllFiltered(name);
+        return institutionRepository.search(name);
     }
 
 }
