@@ -46,12 +46,13 @@ public class InstitutionMapper {
 
     public InstitutionSummaryResponse mapToSummaryResponse(Institution entity) {
         if (entity == null) return null;
+        var headquarters = entity.getHeadquarters();
         return new InstitutionSummaryResponse(
                 entity.getId(),
                 entity.getName(),
                 entity.getHeadline(),
                 entity.getIndustry().getName(),
-                entity.getHeadquarters().getCity() + ", " + entity.getHeadquarters().getState()
+                headquarters != null ? headquarters.getCity() + ", " + headquarters.getState() : null
         );
     }
 

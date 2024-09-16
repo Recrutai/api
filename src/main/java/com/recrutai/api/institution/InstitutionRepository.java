@@ -21,11 +21,11 @@ public interface InstitutionRepository extends JpaRepository<Institution, Long> 
                 inst.name,
                 inst.headline,
                 ind.name,
-                concat(a.city, ', ', a.state)
+                CASE WHEN a IS NOT NULL THEN concat(a.city, ', ', a.state) ELSE NULL END
             )
             FROM Institution inst
-            JOIN Address a ON inst.headquarters.id = a.id
             JOIN Industry ind ON inst.industry.id = ind.id
+            LEFT JOIN Address a ON inst.headquarters.id = a.id
             WHERE (:name = '' OR (lower(inst.name) LIKE concat('%', lower(:name), '%')))
             """)
     List<InstitutionSummaryResponse> search(@Param("name") String name);
