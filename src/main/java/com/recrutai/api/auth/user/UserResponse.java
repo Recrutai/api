@@ -1,7 +1,5 @@
 package com.recrutai.api.auth.user;
 
-import com.recrutai.api.address.AddressResponse;
-import com.recrutai.api.address.CityAddressRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -22,8 +20,8 @@ public class UserResponse {
     @Schema(example = "john_smith@email.com")
     private final String email;
 
-    @Schema(implementation = CityAddressRequest.class)
-    private final AddressResponse location;
+    @Schema(example = "Oxford, Oxfordshire")
+    private final String location;
 
     public UserResponse(
             long id,
@@ -31,7 +29,7 @@ public class UserResponse {
             String lastName,
             String headline,
             String email,
-            AddressResponse location
+            String location
     ) {
         this.id = id;
         this.firstName = firstName;

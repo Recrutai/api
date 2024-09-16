@@ -26,13 +26,15 @@ public class UserMapper {
     }
 
     public UserResponse mapToResponse(User entity) {
+        if (entity == null) return null;
+        var location = entity.getLocation();
         return new UserResponse(
                 entity.getId(),
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getHeadline(),
                 entity.getEmail(),
-                addressMapper.mapToResponse(entity.getLocation())
+                location != null ? location.getCity() + ", " + location.getState() : null
         );
     }
 

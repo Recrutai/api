@@ -14,14 +14,11 @@ public class InstitutionResponse {
     @Schema(example = "University of Oxford")
     private final String name;
 
-    @Schema(example = "PRIVATE")
+    @Schema(example = "PUBLIC")
     private final String type;
 
     @Schema(example = "The official University of Oxford Recrutaí page.")
     private final String headline;
-
-    @Schema(example = "1")
-    private final long founderId;
 
     @Schema(example = "Education")
     private final String industry;
@@ -48,7 +45,6 @@ public class InstitutionResponse {
             String name,
             String type,
             String headline,
-            long founderId,
             String industry,
             String companySize,
             int associatedEmployees,
@@ -61,7 +57,6 @@ public class InstitutionResponse {
         this.name = name;
         this.type = type;
         this.headline = headline;
-        this.founderId = founderId;
         this.industry = industry;
         this.companySize = companySize;
         this.associatedEmployees = associatedEmployees;

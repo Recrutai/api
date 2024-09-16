@@ -3,8 +3,6 @@ package com.recrutai.api.institution;
 import com.recrutai.api.institution.member.MemberRequest;
 import com.recrutai.api.institution.member.MemberResponse;
 import com.recrutai.api.institution.member.MemberService;
-import com.recrutai.api.vacancy.VacancyResponse;
-import com.recrutai.api.vacancy.VacancyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,18 +23,15 @@ public class InstitutionController {
     private final InstitutionService institutionService;
     private final InstitutionMapper institutionMapper;
     private final MemberService memberService;
-    private final VacancyService vacancyService;
 
     InstitutionController(
             InstitutionService institutionService,
             InstitutionMapper institutionMapper,
-            MemberService memberService,
-            VacancyService vacancyService
+            MemberService memberService
     ) {
         this.institutionService = institutionService;
         this.institutionMapper = institutionMapper;
         this.memberService = memberService;
-        this.vacancyService = vacancyService;
     }
 
     @Operation(summary = "Create a new institution")
@@ -91,14 +86,6 @@ public class InstitutionController {
     ResponseEntity<List<MemberResponse>> findAllMembers(@PathVariable("institution_id") long id) {
         var members = memberService.findAllByInstitutionId(id);
         return ResponseEntity.ok(members);
-    }
-
-    @Operation(summary = "Find all institution's vacancies")
-    @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
-    @GetMapping("/{institution_id}/vacancies")
-    ResponseEntity<List<VacancyResponse>> findAllVacancies(@PathVariable("institution_id") long id) {
-        var vacancies = vacancyService.findAllByInstitutionId(id);
-        return ResponseEntity.ok(vacancies);
     }
 
 }

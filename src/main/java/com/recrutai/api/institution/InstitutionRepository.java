@@ -28,6 +28,6 @@ public interface InstitutionRepository extends JpaRepository<Institution, Long> 
             JOIN Industry ind ON inst.industry.id = ind.id
             WHERE (:name = '' OR (lower(inst.name) LIKE concat('%', lower(:name), '%')))
             """)
-    List<InstitutionSummaryResponse> findAllFiltered(@Param("name") String name);
+    List<InstitutionSummaryResponse> search(@Param("name") String name);
 
 }

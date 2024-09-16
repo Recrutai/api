@@ -30,7 +30,7 @@ public class ApplicationService {
 
     @Transactional
     public ApplicationResponse create(long vacancyId, ApplicationRequest request) {
-        var user = userService.findById(request.candidateId());
+        var user = userService.findById(request.getCandidateId());
         var vacancy = vacancyService.findById(vacancyId);
 
         var application = applicationMapper.mapToEntity(request, user, vacancy);

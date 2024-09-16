@@ -28,7 +28,7 @@ CREATE TABLE tb_institution
     deactivated_at       timestamp with time zone
 );
 
--- Every school is a institution with some more information
+-- Every school is an institution with some more information
 CREATE TABLE tb_school
 (
     institution_id    bigint  NOT NULL,

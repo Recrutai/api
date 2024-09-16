@@ -37,9 +37,9 @@ public class InterviewService {
     public Interview create(InterviewRequest request) {
         validateInterviewSchedule(request);
 
-        var application = applicationService.findById(request.applicationId());
-        var interviewer = memberService.findById(request.interviewerId());
-        var createdBy = memberService.findById(request.createdById());
+        var application = applicationService.findById(request.getApplicationId());
+        var interviewer = memberService.findById(request.getInterviewerId());
+        var createdBy = memberService.findById(request.getCreatedById());
 
         var interview = interviewMapper.mapToEntity(request, application, interviewer, createdBy);
 
@@ -47,10 +47,10 @@ public class InterviewService {
     }
 
     private void validateInterviewSchedule(InterviewRequest request) {
-        if (request.isRemote() && isPrepTimeNotEnough(request.scheduledTo(), REASONABLE_REMOTE_PREP_TIME)) {
+        if (request.getIsRemote() && isPrepTimeNotEnough(request.getScheduledTo(), REASONABLE_REMOTE_PREP_TIME)) {
             throw new ResponseStatusException(UNPROCESSABLE_ENTITY, "Remote interviews must be scheduled at least 30 minutes in advance");
         }
-        if (!request.isRemote() && isPrepTimeNotEnough(request.scheduledTo(), REASONABLE_ON_SITE_PREP_TIME)) {
+        if (!request.getIsRemote() && isPrepTimeNotEnough(request.getScheduledTo(), REASONABLE_ON_SITE_PREP_TIME)) {
             throw new ResponseStatusException(UNPROCESSABLE_ENTITY, "On-site interviews must be scheduled at least 2 hours in advance");
         }
     }

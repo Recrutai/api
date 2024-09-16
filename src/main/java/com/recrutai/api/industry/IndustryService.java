@@ -20,8 +20,8 @@ public class IndustryService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Industry not found"));
     }
 
-    public List<String> findAllFiltered(Optional<String> name) {
-        return industryRepository.findAllFiltered(name.map(String::strip).orElse(""));
+    public List<String> search(Optional<String> name) {
+        return industryRepository.search(name.map(String::strip).orElse(""));
     }
 
 }

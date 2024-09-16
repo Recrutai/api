@@ -20,7 +20,7 @@ import java.util.Optional;
 public class IndustryController {
     private final IndustryService industryService;
 
-    public IndustryController(IndustryService industryService) {
+    IndustryController(IndustryService industryService) {
         this.industryService = industryService;
     }
 
@@ -31,8 +31,8 @@ public class IndustryController {
             content = @Content(examples = @ExampleObject("[\"Technology\", \"Education\", \"Administration\"]"))
     )
     @GetMapping
-    ResponseEntity<List<String>> findAllFiltered(@RequestParam Optional<String> name) {
-        var industries = industryService.findAllFiltered(name);
+    ResponseEntity<List<String>> search(@RequestParam Optional<String> name) {
+        var industries = industryService.search(name);
         return ResponseEntity.ok(industries);
     }
 

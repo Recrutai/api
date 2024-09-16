@@ -1,13 +1,9 @@
 package com.recrutai.api.address;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 @Getter
-@JsonInclude(NON_NULL)
 public class AddressResponse {
     @Schema(example = "1")
     private final long id;

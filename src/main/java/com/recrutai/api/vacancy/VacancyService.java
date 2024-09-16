@@ -47,25 +47,15 @@ public class VacancyService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vacancy not found"));
     }
 
-    public List<VacancyResponse> findAllByInstitutionId(long id) {
-        return vacancyRepository.findAllByPublishedBy_Institution_Id(id)
-                .stream()
-                .map(vacancyMapper::mapToResponse)
-                .toList();
-    }
-
-    public List<VacancySummaryResponse> findAllFiltered(
-            Optional<String> title,
+    public List<VacancySummaryResponse> search(
+            Optional<String> opTitle,
             Long locationId,
+            Long institutionId,
             WorkModel workModel,
             EmploymentType employmentType
     ) {
-        return vacancyRepository.findAllFiltered(
-                title.map(String::strip).orElse(""),
-                locationId,
-                workModel,
-                employmentType
-        );
+        var title = opTitle.map(String::strip).orElse("");
+        return vacancyRepository.search(title, locationId, institutionId, workModel, employmentType);
     }
 
 }

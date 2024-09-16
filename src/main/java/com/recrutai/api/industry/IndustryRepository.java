@@ -18,6 +18,6 @@ public interface IndustryRepository extends JpaRepository<Industry, Short> {
             FROM Industry i
             WHERE (:name = '' OR (lower(i.name) LIKE concat('%', lower(:name), '%')))
             """)
-    List<String> findAllFiltered(@Param("name") String name);
+    List<String> search(@Param("name") String name);
 
 }

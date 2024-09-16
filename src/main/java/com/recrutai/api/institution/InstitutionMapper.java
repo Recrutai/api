@@ -34,7 +34,6 @@ public class InstitutionMapper {
                 entity.getName(),
                 entity.getType().toString(),
                 entity.getHeadline(),
-                entity.getFounder().getId(),
                 entity.getIndustry().getName(),
                 entity.getCompanySize().getValue(),
                 entity.getAssociatedEmployees(),

@@ -1,6 +1,7 @@
 package com.recrutai.api.vacancy;
 
 import com.recrutai.api.address.AddressMapper;
+import com.recrutai.api.auth.user.UserMapper;
 import com.recrutai.api.institution.Institution;
 import com.recrutai.api.institution.InstitutionMapper;
 import com.recrutai.api.institution.member.Member;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Service;
 public class VacancyMapper {
     private final AddressMapper addressMapper;
     private final InstitutionMapper institutionMapper;
+    private final UserMapper userMapper;
 
-    public VacancyMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper) {
+    public VacancyMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper, UserMapper userMapper) {
         this.addressMapper = addressMapper;
         this.institutionMapper = institutionMapper;
+        this.userMapper = userMapper;
     }
 
     public Vacancy mapToEntity(VacancyRequest request, Institution institution, Member recruiter, Member publishedBy) {
@@ -41,15 +44,15 @@ public class VacancyMapper {
                 entity.getDescription(),
                 entity.getEmploymentType().toString(),
                 entity.getWorkModel().toString(),
-                addressMapper.mapToResponse(entity.getLocation()),
+                addressMapper.mapToCityResponse(entity.getLocation()),
                 entity.getSalary(),
                 entity.getCurrencyCode().toString(),
                 entity.getPositions(),
                 entity.getApplications(),
-                entity.getRecruiter().getId(),
-                entity.getPublishedBy().getId(),
+                userMapper.mapToResponse(entity.getRecruiter().getUser()),
+                userMapper.mapToResponse(entity.getPublishedBy().getUser()),
                 entity.getPublishedAt(),
-                entity.getClosedBy() != null ? entity.getClosedBy().getId() : null,
+                entity.getClosedBy() != null ? userMapper.mapToResponse(entity.getClosedBy().getUser()) : null,
                 entity.getClosedAt()
         );
     }
