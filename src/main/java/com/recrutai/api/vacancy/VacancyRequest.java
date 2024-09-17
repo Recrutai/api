@@ -21,7 +21,7 @@ public class VacancyRequest {
 
     @NotNull
     @Schema(example = "1", requiredMode = RequiredMode.REQUIRED)
-    private final Long institutionId;
+    private final Long organizationId;
 
     @NotEmpty
     @Size(max = 3850)
@@ -63,7 +63,7 @@ public class VacancyRequest {
 
     public VacancyRequest(
             String title,
-            Long institutionId,
+            Long organizationId,
             String description,
             EmploymentType employmentType,
             WorkModel workModel,
@@ -73,7 +73,7 @@ public class VacancyRequest {
             Long recruiterId,
             Long publishedById) {
         this.title = title;
-        this.institutionId = institutionId;
+        this.organizationId = organizationId;
         this.description = description;
         this.employmentType = employmentType;
         this.workModel = workModel;

@@ -1,4 +1,4 @@
-package com.recrutai.api.institution.member;
+package com.recrutai.api.organization.member;
 
 public enum MemberRole {
     OWNER,

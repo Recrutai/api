@@ -17,10 +17,10 @@ import java.time.YearMonth;
 @Getter
 public class EmploymentRequest {
     @Schema(example = "1", requiredMode = RequiredMode.NOT_REQUIRED)
-    private final Long institutionId;
+    private final Long organizationId;
 
     @Schema(example = "University of Oxford", requiredMode = RequiredMode.NOT_REQUIRED)
-    private final String fallbackInstitutionName;
+    private final String fallbackOrganizationName;
 
     @NotEmpty
     @Size(max = 100)
@@ -54,8 +54,8 @@ public class EmploymentRequest {
     private final YearMonth endDate;
 
     public EmploymentRequest(
-            Long institutionId,
-            String fallbackInstitutionName,
+            Long organizationId,
+            String fallbackOrganizationName,
             String title,
             EmploymentType type,
             WorkModel workModel,
@@ -64,8 +64,8 @@ public class EmploymentRequest {
             YearMonth startDate,
             YearMonth endDate
     ) {
-        this.institutionId = institutionId;
-        this.fallbackInstitutionName = fallbackInstitutionName;
+        this.organizationId = organizationId;
+        this.fallbackOrganizationName = fallbackOrganizationName;
         this.title = title;
         this.type = type;
         this.workModel = workModel;

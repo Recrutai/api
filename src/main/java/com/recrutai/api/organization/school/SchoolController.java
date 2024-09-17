@@ -1,4 +1,4 @@
-package com.recrutai.api.institution.school;
+package com.recrutai.api.organization.school;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,7 +24,7 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
-    @Operation(summary = "Create a new school institution")
+    @Operation(summary = "Create a new school organization")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "201",

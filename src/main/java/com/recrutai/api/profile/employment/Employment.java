@@ -2,7 +2,7 @@ package com.recrutai.api.profile.employment;
 
 import com.recrutai.api.address.Address;
 import com.recrutai.api.auth.user.User;
-import com.recrutai.api.institution.Institution;
+import com.recrutai.api.organization.Organization;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
 import jakarta.persistence.*;
@@ -26,11 +26,11 @@ public class Employment {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
-    @Column(name = "fallback_institution_name")
-    private String fallbackInstitutionName;
+    @Column(name = "fallback_organization_name")
+    private String fallbackOrganizationName;
 
     @Column(name = "title")
     private String title;
@@ -58,8 +58,8 @@ public class Employment {
 
     public Employment(
             User user,
-            Institution institution,
-            String fallbackInstitutionName,
+            Organization organization,
+            String fallbackOrganizationName,
             String title,
             EmploymentType type,
             WorkModel workModel,
@@ -69,8 +69,8 @@ public class Employment {
             Integer endDate
     ) {
         this.user = user;
-        this.institution = institution;
-        this.fallbackInstitutionName = fallbackInstitutionName;
+        this.organization = organization;
+        this.fallbackOrganizationName = fallbackOrganizationName;
         this.title = title;
         this.type = type;
         this.workModel = workModel;

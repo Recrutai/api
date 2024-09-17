@@ -1,7 +1,7 @@
-package com.recrutai.api.institution.school;
+package com.recrutai.api.organization.school;
 
-import com.recrutai.api.institution.Institution;
-import com.recrutai.api.institution.InstitutionSize;
+import com.recrutai.api.organization.Organization;
+import com.recrutai.api.organization.OrganizationSize;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,19 +17,19 @@ public class School {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "institution_id")
+    @JoinColumn(name = "organization_id")
     @MapsId
-    private Institution institution;
+    private Organization organization;
 
     @Column(name = "school_size", columnDefinition = "bpchar(2)")
     @Enumerated(EnumType.STRING)
-    private InstitutionSize schoolSize;
+    private OrganizationSize schoolSize;
 
     @Column(name = "associated_alumni")
     private Integer associatedAlumni;
 
-    public School(Institution institution, InstitutionSize schoolSize) {
-        this.institution = institution;
+    public School(Organization organization, OrganizationSize schoolSize) {
+        this.organization = organization;
         this.schoolSize = schoolSize;
         this.associatedAlumni = 0;
     }

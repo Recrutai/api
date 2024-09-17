@@ -1,4 +1,4 @@
-package com.recrutai.api.institution.member;
+package com.recrutai.api.organization.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,18 +17,18 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             LEFT JOIN FETCH m.addedBy ab
             LEFT JOIN FETCH ab.user abu
             LEFT JOIN FETCH abu.location abul
-            WHERE m.institution.id = :institutionId AND m.removedAt IS NULL
+            WHERE m.organization.id = :organizationId AND m.removedAt IS NULL
             """)
-    List<Member> findAllByInstitutionId(@Param("institutionId") long institutionId);
+    List<Member> findAllByOrganizationId(@Param("organizationId") long organizationId);
 
     @Query(value = """
             SELECT EXISTS(
                 SELECT 1 FROM tb_member
                 WHERE user_id = :userId
-                AND institution_id = :institutionId
+                AND organization_id = :organizationId
                 AND removed_at IS NULL
             )
             """, nativeQuery = true)
-    boolean exists(@Param("institutionId") long institutionId, @Param("userId") long userId);
+    boolean exists(@Param("organizationId") long organizationId, @Param("userId") long userId);
 
 }

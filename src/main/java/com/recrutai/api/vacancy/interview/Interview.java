@@ -1,7 +1,7 @@
 package com.recrutai.api.vacancy.interview;
 
 import com.recrutai.api.address.Address;
-import com.recrutai.api.institution.member.Member;
+import com.recrutai.api.organization.member.Member;
 import com.recrutai.api.vacancy.application.Application;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,31 +1,31 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.recrutai.api.address.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_institution_address")
+@Table(name = "tb_organization_address")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class InstitutionAddress {
+public class OrganizationAddress {
     @Id
     @Setter(AccessLevel.PACKAGE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
     @MapsId
     private Address address;
 
-    public InstitutionAddress(Institution institution, Address address) {
-        this.institution = institution;
+    public OrganizationAddress(Organization organization, Address address) {
+        this.organization = organization;
         this.address = address;
     }
 

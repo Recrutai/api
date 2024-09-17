@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @EntityGraph(attributePaths = {"school.institution", "school.institution.headquarters"})
+    @EntityGraph(attributePaths = {"school.organization", "school.organization.headquarters"})
     List<Course> findAllByUserId(long userId);
 
 }

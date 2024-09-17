@@ -2,7 +2,7 @@ package com.recrutai.api.vacancy;
 
 import com.recrutai.api.address.CityAddressResponse;
 import com.recrutai.api.auth.user.UserResponse;
-import com.recrutai.api.institution.InstitutionSummaryResponse;
+import com.recrutai.api.organization.OrganizationSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -13,8 +13,8 @@ public class VacancyResponse {
     @Schema(example = "1")
     private final long id;
 
-    @Schema(implementation = InstitutionSummaryResponse.class)
-    private final InstitutionSummaryResponse institution;
+    @Schema(implementation = OrganizationSummaryResponse.class)
+    private final OrganizationSummaryResponse organization;
 
     @Schema(example = "Back End Developer")
     private final String title;
@@ -58,7 +58,7 @@ public class VacancyResponse {
 
     public VacancyResponse(
             long id,
-            InstitutionSummaryResponse institution,
+            OrganizationSummaryResponse organization,
             String title,
             String description,
             String employmentType,
@@ -75,7 +75,7 @@ public class VacancyResponse {
             Instant closedAt
     ) {
         this.id = id;
-        this.institution = institution;
+        this.organization = organization;
         this.title = title;
         this.description = description;
         this.employmentType = employmentType;

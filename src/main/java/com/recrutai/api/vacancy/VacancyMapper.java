@@ -2,25 +2,25 @@ package com.recrutai.api.vacancy;
 
 import com.recrutai.api.address.AddressMapper;
 import com.recrutai.api.auth.user.UserMapper;
-import com.recrutai.api.institution.Institution;
-import com.recrutai.api.institution.InstitutionMapper;
-import com.recrutai.api.institution.member.Member;
+import com.recrutai.api.organization.Organization;
+import com.recrutai.api.organization.OrganizationMapper;
+import com.recrutai.api.organization.member.Member;
 import com.recrutai.api.shared.CurrencyCode;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VacancyMapper {
     private final AddressMapper addressMapper;
-    private final InstitutionMapper institutionMapper;
+    private final OrganizationMapper organizationMapper;
     private final UserMapper userMapper;
 
-    public VacancyMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper, UserMapper userMapper) {
+    public VacancyMapper(AddressMapper addressMapper, OrganizationMapper organizationMapper, UserMapper userMapper) {
         this.addressMapper = addressMapper;
-        this.institutionMapper = institutionMapper;
+        this.organizationMapper = organizationMapper;
         this.userMapper = userMapper;
     }
 
-    public Vacancy mapToEntity(VacancyRequest request, Institution institution, Member recruiter, Member publishedBy) {
+    public Vacancy mapToEntity(VacancyRequest request, Organization organization, Member recruiter, Member publishedBy) {
         return new Vacancy(
                 request.getTitle(),
                 request.getDescription(),
@@ -30,7 +30,7 @@ public class VacancyMapper {
                 request.getSalary(),
                 CurrencyCode.BRL,
                 request.getPositions(),
-                institution,
+                organization,
                 recruiter,
                 publishedBy
         );
@@ -39,7 +39,7 @@ public class VacancyMapper {
     public VacancyResponse mapToResponse(Vacancy entity) {
         return new VacancyResponse(
                 entity.getId(),
-                institutionMapper.mapToSummaryResponse(entity.getInstitution()),
+                organizationMapper.mapToSummaryResponse(entity.getOrganization()),
                 entity.getTitle(),
                 entity.getDescription(),
                 entity.getEmploymentType().toString(),
