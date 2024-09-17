@@ -1,6 +1,6 @@
 package com.recrutai.api.vacancy;
 
-import com.recrutai.api.institution.InstitutionSummaryResponse;
+import com.recrutai.api.organization.OrganizationSummaryResponse;
 import com.recrutai.api.shared.CurrencyCode;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
@@ -14,8 +14,8 @@ public class VacancySummaryResponse {
     @Schema(example = "1")
     private final long id;
 
-    @Schema(implementation = InstitutionSummaryResponse.class)
-    private final InstitutionSummaryResponse institution;
+    @Schema(implementation = OrganizationSummaryResponse.class)
+    private final OrganizationSummaryResponse organization;
 
     @Schema(example = "Back End Developer")
     private final String title;
@@ -45,8 +45,8 @@ public class VacancySummaryResponse {
             int salary,
             CurrencyCode currencyCode,
             Instant publishedAt,
-            long institutionId,
-            String institutionName,
+            long organizationId,
+            String organizationName,
             String location
     ) {
         this.id = id;
@@ -57,7 +57,7 @@ public class VacancySummaryResponse {
         this.location = location;
         this.workModel = workModel;
         this.publishedAt = publishedAt;
-        this.institution = new InstitutionSummaryResponse(institutionId, institutionName, null, null, null);
+        this.organization = new OrganizationSummaryResponse(organizationId, organizationName, null, null, null);
     }
 
 }

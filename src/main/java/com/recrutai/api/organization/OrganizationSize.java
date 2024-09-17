@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 // S = SMALL, M = MEDIUM, L = LARGE
-public enum InstitutionSize {
+public enum OrganizationSize {
     S1("1"),
     S2("2 - 10"),
     S3("11 - 50"),
@@ -19,7 +19,7 @@ public enum InstitutionSize {
 
     private final String value;
 
-    InstitutionSize(String value) {
+    OrganizationSize(String value) {
         this.value = value;
     }
 
@@ -29,9 +29,9 @@ public enum InstitutionSize {
     }
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static InstitutionSize fromString(String value) {
+    public static OrganizationSize fromString(String value) {
         if (value == null) return null;
-        return Arrays.stream(InstitutionSize.values())
+        return Arrays.stream(OrganizationSize.values())
                 .filter(x -> x.value.equals(value))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid value: " + value));

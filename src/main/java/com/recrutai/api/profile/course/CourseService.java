@@ -1,8 +1,8 @@
 package com.recrutai.api.profile.course;
 
 import com.recrutai.api.auth.user.UserService;
-import com.recrutai.api.institution.school.School;
-import com.recrutai.api.institution.school.SchoolService;
+import com.recrutai.api.organization.school.School;
+import com.recrutai.api.organization.school.SchoolService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

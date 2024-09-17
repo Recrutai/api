@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @JsonInclude(Include.NON_NULL)
-public class InstitutionSummaryResponse {
+public class OrganizationSummaryResponse {
     @Schema(example = "1")
     private final long id;
 
@@ -23,7 +23,7 @@ public class InstitutionSummaryResponse {
     @Schema(example = "Oxford, Oxfordshire")
     private final String headquarters;
 
-    public InstitutionSummaryResponse(
+    public OrganizationSummaryResponse(
             long id,
             String name,
             String headline,

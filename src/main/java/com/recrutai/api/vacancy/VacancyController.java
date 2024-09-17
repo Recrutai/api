@@ -48,11 +48,11 @@ public class VacancyController {
     ResponseEntity<List<VacancySummaryResponse>> search(
             @RequestParam Optional<String> title,
             @RequestParam(required = false) Long locationId,
-            @RequestParam(required = false) Long institutionId,
+            @RequestParam(required = false) Long organizationId,
             @RequestParam(required = false) WorkModel workModel,
             @RequestParam(required = false) EmploymentType employmentType
     ) {
-        var vacancies = vacancyService.search(title, locationId, institutionId, workModel, employmentType);
+        var vacancies = vacancyService.search(title, locationId, organizationId, workModel, employmentType);
         return ResponseEntity.ok(vacancies);
     }
 

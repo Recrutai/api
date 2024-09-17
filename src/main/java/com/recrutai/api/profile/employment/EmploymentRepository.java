@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface EmploymentRepository extends JpaRepository<Employment, Long> {
 
-    @EntityGraph(attributePaths = {"address", "institution", "institution.headquarters"})
+    @EntityGraph(attributePaths = {"address", "organization", "organization.headquarters"})
     List<Employment> findAllWithAddressByUserId(long userId);
 
 }

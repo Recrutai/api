@@ -1,17 +1,17 @@
 package com.recrutai.api.profile.course;
 
 import com.recrutai.api.auth.user.User;
-import com.recrutai.api.institution.InstitutionMapper;
-import com.recrutai.api.institution.school.School;
+import com.recrutai.api.organization.OrganizationMapper;
+import com.recrutai.api.organization.school.School;
 import com.recrutai.api.shared.DateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CourseMapper {
-    private final InstitutionMapper institutionMapper;
+    private final OrganizationMapper organizationMapper;
 
-    public CourseMapper(InstitutionMapper institutionMapper) {
-        this.institutionMapper = institutionMapper;
+    public CourseMapper(OrganizationMapper organizationMapper) {
+        this.organizationMapper = organizationMapper;
     }
 
     public Course mapToEntity(CourseRequest request, User user, School school) {
@@ -27,10 +27,10 @@ public class CourseMapper {
     }
 
     public CourseResponse mapToResponse(Course entity) {
-        var institution = entity.getSchool() != null ? entity.getSchool().getInstitution() : null;
+        var organization = entity.getSchool() != null ? entity.getSchool().getOrganization() : null;
         return new CourseResponse(
                 entity.getId(),
-                institutionMapper.mapToSummaryResponse(institution),
+                organizationMapper.mapToSummaryResponse(organization),
                 entity.getFallbackSchoolName(),
                 entity.getName(),
                 entity.getWorkloadHours(),

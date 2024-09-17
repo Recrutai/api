@@ -1,8 +1,8 @@
 package com.recrutai.api.profile.employment;
 
 import com.recrutai.api.auth.user.UserService;
-import com.recrutai.api.institution.Institution;
-import com.recrutai.api.institution.InstitutionService;
+import com.recrutai.api.organization.Organization;
+import com.recrutai.api.organization.OrganizationService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,37 +15,37 @@ public class EmploymentService {
     private final EmploymentRepository employmentRepository;
     private final EmploymentMapper employmentMapper;
     private final UserService userService;
-    private final InstitutionService institutionService;
+    private final OrganizationService organizationService;
 
     public EmploymentService(
             EmploymentRepository employmentRepository,
             EmploymentMapper employmentMapper,
             UserService userService,
-            InstitutionService institutionService
+            OrganizationService organizationService
     ) {
         this.employmentRepository = employmentRepository;
         this.employmentMapper = employmentMapper;
         this.userService = userService;
-        this.institutionService = institutionService;
+        this.organizationService = organizationService;
     }
 
     @Transactional
     public EmploymentResponse create(long userId, EmploymentRequest request) {
         var user = userService.findById(userId);
-        var institution = getInstitution(request);
+        var organization = getOrganization(request);
 
-        var employment = employmentMapper.mapToEntity(request, user, institution);
+        var employment = employmentMapper.mapToEntity(request, user, organization);
         var savedEmployment = employmentRepository.save(employment);
 
         return employmentMapper.mapToResponse(savedEmployment);
     }
 
-    private Institution getInstitution(EmploymentRequest request) {
-        if (request.getInstitutionId() != null) {
-            return institutionService.findById(request.getInstitutionId());
+    private Organization getOrganization(EmploymentRequest request) {
+        if (request.getOrganizationId() != null) {
+            return organizationService.findById(request.getOrganizationId());
         }
-        if (request.getFallbackInstitutionName() == null) {
-            var msg = "The institution's name is required when the id of an existing one is not provided";
+        if (request.getFallbackOrganizationName() == null) {
+            var msg = "The organization's name is required when the id of an existing one is not provided";
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, msg);
         }
         return null;

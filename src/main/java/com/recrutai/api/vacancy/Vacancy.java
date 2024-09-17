@@ -1,8 +1,8 @@
 package com.recrutai.api.vacancy;
 
 import com.recrutai.api.address.Address;
-import com.recrutai.api.institution.Institution;
-import com.recrutai.api.institution.member.Member;
+import com.recrutai.api.organization.Organization;
+import com.recrutai.api.organization.member.Member;
 import com.recrutai.api.shared.CurrencyCode;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
@@ -57,8 +57,8 @@ public class Vacancy {
     private Integer applications;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recruiter_id")
@@ -88,7 +88,7 @@ public class Vacancy {
             Integer salary,
             CurrencyCode currencyCode,
             Short positions,
-            Institution institution,
+            Organization organization,
             Member recruiter,
             Member publishedBy
     ) {
@@ -101,7 +101,7 @@ public class Vacancy {
         this.currencyCode = currencyCode;
         this.positions = positions;
         this.applications = 0;
-        this.institution = institution;
+        this.organization = organization;
         this.recruiter = recruiter;
         this.publishedBy = publishedBy;
     }

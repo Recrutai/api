@@ -1,8 +1,8 @@
-package com.recrutai.api.institution.member;
+package com.recrutai.api.organization.member;
 
 import com.recrutai.api.auth.user.User;
 import com.recrutai.api.auth.user.UserMapper;
-import com.recrutai.api.institution.Institution;
+import com.recrutai.api.organization.Organization;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,10 +13,10 @@ public class MemberMapper {
         this.userMapper = userMapper;
     }
 
-    public Member mapToEntity(MemberRequest request, User user, Institution institution, Member addedBy) {
+    public Member mapToEntity(MemberRequest request, User user, Organization organization, Member addedBy) {
         return new Member(
                 user,
-                institution,
+                organization,
                 request.getRole(),
                 addedBy
         );

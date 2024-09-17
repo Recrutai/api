@@ -1,6 +1,6 @@
 package com.recrutai.api.profile.employment;
 
-import com.recrutai.api.institution.InstitutionSummaryResponse;
+import com.recrutai.api.organization.OrganizationSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -11,11 +11,11 @@ public class EmploymentResponse {
     @Schema(example = "1")
     private final long id;
 
-    @Schema(implementation = InstitutionSummaryResponse.class)
-    private final InstitutionSummaryResponse institution;
+    @Schema(implementation = OrganizationSummaryResponse.class)
+    private final OrganizationSummaryResponse organization;
 
     @Schema(example = "University of Oxford")
-    private final String fallbackInstitutionName;
+    private final String fallbackOrganizationName;
 
     @Schema(example = "Back End Developer")
     private final String title;
@@ -40,8 +40,8 @@ public class EmploymentResponse {
 
     public EmploymentResponse(
             long id,
-            InstitutionSummaryResponse institution,
-            String fallbackInstitutionName,
+            OrganizationSummaryResponse organization,
+            String fallbackOrganizationName,
             String title,
             String type,
             String workModel,
@@ -51,8 +51,8 @@ public class EmploymentResponse {
             YearMonth endDate
     ) {
         this.id = id;
-        this.institution = institution;
-        this.fallbackInstitutionName = fallbackInstitutionName;
+        this.organization = organization;
+        this.fallbackOrganizationName = fallbackOrganizationName;
         this.title = title;
         this.type = type;
         this.workModel = workModel;

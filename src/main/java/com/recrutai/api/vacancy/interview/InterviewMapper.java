@@ -2,7 +2,7 @@ package com.recrutai.api.vacancy.interview;
 
 import com.recrutai.api.address.AddressMapper;
 import com.recrutai.api.auth.user.UserMapper;
-import com.recrutai.api.institution.member.Member;
+import com.recrutai.api.organization.member.Member;
 import com.recrutai.api.vacancy.application.Application;
 import org.springframework.stereotype.Service;
 

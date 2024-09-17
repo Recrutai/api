@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.recrutai.api.address.AddressResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.time.Instant;
 
 @Getter
-public class InstitutionResponse {
+public class OrganizationResponse {
     @Schema(example = "1")
     private final long id;
 
@@ -40,7 +40,7 @@ public class InstitutionResponse {
 
     private final Instant createdAt;
 
-    public InstitutionResponse(
+    public OrganizationResponse(
             long id,
             String name,
             String type,

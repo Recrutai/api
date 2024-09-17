@@ -1,7 +1,7 @@
 package com.recrutai.api.vacancy;
 
-import com.recrutai.api.institution.InstitutionService;
-import com.recrutai.api.institution.member.MemberService;
+import com.recrutai.api.organization.OrganizationService;
+import com.recrutai.api.organization.member.MemberService;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
 import jakarta.transaction.Transactional;
@@ -17,26 +17,26 @@ public class VacancyService {
     private final VacancyRepository vacancyRepository;
     private final VacancyMapper vacancyMapper;
     private final MemberService memberService;
-    private final InstitutionService institutionService;
+    private final OrganizationService organizationService;
 
     public VacancyService(
             VacancyRepository vacancyRepository,
             VacancyMapper vacancyMapper,
             MemberService memberService,
-            InstitutionService institutionService) {
+            OrganizationService organizationService) {
         this.vacancyRepository = vacancyRepository;
         this.vacancyMapper = vacancyMapper;
         this.memberService = memberService;
-        this.institutionService = institutionService;
+        this.organizationService = organizationService;
     }
 
     @Transactional
     public VacancyResponse create(VacancyRequest request) {
-        var institution = institutionService.findById(request.getInstitutionId());
+        var organization = organizationService.findById(request.getOrganizationId());
         var publisher = memberService.findById(request.getPublishedById());
         var recruiter = memberService.findById(request.getRecruiterId());
 
-        var vacancy = vacancyMapper.mapToEntity(request, institution, recruiter, publisher);
+        var vacancy = vacancyMapper.mapToEntity(request, organization, recruiter, publisher);
         var savedVacancy = vacancyRepository.save(vacancy);
 
         return vacancyMapper.mapToResponse(savedVacancy);
@@ -50,12 +50,12 @@ public class VacancyService {
     public List<VacancySummaryResponse> search(
             Optional<String> opTitle,
             Long locationId,
-            Long institutionId,
+            Long organizationId,
             WorkModel workModel,
             EmploymentType employmentType
     ) {
         var title = opTitle.map(String::strip).orElse("");
-        return vacancyRepository.search(title, locationId, institutionId, workModel, employmentType);
+        return vacancyRepository.search(title, locationId, organizationId, workModel, employmentType);
     }
 
 }

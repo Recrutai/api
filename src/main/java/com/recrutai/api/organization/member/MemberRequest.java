@@ -1,4 +1,4 @@
-package com.recrutai.api.institution.member;
+package com.recrutai.api.organization.member;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

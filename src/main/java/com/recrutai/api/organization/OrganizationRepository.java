@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,24 +10,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface InstitutionRepository extends JpaRepository<Institution, Long> {
+public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
     @EntityGraph(attributePaths = {"industry", "headquarters"})
-    Optional<Institution> findWithIndustryAndHeadquartersById(long id);
+    Optional<Organization> findWithIndustryAndHeadquartersById(long id);
 
     @Query("""
-            SELECT new com.recrutai.api.institution.InstitutionSummaryResponse(
+            SELECT new com.recrutai.api.organization.OrganizationSummaryResponse(
                 inst.id,
                 inst.name,
                 inst.headline,
                 ind.name,
                 CASE WHEN a IS NOT NULL THEN concat(a.city, ', ', a.state) ELSE NULL END
             )
-            FROM Institution inst
+            FROM Organization inst
             JOIN Industry ind ON inst.industry.id = ind.id
             LEFT JOIN Address a ON inst.headquarters.id = a.id
             WHERE (:name = '' OR (lower(inst.name) LIKE concat('%', lower(:name), '%')))
             """)
-    List<InstitutionSummaryResponse> search(@Param("name") String name);
+    List<OrganizationSummaryResponse> search(@Param("name") String name);
 
 }

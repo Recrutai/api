@@ -1,6 +1,6 @@
 package com.recrutai.api.profile.course;
 
-import com.recrutai.api.institution.InstitutionSummaryResponse;
+import com.recrutai.api.organization.OrganizationSummaryResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -11,8 +11,8 @@ public class CourseResponse {
     @Schema(example = "1")
     private final long id;
 
-    @Schema(implementation = InstitutionSummaryResponse.class)
-    private final InstitutionSummaryResponse school;
+    @Schema(implementation = OrganizationSummaryResponse.class)
+    private final OrganizationSummaryResponse school;
 
     @Schema(example = "University of Oxford")
     private final String fallbackSchoolName;
@@ -31,7 +31,7 @@ public class CourseResponse {
 
     public CourseResponse(
             long id,
-            InstitutionSummaryResponse school,
+            OrganizationSummaryResponse school,
             String fallbackSchoolName,
             String name,
             int workloadHours,

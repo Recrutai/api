@@ -2,26 +2,26 @@ package com.recrutai.api.profile.employment;
 
 import com.recrutai.api.address.AddressMapper;
 import com.recrutai.api.auth.user.User;
-import com.recrutai.api.institution.Institution;
-import com.recrutai.api.institution.InstitutionMapper;
+import com.recrutai.api.organization.Organization;
+import com.recrutai.api.organization.OrganizationMapper;
 import com.recrutai.api.shared.DateUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmploymentMapper {
     private final AddressMapper addressMapper;
-    private final InstitutionMapper institutionMapper;
+    private final OrganizationMapper organizationMapper;
 
-    public EmploymentMapper(AddressMapper addressMapper, InstitutionMapper institutionMapper) {
+    public EmploymentMapper(AddressMapper addressMapper, OrganizationMapper organizationMapper) {
         this.addressMapper = addressMapper;
-        this.institutionMapper = institutionMapper;
+        this.organizationMapper = organizationMapper;
     }
 
-    public Employment mapToEntity(EmploymentRequest request, User user, Institution institution) {
+    public Employment mapToEntity(EmploymentRequest request, User user, Organization organization) {
         return new Employment(
                 user,
-                institution,
-                request.getFallbackInstitutionName(),
+                organization,
+                request.getFallbackOrganizationName(),
                 request.getTitle(),
                 request.getType(),
                 request.getWorkModel(),
@@ -35,8 +35,8 @@ public class EmploymentMapper {
     public EmploymentResponse mapToResponse(Employment entity) {
         return new EmploymentResponse(
                 entity.getId(),
-                institutionMapper.mapToSummaryResponse(entity.getInstitution()),
-                entity.getFallbackInstitutionName(),
+                organizationMapper.mapToSummaryResponse(entity.getOrganization()),
+                entity.getFallbackOrganizationName(),
                 entity.getTitle(),
                 entity.getType().toString(),
                 entity.getWorkModel().toString(),

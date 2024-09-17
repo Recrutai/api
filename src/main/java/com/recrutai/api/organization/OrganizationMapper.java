@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.recrutai.api.address.AddressMapper;
 import com.recrutai.api.auth.user.User;
@@ -6,15 +6,15 @@ import com.recrutai.api.industry.Industry;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InstitutionMapper {
+public class OrganizationMapper {
     private final AddressMapper addressMapper;
 
-    public InstitutionMapper(AddressMapper addressMapper) {
+    public OrganizationMapper(AddressMapper addressMapper) {
         this.addressMapper = addressMapper;
     }
 
-    public Institution mapToEntity(InstitutionRequest request, User founder, Industry industry) {
-        return new Institution(
+    public Organization mapToEntity(OrganizationRequest request, User founder, Industry industry) {
+        return new Organization(
                 request.getName(),
                 request.getType(),
                 request.getHeadline(),
@@ -27,9 +27,9 @@ public class InstitutionMapper {
         );
     }
 
-    public InstitutionResponse mapToResponse(Institution entity) {
+    public OrganizationResponse mapToResponse(Organization entity) {
         if (entity == null) return null;
-        return new InstitutionResponse(
+        return new OrganizationResponse(
                 entity.getId(),
                 entity.getName(),
                 entity.getType().toString(),
@@ -44,10 +44,10 @@ public class InstitutionMapper {
         );
     }
 
-    public InstitutionSummaryResponse mapToSummaryResponse(Institution entity) {
+    public OrganizationSummaryResponse mapToSummaryResponse(Organization entity) {
         if (entity == null) return null;
         var headquarters = entity.getHeadquarters();
-        return new InstitutionSummaryResponse(
+        return new OrganizationSummaryResponse(
                 entity.getId(),
                 entity.getName(),
                 entity.getHeadline(),

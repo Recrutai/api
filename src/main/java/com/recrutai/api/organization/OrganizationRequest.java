@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.recrutai.api.address.AddressRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
-public class InstitutionRequest {
+public class OrganizationRequest {
     @NotEmpty
     @Size(max = 120)
     @Schema(example = "University of Oxford", requiredMode = RequiredMode.REQUIRED)
@@ -18,7 +18,7 @@ public class InstitutionRequest {
 
     @NotNull
     @Schema(example = "PUBLIC", requiredMode = RequiredMode.REQUIRED)
-    private final InstitutionType type;
+    private final OrganizationType type;
 
     @Size(max = 150)
     @Schema(example = "The official University of Oxford Recrutaí page.", requiredMode = RequiredMode.REQUIRED)
@@ -35,7 +35,7 @@ public class InstitutionRequest {
 
     @NotNull
     @Schema(example = "10.001+", requiredMode = RequiredMode.REQUIRED)
-    private final InstitutionSize companySize;
+    private final OrganizationSize companySize;
 
     @Valid
     @Schema(implementation = AddressRequest.class, requiredMode = RequiredMode.NOT_REQUIRED)
@@ -52,13 +52,13 @@ public class InstitutionRequest {
     )
     private final String about;
 
-    public InstitutionRequest(
+    public OrganizationRequest(
             String name,
-            InstitutionType type,
+            OrganizationType type,
             String headline,
             Long founderId,
             String industry,
-            InstitutionSize companySize,
+            OrganizationSize companySize,
             AddressRequest headquarters,
             String website,
             String about

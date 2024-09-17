@@ -1,4 +1,4 @@
-package com.recrutai.api.institution;
+package com.recrutai.api.organization;
 
 import com.recrutai.api.address.Address;
 import com.recrutai.api.auth.user.User;
@@ -10,12 +10,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_institution")
+@Table(name = "tb_organization")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-public class Institution {
+public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,7 +27,7 @@ public class Institution {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private InstitutionType type;
+    private OrganizationType type;
 
     @Column(name = "headline")
     private String headline;
@@ -42,7 +42,7 @@ public class Institution {
 
     @Column(name = "company_size", columnDefinition = "bpchar(2)")
     @Enumerated(EnumType.STRING)
-    private InstitutionSize companySize;
+    private OrganizationSize companySize;
 
     @Column(name = "associated_employees")
     private Integer associatedEmployees;
@@ -64,13 +64,13 @@ public class Institution {
     @Column(name = "deactivated_at")
     private Instant deactivatedAt;
 
-    public Institution(
+    public Organization(
             String name,
-            InstitutionType type,
+            OrganizationType type,
             String headline,
             User founder,
             Industry industry,
-            InstitutionSize companySize,
+            OrganizationSize companySize,
             Address headquarters,
             String website,
             String about

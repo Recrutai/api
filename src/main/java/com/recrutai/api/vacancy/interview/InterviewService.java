@@ -1,6 +1,6 @@
 package com.recrutai.api.vacancy.interview;
 
-import com.recrutai.api.institution.member.MemberService;
+import com.recrutai.api.organization.member.MemberService;
 import com.recrutai.api.vacancy.application.ApplicationService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

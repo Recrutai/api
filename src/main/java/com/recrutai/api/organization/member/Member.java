@@ -1,7 +1,7 @@
-package com.recrutai.api.institution.member;
+package com.recrutai.api.organization.member;
 
 import com.recrutai.api.auth.user.User;
-import com.recrutai.api.institution.Institution;
+import com.recrutai.api.organization.Organization;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,8 +26,8 @@ public class Member {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "institution_id")
-    private Institution institution;
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
@@ -48,9 +48,9 @@ public class Member {
     @Column(name = "removed_at")
     private Instant removedAt;
 
-    public Member(User user, Institution institution, MemberRole role, Member addedBy) {
+    public Member(User user, Organization organization, MemberRole role, Member addedBy) {
         this.user = user;
-        this.institution = institution;
+        this.organization = organization;
         this.role = role;
         this.addedBy = addedBy;
     }

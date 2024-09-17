@@ -27,17 +27,17 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
             )
             FROM Vacancy v
             JOIN FETCH Address a ON v.location.id = a.id
-            JOIN FETCH Institution i ON v.institution.id = i.id
+            JOIN FETCH Organization i ON v.organization.id = i.id
             WHERE (:title = '' OR (lower(v.title) LIKE concat('%', lower(:title), '%')))
             AND (:locationId IS NULL OR a.id = :locationId)
-            AND (:institutionId IS NULL OR i.id = :institutionId)
+            AND (:organizationId IS NULL OR i.id = :organizationId)
             AND (:workModel IS NULL OR v.workModel = :workModel)
             AND (:employmentType IS NULL OR v.employmentType = :employmentType)
             """)
     List<VacancySummaryResponse> search(
             @Param("title") String title,
             @Param("locationId") Long locationId,
-            @Param("institutionId") Long institutionId,
+            @Param("organizationId") Long organizationId,
             @Param("workModel") WorkModel workModel,
             @Param("employmentType") EmploymentType employmentType
     );
