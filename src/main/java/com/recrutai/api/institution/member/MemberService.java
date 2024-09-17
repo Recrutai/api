@@ -3,6 +3,7 @@ package com.recrutai.api.institution.member;
 import com.recrutai.api.auth.user.UserService;
 import com.recrutai.api.institution.InstitutionService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,6 +32,10 @@ public class MemberService {
 
     @Transactional
     public MemberResponse create(long institutionId, MemberRequest request) {
+        if (memberRepository.exists(institutionId, request.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User is already a member of the institution");
+        }
+
         var institution = institutionService.findById(institutionId);
         var user = userService.findById(request.getUserId());
         var addedBy = findById(request.getAddedById());
