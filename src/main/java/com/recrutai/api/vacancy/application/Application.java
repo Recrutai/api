@@ -22,11 +22,11 @@ public class Application {
     @Setter(AccessLevel.PACKAGE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "candidate_id")
     private User candidate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "vacancy_id")
     private Vacancy vacancy;
 

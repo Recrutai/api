@@ -24,10 +24,12 @@ import java.util.Optional;
 public class VacancyController {
     private final VacancyService vacancyService;
     private final ApplicationService applicationService;
+    private final VacancyMapper vacancyMapper;
 
-    VacancyController(VacancyService vacancyService, ApplicationService applicationService) {
+    VacancyController(VacancyService vacancyService, ApplicationService applicationService, VacancyMapper vacancyMapper) {
         this.vacancyService = vacancyService;
         this.applicationService = applicationService;
+        this.vacancyMapper = vacancyMapper;
     }
 
     @Operation(summary = "Publish a new vacancy")
@@ -77,6 +79,14 @@ public class VacancyController {
     ) {
         var application = applicationService.create(id, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(application);
+    }
+
+    @Operation(summary = "Find vacancy by id")
+    @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
+    @GetMapping("/{id}")
+    ResponseEntity<VacancyResponse> findById(@PathVariable("id") long id) {
+        var vacancy = vacancyService.findById(id);
+        return ResponseEntity.ok(vacancyMapper.mapToResponse(vacancy));
     }
 
 }

@@ -23,11 +23,11 @@ public class Interview {
     @Setter(AccessLevel.PACKAGE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "application_id")
     private Application application;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "interviewer_id")
     private Member interviewer;
 
@@ -40,7 +40,7 @@ public class Interview {
     @Column(name = "scheduled_to")
     private OffsetDateTime scheduledTo;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -50,7 +50,7 @@ public class Interview {
     @Column(name = "is_remote")
     private Boolean isRemote;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "created_by")
     private Member createdBy;
 

@@ -39,7 +39,7 @@ public class Vacancy {
     @Enumerated(EnumType.STRING)
     private WorkModel workModel;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "location_id")
     private Address location;
 
@@ -56,15 +56,15 @@ public class Vacancy {
     @Column(name = "applications")
     private Integer applications;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "recruiter_id")
     private Member recruiter;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "published_by_id")
     private Member publishedBy;
 
@@ -72,7 +72,7 @@ public class Vacancy {
     @Column(name = "published_at")
     private Instant publishedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "closed_by_id")
     private Member closedBy;
 

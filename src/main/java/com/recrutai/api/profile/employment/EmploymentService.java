@@ -58,6 +58,13 @@ public class EmploymentService {
                 .toList();
     }
 
+    public List<EmploymentResponse> findAllByUser(long id) {
+        return employmentRepository.findAllByUserId(id)
+                .stream()
+                .map(employmentMapper::mapToResponse)
+                .toList();
+    }
+
     public void deleteById(long id) {
         var employment = this.findById(id);
         employmentRepository.delete(employment);

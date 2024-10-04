@@ -41,7 +41,8 @@ public class EmploymentController {
     @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
     @GetMapping("/users/{user_id}/employments")
     ResponseEntity<List<EmploymentResponse>> findAllByUserId(@PathVariable("user_id") long id) {
-        var employments = employmentService.findAllByUserId(id);
+       // var employments = employmentService.findAllByUserId(id);
+        var employments = employmentService.findAllByUser(id);
         return ResponseEntity.ok(employments);
     }
 

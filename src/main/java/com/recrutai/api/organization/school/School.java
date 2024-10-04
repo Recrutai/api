@@ -16,7 +16,7 @@ public class School {
     @Setter(AccessLevel.PACKAGE)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "organization_id")
     @MapsId
     private Organization organization;

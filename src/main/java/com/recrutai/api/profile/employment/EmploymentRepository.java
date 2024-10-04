@@ -12,4 +12,6 @@ public interface EmploymentRepository extends JpaRepository<Employment, Long> {
     @EntityGraph(attributePaths = {"address", "organization", "organization.headquarters"})
     List<Employment> findAllWithAddressByUserId(long userId);
 
+    List<Employment> findAllByUserId(long id);
+
 }

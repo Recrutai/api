@@ -32,11 +32,11 @@ public class Organization {
     @Column(name = "headline")
     private String headline;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "founder_id")
     private User founder;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "industry_id")
     private Industry industry;
 
@@ -47,7 +47,7 @@ public class Organization {
     @Column(name = "associated_employees")
     private Integer associatedEmployees;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "headquarters_id")
     private Address headquarters;
 
