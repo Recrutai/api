@@ -64,4 +64,12 @@ public class OrganizationService {
         return organizationRepository.search(name);
     }
 
+    public List<OrganizationResponse> findAllByFounder(long id) {
+        var founder = userService.findById(id);
+        var organizations = organizationRepository.findAllByFounder(founder);
+        return organizations.stream()
+                .map(organizationMapper::mapToResponse)
+                .toList();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.recrutai.api.organization;
 
+import com.recrutai.api.auth.user.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,5 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
             """)
     List<OrganizationSummaryResponse> search(@Param("name") String name);
 
+    List<Organization> findAllByFounder(User user);
 }

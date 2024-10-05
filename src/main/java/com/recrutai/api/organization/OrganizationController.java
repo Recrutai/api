@@ -88,4 +88,12 @@ public class OrganizationController {
         return ResponseEntity.ok(members);
     }
 
+    @Operation(summary = "Find all organization's by owner id")
+    @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
+    @GetMapping("/owner/{owner_id}")
+    ResponseEntity<List<OrganizationResponse>> findAllByOwner(@PathVariable("owner_id") long id) {
+        var organizations = organizationService.findAllByFounder(id);
+        return ResponseEntity.ok(organizations);
+    }
+
 }
