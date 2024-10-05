@@ -89,4 +89,12 @@ public class VacancyController {
         return ResponseEntity.ok(vacancyMapper.mapToResponse(vacancy));
     }
 
+    @Operation(summary = "Find all vacancy by member id")
+    @ApiResponse(responseCode = "200", description = "OK", useReturnTypeSchema = true)
+    @GetMapping("/member/{id}")
+    ResponseEntity<List<VacancyResponse>> findAllByMemberId(@PathVariable("id") long id) {
+        var vacancies = vacancyService.findAllByMember(id);
+        return ResponseEntity.ok(vacancies);
+    }
+
 }

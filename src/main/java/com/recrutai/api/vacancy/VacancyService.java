@@ -58,4 +58,13 @@ public class VacancyService {
         return vacancyRepository.search(title, locationId, organizationId, workModel, employmentType);
     }
 
+    public List<VacancyResponse> findAllByMember(long id) {
+        var member = memberService.findById(id);
+        var vacancies = vacancyRepository.findAllByRecruiter(member);
+        return vacancies
+                .stream()
+                .map(vacancyMapper::mapToResponse)
+                .toList();
+    }
+
 }

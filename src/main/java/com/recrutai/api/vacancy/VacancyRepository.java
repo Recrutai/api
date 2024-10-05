@@ -1,5 +1,6 @@
 package com.recrutai.api.vacancy;
 
+import com.recrutai.api.organization.member.Member;
 import com.recrutai.api.shared.EmploymentType;
 import com.recrutai.api.shared.WorkModel;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,4 +42,6 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
             @Param("workModel") WorkModel workModel,
             @Param("employmentType") EmploymentType employmentType
     );
+
+    List<Vacancy> findAllByRecruiter(Member member);
 }
