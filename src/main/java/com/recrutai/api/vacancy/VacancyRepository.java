@@ -41,5 +41,4 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
             @Param("workModel") WorkModel workModel,
             @Param("employmentType") EmploymentType employmentType
     );
-
 }
