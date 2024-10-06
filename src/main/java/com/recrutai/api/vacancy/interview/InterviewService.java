@@ -1,5 +1,6 @@
 package com.recrutai.api.vacancy.interview;
 
+import com.recrutai.api.auth.user.UserService;
 import com.recrutai.api.organization.member.MemberService;
 import com.recrutai.api.vacancy.application.ApplicationService;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
@@ -20,17 +22,20 @@ public class InterviewService {
     private final InterviewMapper interviewMapper;
     private final MemberService memberService;
     private final ApplicationService applicationService;
+    private final UserService userService;
 
     public InterviewService(
             InterviewRepository interviewRepository,
             InterviewMapper interviewMapper,
             MemberService memberService,
-            ApplicationService applicationService
+            ApplicationService applicationService,
+            UserService userService
     ) {
         this.interviewRepository = interviewRepository;
         this.interviewMapper = interviewMapper;
         this.memberService = memberService;
         this.applicationService = applicationService;
+        this.userService = userService;
     }
 
     @Transactional
@@ -57,6 +62,14 @@ public class InterviewService {
 
     private boolean isPrepTimeNotEnough(OffsetDateTime scheduledTo, Duration prepTime) {
         return scheduledTo.minus(prepTime).isBefore(OffsetDateTime.now());
+    }
+
+    public List<InterviewResponse> findAllByCandidate(long id) {
+        var candidate = userService.findById(id);
+        var interviews = interviewRepository.getAllByApplicationCandidate(candidate);
+        return interviews.stream()
+                .map(interviewMapper::mapToResponse)
+                .toList();
     }
 
 }
